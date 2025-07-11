@@ -1,0 +1,16 @@
+spring:
+    application:
+        name: Caesar-s-Management-System
+    datasource:
+        #com.mysql.jdbc.Driver for pre-MySQL 8
+        #com.mysql.cj.jdbc.Driver for MySQL 8+
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/cms_test?useSSL=false&serverTimeZone=UTC
+        username: root
+        password: 123456
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+server:
+    port: 3002
