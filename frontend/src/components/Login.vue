@@ -1,125 +1,152 @@
 <template>
-    <fieldset id = "form">
-        <legend id = "title">login</legend>
+    <fieldset id = "auth-form-container" class = "auth-form-fieldsets">
+        <legend id = "auth-form-title" class = "auth-form-legends">login</legend>
         <fieldset
-            class = "input-containers"
-            :class = "{'active-fieldset': activeField === 0}"
+            v-for = "(field, index) in fields"
+            :key = "index"
+            class = "auth-form-fieldsets"
+            :class = "getClasses(index, field, 'fieldsets')"
         >
-            <legend class = "labels" :class = "{'active-label': activeField === 0}">username</legend>
-            <input
-                class = "inputs"
-                :class = "{'active-input': activeField === 0}"
-                required
-                placeholder = "username"
-                v-model = "username"
-                @focus = "activeField = 0"
+
+            <legend
+                class = "auth-form-legends"
+                :class = "getClasses(index, field, 'legends')"
             >
-        </fieldset>
-        
-        <fieldset
-            class = "input-containers"
-            :class = "{'active-fieldset': activeField === 1}"
-        >
-            <legend class = "labels" :class = "{'active-label': activeField === 1}">password</legend>
+                {{field.label}}
+            </legend>
+
             <input
-                type = "password"
-                class = "inputs"
-                :class = "{'active-input': activeField === 1}"
+                :type = "field.type"
+                class = "auth-form-inputs"
+                :class = "getClasses(index, field, 'inputs')"
                 required
-                placeholder = "password"
-                v-model = "password"
-                @focus = "activeField = 1"
+                :placeholder = "field.label"
+                v-model = "field.model.value"
+                @focus = "activeField = index"
             >
         </fieldset>
 
-        <div class = "button-container">
-            <button class = "buttons" id = "forget-password-button">forget password</button>
-            <button class = "buttons" id = "login-button" @click = "login">login</button>
+        <div id = "auth-form-button-container">
+            <button class = "auth-form-buttons" id = "forget-password-button">forget password</button>
+            <button class = "auth-form-buttons" id = "login-button" @click = "login">login</button>
         </div>
     </fieldset>
 </template>
 
-<script lang="ts">
-    import {defineComponent} from "vue";
-    import axios from "axios";
+<script lang = "ts" setup>
+    import {ref, computed} from "vue";
+    import {useRouter} from "vue-router";
 
-    const baseURL: string = "http://127.0.0.1:3002/api";
+    //variables
+    const   router = useRouter(),
+            email = ref(""),
+            password = ref(""),
+            activeField = ref(0),
 
-    export default defineComponent({
-        name: "Login",
-        data(){
-            return{
-                username: "",
-                password: "",
-                error: "",
-                activeField: null as null | number
-            };
-        },
-        methods: {
-            async login(){
-                try{
-                    const responseBody = await axios.post(`${baseURL}/user/login`, {
-                        username: this.username,
-                        password: this.password
-                    });
-                    localStorage.setItem("token", responseBody.data.token);
-                    alert("login successfully");
-                }catch(error: any){
-                    this.error = error?.response?.data?.error || "login failed";
-                    alert(error);
+    //validators, validation functions
+            isEmailValid = computed(
+                () => email.value === "" ? false : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
+            ),
+            isPasswordValid = computed(
+                () =>   password.value === "" ||//not empty
+                        password.value.length < 9 ||//length in the interval [9, 255]
+                        password.value.length > 255 ||
+                        !(/^[\x00-\x7F]*$/.test(password.value)) ? false : //ascii only
+
+                        /[a-z]/.test(password.value) &&
+                        /[A-Z]/.test(password.value) &&
+                        /\d/.test(password.value) &&
+                        /[!@#$%^&*(),.?":{}|<>_\-\\\/$$  $$;'`~+=]/.test(password.value)
+            ),
+
+    //login required fields
+            fields = [
+                {
+                    label: "email",
+                    type: "email",
+                    model: email,
+                    validator: isEmailValid
+                },
+                {
+                    label: "password",
+                    type: "password",
+                    model: password,
+                    validator: isPasswordValid
                 }
-            }
-        }
-    });
+            ],
+
+    //active, incorrect and correct class switch
+            getClasses = (index: number, field: any, suffix: string) => {
+                const classes: Record <string, boolean> = {};
+                if(activeField.value === index){
+                    if(field.validator){
+                        if(field.model.value === "")
+                            classes [`auth-form-active-${suffix}`] = true;
+                        else if(field.validator.value)
+                            classes [`auth-form-correct-${suffix}`] = true;
+                        else
+                            classes [`auth-form-incorrect-${suffix}`] = true;
+                    }else
+                        classes [`auth-form-active-${suffix}`] = true;
+                }
+                return classes;
+            },
+
+    //login function
+            login = async () => {
+                try {
+                    let status: boolean = fields.some((field, index) => {
+                        if (field.model.value === "") {
+                            alert(`${field.label} is required`);
+                            activeField.value = index;
+                            return true;
+                        }
+                        return false;
+                    });
+                    if(status)
+                        return;
+                    if(!isEmailValid.value){
+                        alert("invalid email address");
+                        activeField.value = 0;
+                        return;
+                    }
+                    if(!isPasswordValid.value){
+                        alert(
+                            "invalid password\n" +
+                            "password must be:\n" +
+                            "1. 9-255 chars\n" +
+                            "2. ascii only\n" +
+                            "3. contain lowercase, uppercase, digit and symbols"
+                        );
+                        activeField.value = 1;
+                        return;
+                    }
+                    const response = await fetch("http://localhost:3002/api/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            email: email.value,
+                            password: password.value
+                        })
+                    });
+                    if(response.ok){
+                        const data = await response.json();
+                        localStorage.setItem("token", data.jwt);
+                        alert("login successfully");
+                        router.push({ name: "home" });
+                    }else
+                        alert("login failed");
+                }catch(error){
+                    alert(`an error occurred:\t${error}`);
+                }
+            };
 </script>
 
-<style lang = "less" scoped>
-    #form{
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
-        padding: 30px 50px;
-        width: 30vw;
-        justify-content: center;
-        box-shadow: 0 0 30px @darkCyan, 0 0 30px @lightCyan;
-        border-radius: 50px;
-        position: absolute;
+<style lang="less" scoped>
+    #auth-form-container {
         top: 35%;
         right: 10%;
-
-        #title{
-            width: 10em;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 30px;
-            text-align: center;
-            color: @normalRed;
-            font-weight: 900;
-        }
-
-
-        .active-fieldset{
-            border-color: @primary;
-            box-shadow: 0 0 10px @lightCyan;
-        }
-
-        .button-container{
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .buttons{
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: none;
-            background-color: navy;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease-out;
-
-            &:hover{
-                background-color: @lightCyan;
-            }
-        }
     }
 </style>

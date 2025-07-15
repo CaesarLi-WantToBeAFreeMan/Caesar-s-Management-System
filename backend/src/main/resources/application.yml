@@ -1,16 +1,44 @@
 spring:
-    application:
-        name: Caesar-s-Management-System
     datasource:
-        #com.mysql.jdbc.Driver for pre-MySQL 8
-        #com.mysql.cj.jdbc.Driver for MySQL 8+
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/cms_test?useSSL=false&serverTimeZone=UTC
+        #JDBC driver class name for H2 database
+        driver-class-name: org.h2.Driver
+
+        #file-based H2 database
+        #saved as: ./database/test_db.mv.db
+        #DB_CLOSE_ON_EXIT=FALSE: keep the database open after JVM exits
+        #AUTO_SERVER=TRUE:  allow multiple connections to same databse file
+        url: jdbc:h2:file:./test_db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;
+        #username of H2 database
         username: root
-        password: 123456
+        #password of H2 database
+        password: root@123
+
+    sql:
+        init:
+            #run schema/data scripts at startup
+            mode: always
+            #specify the platform name for script selection
+            platform: h2
+
+
     jpa:
-        hibernate:
-            ddl-auto: none
+        #print SQL statements in the console
         show-sql: true
+
+    h2:
+        console:
+            #access at http://localhost:3002/h2-console
+            enabled: true
+
 server:
+    #set port of the backend application
     port: 3002
+    error:
+        #always print exception messages in the response
+        include-message: always
+
+#application metadata
+application:
+    version: 0.1.0
+    name: Caesar's Management System
+    group: Caesar James LEE
