@@ -5,9 +5,10 @@ spring:
 
         #file-based H2 database
         #saved as: ./database/test_db.mv.db
-        #DB_CLOSE_ON_EXIT=FALSE: keep the database open after JVM exits
+        #DB_CLOSE_ON_EXIT=FALSE: keep the database open after JVM exits in old h2 version
+        #DB_CLOSE_DELAY=-1: seem as DB_CLOSE_ON_EXIT=FALSE, but in new h2 version
         #AUTO_SERVER=TRUE:  allow multiple connections to same databse file
-        url: jdbc:h2:file:./test_db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;
+        url: jdbc:h2:file:./database/test_db;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
         #username of H2 database
         username: root
         #password of H2 database
@@ -20,7 +21,6 @@ spring:
             #specify the platform name for script selection
             platform: h2
 
-
     jpa:
         #print SQL statements in the console
         show-sql: true
@@ -29,6 +29,12 @@ spring:
         console:
             #access at http://localhost:3002/h2-console
             enabled: true
+            path: /h2-console
+
+    #Spring Session will create `SPRING_SESSION` and `SPRING_SESSION_ATTRIBUTES` tables automatically
+    session:
+        jdbc:
+            initialize-schema: always
 
 server:
     #set port of the backend application
@@ -39,6 +45,6 @@ server:
 
 #application metadata
 application:
-    version: 0.1.0
+    version: 0.1.0(ALPHA)
     name: Caesar's Management System
     group: Caesar James LEE
