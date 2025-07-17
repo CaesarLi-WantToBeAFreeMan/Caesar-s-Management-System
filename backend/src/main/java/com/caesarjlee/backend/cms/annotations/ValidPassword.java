@@ -9,12 +9,12 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Documented
-@Constraint(validatedBy = PasswordValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ValidPassword{
-    String message() default "invalid password";
-    Class <?> [] groups() default {};
-    Class <? extends Payload> [] payload() default {};
+@Documented//mark this annotation as documented, so it appears on JavaDoc
+@Constraint(validatedBy = PasswordValidator.class)//link the annotation to `PasswordValidator` class, which contains validation logic
+@Target({ElementType.FIELD, ElementType.PARAMETER})//specify where the annotation can be used
+@Retention(RetentionPolicy.RUNTIME)//keep the annotation available at runtime for validation
+public @interface ValidPassword{//define `@ValidPassword` annotation
+    String message() default "invalid password";//default error message
+    Class <?> [] groups() default {};//used for validation groups
+    Class <? extends Payload> [] payload() default {};//used for custom payloads
 }

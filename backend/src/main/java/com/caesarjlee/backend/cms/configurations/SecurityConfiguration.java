@@ -7,19 +7,18 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration//mark the class as a configurer
 public class SecurityConfiguration{
-    @Bean//define a bean of SecurityFilterChain
+    @Bean//define a bean (object) that configures security rules
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-
         //disable CSRF (pronouncement: sea-surf, abbreviation for Cross-Site Request Forgery)
-        //happends where unauthorizd commands are submitted from a user that the web trusts
-        httpSecurity.csrf().disable();
+        //CSRF is an attack where unauthorized commands are sent from a trusted user
+        httpSecurity.csrf().disable();//disable it just for development simplicity, while an application that often not need token-based authentication
 
-        //define authorization rules
+        //define rules which requests need authentication
         httpSecurity.authorizeHttpRequests(
             authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                 .anyRequest()//match all requests
-                .permitAll()//allow them without authentication
+                .permitAll()//allow them without requiring login
         );
-        return httpSecurity.build();
+        return httpSecurity.build();//build then return the security configuration
     }
 }

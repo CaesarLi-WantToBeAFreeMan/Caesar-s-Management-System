@@ -1,50 +1,39 @@
+# Spring Boot configuration
 spring:
-    datasource:
-        #JDBC driver class name for H2 database
-        driver-class-name: org.h2.Driver
+    datasource: #database accessing settings
+        driver-class-name: org.h2.Driver #JDBC driver class name for H2
 
         #file-based H2 database
         #saved as: ./database/test_db.mv.db
-        #DB_CLOSE_ON_EXIT=FALSE: keep the database open after JVM exits in old h2 version
-        #DB_CLOSE_DELAY=-1: seem as DB_CLOSE_ON_EXIT=FALSE, but in new h2 version
-        #AUTO_SERVER=TRUE:  allow multiple connections to same databse file
-        url: jdbc:h2:file:./database/test_db;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
-        #username of H2 database
-        username: root
-        #password of H2 database
-        password: root@123
+        #DB_CLOSE_DELAY=-1: keep the database open for the application's lifecycle
+        url: jdbc:h2:file:./database/test_db;DB_CLOSE_DELAY=-1
+        username: root #username of the H2 database
+        password: root@123 #password of the H2 database
 
-    sql:
+    sql: #databse control settings
         init:
-            #run schema/data scripts at startup
-            mode: always
-            #specify the platform name for script selection
-            platform: h2
+            mode: always #run `schema.sql` and `data.sql` scripts every time the application starts
+            platform: h2 #specify the platform of these `.sql` files
 
-    jpa:
-        #print SQL statements in the console
-        show-sql: true
-
-    h2:
+    h2: # enable H2 console
         console:
-            #access at http://localhost:3002/h2-console
             enabled: true
-            path: /h2-console
+            path: /h2-cons #access at http://localhost:3002/h2-consoleole
 
-    #Spring Session will create `SPRING_SESSION` and `SPRING_SESSION_ATTRIBUTES` tables automatically
+    #Spring Session settings of storing user sessions in the database
     session:
+        store-type: jdbc #use JDBC to store session data
         jdbc:
-            initialize-schema: always
+            initialize-schema: always #automatically create session tables(`SPRING_SESSION`, `SPRING_SESSION_ATTRIBUTES`)
+            schema: classpath:org/springframework/session/jdbc/schema-h2.sql
 
-server:
-    #set port of the backend application
-    port: 3002
+server: #server settings
+    port: 3002 #set the application runs on port 3002 (http://localhost:3002)
     error:
-        #always print exception messages in the response
-        include-message: always
+        include-message: always #include error messages in API responses for debugging
 
 #application metadata
 application:
-    version: 0.1.0(ALPHA)
-    name: Caesar's Management System
-    group: Caesar James LEE
+    version: 0.1.0(ALPHA) #version of the application
+    name: Caesar's Management System #name of the application
+    group: Caesar James LEE #author or organization of the application

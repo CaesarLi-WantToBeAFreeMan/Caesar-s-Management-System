@@ -9,12 +9,12 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Documented
-@Constraint(validatedBy = EmailValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEmail{
-    String message() default "invalid email";
-    Class <?> [] groups() default {};
-    Class <? extends Payload> [] payload() default {};
+@Documented//mark this annotation as documented, so it appears on JavaDoc
+@Constraint(validatedBy = EmailValidator.class)//link the annotation to `EmailValidator` class, which contains validation logic
+@Target({ElementType.FIELD, ElementType.PARAMETER})//specify where the annotation can be used
+@Retention(RetentionPolicy.RUNTIME)//keep the annotation available at runtime for validation
+public @interface ValidEmail{//define `@ValidEmail` annotation
+    String message() default "invalid email";//default error message
+    Class <?> [] groups() default {};//used for validation groups
+    Class <? extends Payload> [] payload() default {};//used for custom payloads
 }
