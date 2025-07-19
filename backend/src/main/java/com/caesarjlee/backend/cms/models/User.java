@@ -5,36 +5,102 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Setter//generate setters for all fields
-@Getter//generate getters for all fields
-@ToString//generate toString() method
-@Table("CMS_USERS")//map the class to the `CMS_USERS` table
+import java.time.LocalDateTime;
+
+@Setter
+@Getter
+@ToString
+@Table("users")
 public class User{
-    @Id//mark the id field as the primary key
+    @Id
     private Long id;
-
-    @JsonProperty("first_name")//map JSON field `first_name` to Java field `firstName`
+    private String username;
+    private String password;
+    @JsonProperty("first_name")
     private String firstName;
-
     @JsonProperty("last_name")
     private String lastName;
     private String email;
-    private String password;
+    private String phone;
+    private String address;
+    private Boolean status;
+    private String icon;
+    private String description;
+    @JsonProperty("created_at")
+    private LocalDateTime createdAt;
+    @JsonProperty("updated_at")
+    private LocalDateTime updatedAt;
+    private String comment;
+    private String remark;
 
-    //static factory method to create a User without an ID, using stream
-    public static User of(String firstName, String lastName, String email, String password){
-        return new User(null, firstName, lastName, email, password);
-    }
-
-    @PersistenceCreator//constructor used by Spring Data JDBC to create objects from database rows
-    private User(Long id, String firstName, String lastName, String email, String password){
+    private User(
+            Long id,
+            String username,
+            String password,
+            String firstName,
+            String lastName,
+            String email,
+            String phone,
+            String address,
+            Boolean status,
+            String icon,
+            String description,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            String comment,
+            String remark
+    ){
         this.id = id;
+        this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+        this.icon = icon;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.comment = comment;
+        this.remark = remark;
+    }
+
+    public User of(
+        String username,
+        String password,
+        String firstName,
+        String lastName,
+        String email,
+        String phone,
+        String address,
+        Boolean status,
+        String icon,
+        String description,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        String comment,
+        String remark
+    ){
+        return new User(
+            null,
+            username,
+            password,
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+            status,
+            icon,
+            description,
+            createdAt,
+            updatedAt,
+            comment,
+            remark
+        );
     }
 }

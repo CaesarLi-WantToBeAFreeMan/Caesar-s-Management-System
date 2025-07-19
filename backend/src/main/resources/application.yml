@@ -1,24 +1,11 @@
 # Spring Boot configuration
 spring:
     datasource: #database accessing settings
-        driver-class-name: org.h2.Driver #JDBC driver class name for H2
+        driver-class-name: com.mysql.jdbc.Driver #JDBC driver class name for MySQL
 
-        #file-based H2 database
-        #saved as: ./database/test_db.mv.db
-        #DB_CLOSE_DELAY=-1: keep the database open for the application's lifecycle
-        url: jdbc:h2:file:./database/test_db;DB_CLOSE_DELAY=-1
-        username: root #username of the H2 database
-        password: root@123 #password of the H2 database
-
-    sql: #databse control settings
-        init:
-            mode: always #run `schema.sql` and `data.sql` scripts every time the application starts
-            platform: h2 #specify the platform of these `.sql` files
-
-    h2: # enable H2 console
-        console:
-            enabled: true
-            path: /h2-cons #access at http://localhost:3002/h2-consoleole
+        url: jdbc:mysql://localhost:3306/cms_db
+        username: root #username of the MySQL database
+        password: Caesar@9064 #password of the MySQL database
 
     #Spring Session settings of storing user sessions in the database
     session:
