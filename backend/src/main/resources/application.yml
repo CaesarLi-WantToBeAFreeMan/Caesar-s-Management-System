@@ -5,19 +5,10 @@ spring:
 
         url: jdbc:mysql://localhost:3306/cms_db
         username: root #username of the MySQL database
-        password: Caesar@9064 #password of the MySQL database
-
-    #Spring Session settings of storing user sessions in the database
-    session:
-        store-type: jdbc #use JDBC to store session data
-        jdbc:
-            initialize-schema: always #automatically create session tables(`SPRING_SESSION`, `SPRING_SESSION_ATTRIBUTES`)
-            schema: classpath:org/springframework/session/jdbc/schema-h2.sql
+        password: Caesar@8964 #password of the MySQL database
 
 server: #server settings
     port: 3002 #set the application runs on port 3002 (http://localhost:3002)
-    error:
-        include-message: always #include error messages in API responses for debugging
 
 #application metadata
 application:
