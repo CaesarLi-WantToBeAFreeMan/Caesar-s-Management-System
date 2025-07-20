@@ -1,0 +1,29 @@
+package com.caesarjlee.backend.cms.models.enumerations;
+
+public enum ActionType{
+    REGISTER,
+    LOGIN,
+    LOGOUT,
+    RESET_PASSWORD,
+    UPDATE_INFO,
+    VIEW_INFO,
+    REPORT_DATA,
+    LOAD_DATA,
+    CREATE_DEPARTMENT,
+    UPDATE_DEPARTMENT,
+    DELETE_DEPARTMENT,
+    CREATE_ROLE,
+    UPDATE_ROLE,
+    DELETE_ROLE,
+    UPDATE_USER,
+    DELETE_USER,
+    CREATE_SKILL,
+    UPDATE_SKILL,
+    DELETE_SKILL,
+    SEND_REQUEST,
+    VIEW_REQUEST,
+    APPROVE_REQUEST,
+    REJECT_REQUEST,
+    SEND_MESSAGE,
+    VIEW_MESSAGE
+}
