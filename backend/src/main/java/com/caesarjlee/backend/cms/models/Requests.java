@@ -2,7 +2,11 @@ package com.caesarjlee.backend.cms.models;
 
 import com.caesarjlee.backend.cms.models.enumerations.RequestStatus;
 import com.caesarjlee.backend.cms.models.enumerations.RequestType;
+import com.caesarjlee.backend.cms.validations.annotations.ValidRequestStatus;
+import com.caesarjlee.backend.cms.validations.annotations.ValidRequestType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,14 +22,19 @@ import java.time.LocalDateTime;
 public class Requests{
     private Long id;
     @JsonProperty("user_id")
+    @NotNull
     private Long userId;
     @JsonProperty("request_type")
+    @ValidRequestType
     private RequestType requestType;
+    @Size(max = 65_535)
     private String details;
+    @ValidRequestStatus
     private RequestStatus status;
     @JsonProperty("handler_id")
     private Long handlerId;
     @JsonProperty("handler_details")
+    @Size(max = 65_535)
     private String handlerDetails;
     @JsonProperty("created_at")
     private LocalDateTime createdAt;

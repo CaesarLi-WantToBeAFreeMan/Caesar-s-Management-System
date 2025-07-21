@@ -164,6 +164,5 @@ public enum Currency{
     YER,//Yemeni rial
     ZAR,//South African rand
     ZMW,//Zambian kwacha
-    ZWG,//Zimbabwe Gold
-    NUL//NULL
+    ZWG//Zimbabwe Gold
 }

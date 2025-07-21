@@ -1,7 +1,9 @@
 package com.caesarjlee.backend.cms.models;
 
 import com.caesarjlee.backend.cms.models.enumerations.ActionType;
+import com.caesarjlee.backend.cms.validations.annotations.ValidActionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,8 +19,10 @@ import java.time.LocalDateTime;
 public class Logs{
     private Long id;
     @JsonProperty("user_id")
+    @NotNull
     private Long userId;
     @JsonProperty("action_type")
+    @ValidActionType
     private ActionType actionType;
     @JsonProperty("action_details")
     private String actionDetails;

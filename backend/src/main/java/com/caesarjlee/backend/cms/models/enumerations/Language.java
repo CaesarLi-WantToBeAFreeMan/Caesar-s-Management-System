@@ -53,6 +53,5 @@ public enum Language{
     tr_TR,//Turkish (Turkey)
     zh_CN,//Chinese (China)
     zh_HK,//Chinese (Hong Kong)
-    zh_TW,//Chinese (Taiwan)
-    nl_NL//null
+    zh_TW//Chinese (Taiwan)
 }

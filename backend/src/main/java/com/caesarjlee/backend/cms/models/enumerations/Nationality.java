@@ -249,6 +249,5 @@ public enum Nationality{
     YEM,//Yemen
     ZAF,//South Africa
     ZMB,//Zambia
-    ZWE,//Zimbabwe
-    NUL//NULL
+    ZWE//Zimbabwe
 }

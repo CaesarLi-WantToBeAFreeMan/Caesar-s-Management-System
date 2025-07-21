@@ -1,7 +1,11 @@
 package com.caesarjlee.backend.cms.models;
 
 import com.caesarjlee.backend.cms.models.enumerations.ReportType;
+import com.caesarjlee.backend.cms.validations.annotations.ValidReportType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,10 +21,14 @@ import java.time.LocalDateTime;
 public class Reports{
     private Long id;
     @JsonProperty("user_id")
+    @NotNull
     private Long userId;
     @JsonProperty("report_type")
+    @ValidReportType
     private ReportType reportType;
     @JsonProperty("file_path")
+    @NotBlank
+    @Size(max = 255)
     private String filePath;
     @JsonProperty("created_at")
     private LocalDateTime createdAt;

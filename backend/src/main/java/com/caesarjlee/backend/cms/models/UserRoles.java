@@ -1,6 +1,7 @@
 package com.caesarjlee.backend.cms.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,8 +14,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("user_roles")
 public class UserRoles{
     @JsonProperty("user_id")
+    @NotNull
     private Long userId;
     @JsonProperty("role_id")
+    @NotNull
     private Long roleId;
 
     @PersistenceCreator

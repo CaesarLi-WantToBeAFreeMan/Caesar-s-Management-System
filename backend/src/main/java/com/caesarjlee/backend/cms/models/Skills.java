@@ -1,5 +1,7 @@
 package com.caesarjlee.backend.cms.models;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +14,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("skills")
 public class Skills{
     private Long id;
+    @NotBlank
+    @Size(max = 50)
     private String name;
+    @Size(max = 65_535)
     private String description;
 
     @PersistenceCreator

@@ -1,6 +1,9 @@
 package com.caesarjlee.backend.cms.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,7 +22,9 @@ public class Messages{
     private Long senderId;
     @JsonProperty("receiver_id")
     private Long receiverId;
+    @NotNull
     private String title;
+    @NotNull
     private String content;
     @JsonProperty("is_real")
     private Boolean isRead;
@@ -29,11 +34,20 @@ public class Messages{
     @PersistenceCreator
     private Messages(
         Long id,
+        @JsonProperty("sender_id")
+        @NotNull
         Long senderId,
+        @JsonProperty("receiver_id")
+        @NotNull
         Long receiverId,
+        @Size(max = 50)
         String title,
+        @NotBlank
+        @Size(max = 65_535)
         String content,
+        @JsonProperty("is_read")
         Boolean isRead,
+        @JsonProperty("created_at")
         LocalDateTime createdAt
     ){
         this.id = id;

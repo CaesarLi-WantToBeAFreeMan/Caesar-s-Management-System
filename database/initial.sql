@@ -44,6 +44,7 @@ DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique role ID',
     `name` VARCHAR(12) UNIQUE NOT NULL COMMENT 'role name',
+    `description` TEXT DEFAULT NULL COMMENT 'role description',
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'role creation time in GMT',
     INDEX idx_role_name (`name`)
 )   ENGINE = InnoDB

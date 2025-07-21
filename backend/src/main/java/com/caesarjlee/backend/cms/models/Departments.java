@@ -1,6 +1,8 @@
 package com.caesarjlee.backend.cms.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +17,10 @@ import java.time.LocalDateTime;
 @Table("departments")
 public class Departments{
     private Long id;
+    @NotNull
+    @Size(max = 100)
     private String name;
+    @Size(max = 65_535)
     private String description;
     @JsonProperty("parent_department_id")
     private Long parentDepartmentId;
