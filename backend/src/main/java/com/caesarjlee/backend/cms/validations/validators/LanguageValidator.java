@@ -8,13 +8,6 @@ import jakarta.validation.ConstraintValidatorContext;
 public class LanguageValidator implements ConstraintValidator <ValidLanguage, Language> {
     @Override
     public boolean isValid(Language language, ConstraintValidatorContext constraintValidatorContext){
-        if(language == null)
-            return false;
-        try{
-            Language.valueOf(language.name());
-            return true;
-        }catch(IllegalArgumentException e){
-            return false;
-        }
+        return language == null || Language.valueOf(language.name()) != null;
     }
 }

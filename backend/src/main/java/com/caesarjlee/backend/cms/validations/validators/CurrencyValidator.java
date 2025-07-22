@@ -8,13 +8,6 @@ import jakarta.validation.ConstraintValidatorContext;
 public class CurrencyValidator implements ConstraintValidator <ValidCurrency, Currency> {
     @Override
     public boolean isValid(Currency currency, ConstraintValidatorContext constraintValidatorContext){
-        if(currency == null)
-            return false;
-        try{
-            Currency.valueOf(currency.name());
-            return true;
-        }catch(IllegalArgumentException e){
-            return false;
-        }
+        return currency == null || Currency.valueOf(currency.name()) != null;
     }
 }

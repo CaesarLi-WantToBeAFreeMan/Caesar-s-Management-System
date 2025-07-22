@@ -1,18 +1,26 @@
 #Spring Boot configuration
 spring:
     datasource: #database accessing settings
-        driver-class-name: com.mysql.jdbc.Driver #JDBC driver class name for MySQL
-
-        url: jdbc:mysql://localhost:3306/cms_db
+        driver-class-name: com.mysql.cj.jdbc.Driver #JDBC driver class name for MySQL
+        url: jdbc:mysql://localhost:3306/cms_db?useSSL=false&serverTimezone=UTC
         username: root #username of the MySQL database
         #password: Caesar@8964 #password of the MySQL database (Caesar At Home Computer)
         password: 123456 #password of the MySQL database (Caesar At Company Computer)
+
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+
+    redis:
+        host: localhost
+        port: 6379
 
 server: #server settings
     port: 3002 #set the application runs on port 3002 (http://localhost:3002)
 
 #application metadata
 application:
-    version: 0.1.0(ALPHA) #version of the application
-    name: Caesar's Management System #name of the application
+    title: Caesar's Management System #name of the application
+    version: 0.1.0-ALPHA #version of the application
     group: Caesar James LEE #author or organization of the application

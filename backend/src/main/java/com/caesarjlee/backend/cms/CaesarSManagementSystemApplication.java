@@ -2,14 +2,14 @@ package com.caesarjlee.backend.cms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 //mark this calss is a Spring Boot application start point
 //a little bit like main method
 @SpringBootApplication
 
-//enable support for Spring Data JDBC repositories
-@EnableJdbcRepositories
+//enable support for Spring Data Jpa repositories
+@EnableJpaRepositories(basePackages = "com.caesarjlee.backend.cms.repositories")
 public class CaesarSManagementSystemApplication{
 	public static void main(String [] args){
 		//run Spring Boot application

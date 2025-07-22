@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 public @interface ValidGender{
     String message() default "invalid gender: (male, female, non-binary and other";
     Class <?> [] groups() default {};
-    Class <? extends Payload> payload() default {};
+    Class <? extends Payload> [] payload() default {};
 }

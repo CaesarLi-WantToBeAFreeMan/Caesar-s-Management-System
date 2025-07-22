@@ -1,7 +1,5 @@
 package com.caesarjlee.backend.cms.validations.annotations;
 
-
-import com.caesarjlee.backend.cms.validations.validators.CurrencyValidator;
 import com.caesarjlee.backend.cms.validations.validators.RequestStatusValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

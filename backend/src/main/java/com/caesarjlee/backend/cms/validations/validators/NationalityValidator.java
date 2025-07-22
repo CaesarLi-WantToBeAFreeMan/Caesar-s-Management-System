@@ -8,13 +8,6 @@ import jakarta.validation.ConstraintValidatorContext;
 public class NationalityValidator implements ConstraintValidator <ValidNationality, Nationality>{
     @Override
     public boolean isValid(Nationality nationality, ConstraintValidatorContext constraintValidatorContext){
-        if(nationality == null)
-            return false;
-        try {
-            Nationality.valueOf(nationality.name());
-            return true;
-        }catch(IllegalArgumentException e){
-            return false;
-        }
+        return nationality == null || Nationality.valueOf(nationality.name()) != null;
     }
 }

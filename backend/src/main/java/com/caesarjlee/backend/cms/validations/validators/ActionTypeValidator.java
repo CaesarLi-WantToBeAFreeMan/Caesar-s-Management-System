@@ -5,7 +5,7 @@ import com.caesarjlee.backend.cms.models.enumerations.ActionType;
 import com.caesarjlee.backend.cms.validations.annotations.ValidActionType;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class CurrencyValidator implements ConstraintValidator <ValidActionType, ActionType>{
+public class ActionTypeValidator implements ConstraintValidator <ValidActionType, ActionType>{
     @Override
     public boolean isValid(ActionType actionType, ConstraintValidatorContext constraintValidatorContext){
         if(actionType == null)
