@@ -19,38 +19,40 @@ SET NAMES utf8mb4;
 SET CHARACTER SET utf8mb4;
 SET collation_connection = 'utf8mb4_unicode_ci';
 
--- create table departments
+-- create departments table
 
 DROP TABLE IF EXISTS `departments`;
 CREATE TABLE `departments`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique department ID',
     `name` VARCHAR(100) NOT NULL UNIQUE COMMENT 'department name',
     `description` TEXT DEFAULT NULL COMMENT 'department description',
-    `parent_department_id` BIGINT UNSIGNED DEFAULT NULL COMMENT 'parent department ID',
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'department creation time in GMT',
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'department update time in GMT',
-    FOREIGN KEY (`parent_department_id`)
-    	REFERENCES `departments` (`id`)
-    	ON DELETE SET NULL,
     INDEX idx_department_name (`name`)
 )   ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
     COMMENT = 'department table';
 
--- create roles table
+-- create teams table
 
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE `roles`(
-    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique role ID',
-    `name` VARCHAR(12) UNIQUE NOT NULL COMMENT 'role name',
-    `description` TEXT DEFAULT NULL COMMENT 'role description',
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'role creation time in GMT',
-    INDEX idx_role_name (`name`)
+DROP TABLE IF EXISTS `teams`;
+CREATE TABLE `teams`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique team ID',
+    `name` VARCHAR(100) NOT NULL UNIQUE COMMENT 'team name',
+    `description` TEXT DEFAULT NULL COMMENT 'team description',
+    `department_id` BIGINT UNSIGNED NOT NULL COMMENT 'department of the team',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'team creation time in GMT',
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'team update time in GMT',
+    FOREIGN KEY (`department_id`)
+        REFERENCES `department` (`id`)
+        ON DELETE CASCADE,
+    INDEX idx_team_name (`name`),
+    INDEX idx_team_department (`department_id`)
 )   ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'role table';
+    COMMENT = 'team table';
 
 -- create users table
 
@@ -66,7 +68,8 @@ CREATE TABLE `users`(
     `phone` VARCHAR(20) NOT NULL UNIQUE COMMENT 'user phone in E.164 format',
     `address` VARCHAR(255) NOT NULL COMMENT 'user contact address',
     `diploma` VARCHAR(255) DEFAULT NULL COMMENT 'user educational qualification',
-    `department_id` BIGINT UNSIGNED DEFAULT NULL COMMENT 'user department id',
+    `department_id` BIGINT UNSIGNED DEFAULT NULL COMMENT 'user department ID',
+    `team_id` BIGINT UNSIGNED DEFAULT NULL COMMENT 'user team ID',
     `hire_date` DATE DEFAULT NULL COMMENT 'user hire date',
     `salary` DECIMAL(14, 2) DEFAULT 0.00 COMMENT 'user salary',
     `currency` VARCHAR(3) DEFAULT 'USD' COMMENT 'user preferred currency in ISO 4217',
@@ -89,10 +92,14 @@ CREATE TABLE `users`(
     FOREIGN KEY (`department_id`)
     	REFERENCES `departments` (`id`)
     	ON DELETE SET NULL,
+    FOREIGN KEY (`team_id`)
+        REFERENCES `teams` (`id`)
+        ON DELETE SET NULL,
     INDEX idx_username (`username`),
     INDEX idx_email (`email`),
     INDEX idx_phone (`phone`),
-    INDEX idx_department (`department_id`)
+    INDEX idx_user_department (`department_id`),
+    INDEX id_user_table (`table_id`)
 )   ENGINE = InnoDB 
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
@@ -106,19 +113,15 @@ ALTER TABLE `departments`
         REFERENCES `users` (`id`)
         ON DELETE SET NULL;
 
--- create user_role table
+-- create role table
 
 DROP TABLE IF EXISTS `user_roles`;
-CREATE TABLE `user_roles`(
+CREATE TABLE `roles`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique user_role mapping ID',
     `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user ID',
-    `role_id` BIGINT UNSIGNED NOT NULL COMMENT 'role ID',
-    UNIQUE KEY `uk_user_role` (`user_id`, `role_id`),
+    `role` TINYINT NOT NULL COMMENT 'user role: CHAIRPERSON, DIRECTOR, CEO, CTO, CFO, CMO, CLO, COO, CSO, CCO, CIO, CHRO, MANAGER, EMPLOYEE',
     FOREIGN KEY (`user_id`)
     	REFERENCES `users` (`id`)
-    	ON DELETE CASCADE,
-    FOREIGN KEY (`role_id`)
-    	REFERENCES `roles` (`id`)
     	ON DELETE CASCADE
 )   ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
@@ -263,3 +266,190 @@ CREATE TABLE `logs`(
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
     COMMENT = 'user action logs table';
+
+-- records of departments table
+
+INSERT INTO `departments`(`name`, `description`) VALUES
+    ('Legal Department', 'Manage legal affairs, ensuring compliance, handling contracts, IP, litigation, and risk management to protect the company from legal risks.'),
+    ('Technical Department', 'Develops, implements, and maintains tech solutions, focusing on software, hardware, IT infrastructure, and cybersecurity.'),
+    ('Operations Department', 'Optimize daily processes, logistics, and resource management to ensure smooth business operations, efficiency, and quality.'),
+    ('Financial Department', 'Oversee budgeting, accounting, payroll, financial reporting, and ensures compliance with financial regulations to maintain the company''s financial health.'),
+    ('Marketing Department', 'Promote the company''s products/services, manages advertising, market research, and digital strategies to enhance brand visibility.'),
+    ('Strategy & Innovation Department', 'Define long-term strategy, explores new opportunities, and drives innovation through research, planning, and business development.'),
+    ('Human Resources Department', 'Handle recruitment, training, performance, employee relations, and benefits to build a productive, aligned workforce.'),
+    ('IT Department', 'Manage network, data security, software, and provides IT support to ensure smooth operation and efficient tools for employees.'),
+    ('Compliance & Risk Department', 'Monitor adherence to laws and internal policies, conducts risk assessments, and develops strategies to minimize legal and financial risks.');
+
+-- records of teams table
+
+INSERT INTO `teams`(`name`, `description`, `department_id`) VALUES
+    --legal department
+    ('Copyright Team', 'Protect the company''s intellectual property and manages copyright issues.', 1),
+    ('Litigation Team', 'Handle legal disputes and represents the company in court.', 1),
+    ('Compliance Team', 'Ensure company practices align with laws and regulations.', 1),
+
+    --technical department
+    ('Backend Development Team', 'Build and maintains server-side logic, APIs, and database systems.', 2),
+    ('Frontend Development Team', 'Design and develops user interfaces for web and mobile platforms.', 2),
+    ('Data Science Team', 'Analyze data to support decision-making and build intelligent systems.', 2),
+    ('Security Team', 'Protect systems from cyber threats and ensures data integrity.', 2),
+    
+    --operations department
+    ('Logistics Team', 'Manage supply chains, inventory, and product distribution.', 3),
+    ('Project Management Team', 'Plan, execute, and monitor projects to ensure timely delivery.', 3),
+
+    --financial department
+    ('Accounting Team', 'Manage financial records, reporting, and ensures compliance with standards.', 4),
+    ('Investment Team', 'Oversee company investments and develops financial growth strategies.', 4),
+
+    --marketing department
+    ('Advertisement Team', 'Design ad campaigns to boost brand awareness and product reach.', 5),
+    ('Market Research Team', 'Study market trends and consumer needs to guide strategy.', 5),
+    ('Digital Marketing Team', 'Promote the brand through digital platforms like social media and SEO.', 5),
+
+    --strategy & innovation department
+    ('Innovation Team', 'Explore new ideas and technologies to improve products or services.', 6),
+    ('Business Development Team', 'Identify growth opportunities and builds strategic partnerships.', 6),
+
+    --human resources department
+    ('Recruitment Team', 'Attract, interview, and hire top talent for the organization.', 7),
+    ('Training Team', 'Develop programs to enhance employee skills and growth.', 7),
+    ('Employee Relations Team', 'Manage workplace issues and fosters a positive culture.', 7),
+
+    --IT department
+    ('Network Infrastructure Team', 'Design and maintains network systems and hardware.', 8),
+    ('Software Development Team', 'Build internal tools and systems to support operations.', 8),
+    ('IT Support Team', 'Provide tech support and troubleshooting for all staff.', 8),
+
+    --compliance & risk department
+    ('Risk Management Team', 'Assess and mitigates business and operational risks.', 9),
+    ('Audit Team', 'Review internal processes to ensure accuracy and legal compliance.', 9);
+
+-- records of users table
+
+INSERT INTO `users`(
+    `username`, `password`, `first_name`, `last_name`, `gender`, `email`, `phone`,
+    `address`, `diploma`, `department_id`, `team_id`, `hire_date`, `salary`, `currency`, `first_language`,
+    `second_language`, `third_language`, `first_nationality`, `second_nationality`, `status`, `position`
+) VALUES
+
+    -- board members
+    (
+        -- password: CaesarIsAChairperson@0
+        'chairperson_caesar', '$2b$12$rH9e.zA8OSgih7v4QreUrOHJtNBkfjyQN1DrnzOR9qJlP1VyKSARS',
+        'caesar', 'lee', 2, 'caesar_cofounder@cjl.com', '+12345678900', '001 Main St, LA', 'PhD of MIT',
+        NULL, NULL, '2025-01-01', 300000.00, 'usd', 'zh_tw', 'en_us', NULL, 'twn', 'usa',
+        TRUE, 'chairperson'
+    ),
+    (
+        -- password: AliceCobuildTheCompany@1
+        'director_alice', '$2b$12$4MuHfjzYWSesQEHPXVwHv.NWtBWGf5BkLqfB34hj4oJDtaYATyL/q',
+        'alice', 'jackson', 1, 'alice_cofounder@cjl.com', '+12345678901', '002 Main St, LA', 'PhD of Stanford',
+        NULL, NULL, '2025-01-01', 300000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'director'
+    ),
+    (
+        -- password: JohnInvestTheCompany@2
+        'director_john', '$2b$12$5zQPjFSSGJvnl1RLl0GLGeEKL3RYy4D4Nlbtt.fkSxm0SEsdKeUyi',
+        'john', 'lawrence', 0, 'john_investor@cjl.com', '+525512345678', '001 Main St, Mexico', 'Master of UCLA',
+        NULL, NULL, '2025-01-01', 300000.00, 'mxn', 'es_mx', 'en_us', NULL, 'mex', 'usa',
+        TRUE, 'director'
+    ),
+
+    -- CEO
+
+    (
+        -- password: CaesarIsCEO!00
+        'ceo_caesar', '$2b$12$cOaJkI.UtH6c8JGdGQjbaO3tbE7l0PeRYxGzjyAprQkoVyvcAJTv2',
+        'caesar', 'lee', 2, 'caesar_ceo@cjl.com', '+886912345678', '001 Ketagalan Boulevard, Taipei', 'PhD of MIT',
+        NULL, NULL, '2025-01-01', 300000.00, 'ntd', 'zh_tw', 'en_us', NULL, 'twn', 'usa'
+    ),
+
+    -- legal department
+
+    (
+        -- password: SteveLikesMinecraft#2009
+        'fox_lawyer', '$2b$12$W7Ovvzni.3022oRiJmJE8OXyetRY1j.ee9r9ZVTKW4qePWVL3NTzW',
+        'fox', 'washington', 0, 'fox_lawyer@cjl.com', '+12345678902', '003 Main St, LA', 'bachelor of Harvard', 
+        1, NULL, '2025-01-02', 200000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: frankHaveToBeALawyer!~_~!233
+        'frank_smith_legal_copyright_manager', '$2b$12$PQCemJZSk837oN3zDlvCBeLKMcYF832ywqQ0gq5s82DoHBqCxPizG',
+        'frank', 'smith', 0, 'frank_smith_legal_copyright_manager@cjl.com', '+12345678903', '004 Main St, LA', 'Master of Harvard',
+        1, 1, '2025-01-02', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: frankWannaPlaySteamF!O@R#E$V%E^R&000
+        'frank_smith_loves_steam', '$2b$12$0HiSDI1KM1ZEkmmSo2Gox.FHu9aZZvtWgzusG6ySD4SXeQr73GteK',
+        'frank', 'smith', 0, 'frank_smith_lawyer@cjl.com', '+12345678904', '005 Main St, LA', 'bachelor of Yale',
+        1, 1, '2025-01-03', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: narutoUzumakiLovesUzumakiNaruto(520)
+        'uzumaki_naruto_ninja', '$2b$12$D/TDCEgDt6xefjumLz2Iou7jqcHn6z7XS6rRIM63I.yBm7p.B8eqq',
+        'naruto', 'uzumaki', 0, 'naruto_ninja@cjl.com', '+813123445678', '001 Main St, Tokyo', 'bachelor of UCSF',
+        1, 1, '2025-01-02', 100000.00, 'jpy', 'ja_jp', 'en_us', NULL, 'jpn', NULL
+    ),
+    (
+        -- password: jessica@Blink#2023
+        'jessica_bp', '$2b$12$mLfj06n.oEmLba9bvYD/PemnTx18XCUy/yIzu7a5FZpPymTqCmsym',
+        'jessica', 'lee', 1, 'jessica_blackpink@cjl.com', '+12345678905', '006 Main St, LA', 'Master of Yele',
+        1, 2, '2025-01-02', 120000.00, 'usd', 'en_us', 'ko_kr', NULL, 'usa', NULL
+    ),
+    (
+        -- password: Clark~superman~2025
+        'clark_sm', '$2b$12$8XxQumDVN9zoj9InQJLKoeJ//NJ5tMdCpk0XGBsXQTYehlMk1LBym',
+        'clark', 'smith', 2, 'clark_on_planet_krypton@cjl.com', '+12345678906', '007 Main St, LA', 'bachelor of MIT',
+        1, 2, '2025-01-02', 100000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: MarvelBetterDC!!!Until2018!!!
+        'bernard', '$2b$12$QlbQiE/cRBzsV0S6sPEIb.apRpDp6wtyYjsptXwDFFWrAz9089vUu',
+        'james', 'bernard', 0, 'marvel_worser_2018@cjl.com', '+12345678907', '008 Main St, LA', 'Master of MIT',
+        1, 2, '2025-01-03', 120000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: Gidle#3@kr
+        'jennie', '$2b$12$GE6DAJ1tpqQIrsBRwOfDl.AIjtbGCAz7wnyYVuVJIUOCNysIYveaG',
+        'jennie', 'Li', 1, 'jennie_dislike_jennie@cjl.com', '+12345678908', '009 Main St, LA', 'Master of UCLA',
+        1, 3, '2025-01-03', 150000.00, 'usd', 'en_us', 'zh_cn', 'ko_kr', 'usa', 'can'
+    ),
+    (
+        -- password: lily_likes_IDLE#2022
+        'lily_neverland', '$2b$12$enPXm6/0OLD2ZkP6.yU3zuLRAsM05crQcL6FTNjm5VlUUUakWGh.S',
+        'lily', 'park', 1, 'lily_neverland@cjl.com', '+12345678909', '010 Main St, LA', 'Bachelor of UCLA',
+        1, 3, '2025-01-03', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: lisa@Lalisa#000
+        'la_lisa', '$2b$12$yBFJwiv7SHNyGh1qgL5yZ.efPaXKmHVd2unmLPBsjQ38NCn2aRwIq',
+        'lisa', 'jackson', 1, 'la_lisa@cjl.com', '+12345678910', '011 Main St, LA', 'high school graduate',
+        1, 3, '2025-01-03', 120000.00, 'usd', 'en_us', 'ko_kr', NULL, 'usa', NULL
+    ),
+
+    -- technical department
+    (
+        -- password: CaesarIsCTO!000
+        'cto_caesar', '$2b$12$RXUS1sGFKxiDWQo6LTiPe.yzdMWz3mE32L2H66iY0Vqgq6mxDBU7m',
+        'caesar', 'lee', 2, 'caesar_cto@cjl.com', '+12345678911', '001 Ketagalan Boulevard, Taipei', 'PhD of MIT',
+        NULL, NULL, '2025-01-01', 300000.00, 'ntd', 'zh_tw', 'en_us', NULL, 'twn', 'usa'
+    ),
+    (
+        -- password: peterIs@!spiderman!@22
+        'peter_park_spiderman', '$2b$12$jiIit1sxiyWsKp1heLaV.ef0Pfxw57MAAe9zI2eRPGm.Nxi8sEvHi',
+        'peter', 'park', 0, 'pp_sm@cjl.com', '+12345678912', '001 Tech St, LA', 'Bachelor of UCBerkeley',
+        2, 4, '2025-01-03', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: paterDefeatVoldmort!Y2K
+        'harry_potter', '$2b$12$YKpHRX.rwjWJRoj9TIRQ9uVnFh72NcPmiRvdh1OKhYofriZBS/dRa',
+        'pater', 'weasley', 0, 'happy_hppw@cjl.com', '+12345678913', 'Queens, NY', 'Bachelor of MIT',
+        2, 4, '2025-01-03', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL
+    ),
+    (
+        -- password: finalAnswerIs:42
+        'elon_musk', '$2b$12$Qvw1NHhtCX.8xCYaiMdcle4ikQW/0QEYkHITcIzfHJFveJChz9AZO',
+        'elon', 'musk', 0, 'the_hitchhiker_s_guide_to_the_galaxy@cjl.com', '+12345678914', '001 Main St, South Africa', 'Bachelor of Stanford',
+        2, 4, '2025-01-03', 300000.00, 'usd', 'en-za', 'en_ca', 'en_us', 'zaf', 'usa'
+    ),
