@@ -67,7 +67,6 @@ CREATE TABLE `users`(
     `email` VARCHAR(100) NOT NULL UNIQUE COMMENT 'user email',
     `phone` VARCHAR(20) NOT NULL UNIQUE COMMENT 'user phone in E.164 format',
     `address` VARCHAR(255) NOT NULL COMMENT 'user contact address',
-    `diploma` VARCHAR(255) DEFAULT NULL COMMENT 'user educational qualification',
     `department_id` BIGINT UNSIGNED DEFAULT NULL COMMENT 'user department ID',
     `team_id` BIGINT UNSIGNED DEFAULT NULL COMMENT 'user team ID',
     `hire_date` DATE DEFAULT NULL COMMENT 'user hire date',
@@ -87,8 +86,6 @@ CREATE TABLE `users`(
     `provider_id` VARCHAR(255) DEFAULT NULL COMMENT 'social media provider user ID',
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'account creation time in GMT',
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'account update time in GMT',
-    `comment` TEXT DEFAULT NULL COMMENT 'manager comments on user',
-    `remark` TEXT DEFAULT NULL COMMENT 'manager remarks on user',
     FOREIGN KEY (`department_id`)
     	REFERENCES `departments` (`id`)
     	ON DELETE SET NULL,
@@ -267,6 +264,22 @@ CREATE TABLE `logs`(
     COLLATE = utf8mb4_unicode_ci
     COMMENT = 'user action logs table';
 
+-- create diplomas table
+DROP TABLE IF EXISTS `diplomas`;
+CREATE TABLE `diplomas`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique diploma ID',
+    `diploma_name` VARCHAR(255) NOT NULL COMMENT 'diploma name',
+    `diploma_description` VARCHAR(255) NOT NULL COMMENT 'diploma description',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'diploma creation time in GMT'
+);
+
+ALTER TABLE `users`
+    ADD `diploma` TINYINT
+        DEFAULT NULL COMMENT 'user diploma',
+    ADD FOREIGN KEY (`diploma`)
+    REFERENCES `diplomas` (`id`)
+    ON DELETE SET NULL;
+
 -- records of departments table
 
 INSERT INTO `departments`(`name`, `description`) VALUES
@@ -325,33 +338,87 @@ INSERT INTO `teams`(`name`, `description`, `department_id`) VALUES
     ('Risk Management Team', 'Assess and mitigates business and operational risks.', 9),
     ('Audit Team', 'Review internal processes to ensure accuracy and legal compliance.', 9);
 
+--records of diplomas table
+
+INSERT INTO `diplomas`(`name`, `description`) VALUES
+    --under bachelor
+    ('Under High School', 'under high-school graduate'),
+    ('High School', 'high school diploma'),
+    ('Associate of Arts', '2-year degree, humanities, social sciences'),
+    ('Associate of Science', '2-year degree, science, technology'),
+    ('Associate of Applied Science', 'Vocational/technical skills'),
+
+    --bachelor
+    ('Bachelor of Arts', 'Humanities, social sciences, languages, arts'),
+    ('Bachelor of Science', 'STEM, economics, psychology, business (technical side)'),
+    ('Bachelor of Fine Arts', 'Visual/performing arts'),
+    ('Bachelor of Business Administration', 'Business, accounting, marketing, finance'),
+    ('Bachelor of Science', 'in Business Admin	Science-oriented business education'),
+    ('Bachelor of Engineering', 'Engineering disciplines'),
+    ('Bachelor of Science', 'in Nursing	Nursing'),
+    ('Bachelor of Education', 'Teaching & education'),
+    ('Bachelor of Architecture', 'Architecture (5-year program)'),
+    ('Bachelor of Music', 'Music theory, performance'),
+
+    --master
+
+    ('Master of Arts', 'Humanities, social sciences'),
+    ('Master of Science', 'Science, tech, business'),
+    ('Master of Business Administration', 'Business leadership, finance, strategy'),
+    ('Master of Fine Arts', 'Creative writing, film, studio arts'),
+    ('Master of Education', 'Curriculum, instruction, educational leadership'),
+    ('Master of Social', 'Work	Social work practice'),
+    ('Master of Public Administration', 'Government, nonprofits, policy'),
+    ('Master of Public Health', 'Epidemiology, health policy, global health'),
+    ('Master of Science in Nursing', 'Advanced nursing practice'),
+    ('Master of Engineering', 'Professional engineering degree'),
+
+    --professional degree
+
+    ('Juris Doctor', 'Law (required to become a lawyer in the U.S.)'),
+    ('Doctor of Medicine', 'Medicine (physician/doctor)'),
+    ('Doctor of Osteopathic Medicine', 'Similar to MD, holistic medicine'),
+    ('Doctor of Veterinary Medicine', 'Veterinarian'),
+    ('Doctor of Dental Surgery', 'Dentist'),
+    ('Doctor of Medicine in Dentistry', 'Dentist (equivalent to DDS)'),
+    ('Doctor of Pharmacy', 'Pharmacist'),
+    ('Doctor of Physical Therapy', 'Physical therapist'),
+
+    --doctor
+
+    ('Doctor of Philosophy', 'Research in any field: science, humanities, engineering, etc.'),
+    ('Doctor of Education', 'Educational leadership, policy'),
+    ('Doctor of Psychology', 'Clinical psychology'),
+    ('Doctor of Science', 'Advanced research in science (rare in the U.S.)'),
+    ('Doctor of Theology', 'Theology, religious studies');
+
 -- records of users table
 
 INSERT INTO `users`(
     `username`, `password`, `first_name`, `last_name`, `gender`, `email`, `phone`,
     `address`, `diploma`, `department_id`, `team_id`, `hire_date`, `salary`, `currency`, `first_language`,
-    `second_language`, `third_language`, `first_nationality`, `second_nationality`, `status`, `position`
+    `second_language`, `third_language`, `first_nationality`, `second_nationality`, `status`, `position` 
 ) VALUES
 
     -- board members
     (
         -- password: CaesarIsAChairperson@0
         'chairperson_caesar', '$2b$12$rH9e.zA8OSgih7v4QreUrOHJtNBkfjyQN1DrnzOR9qJlP1VyKSARS',
-        'caesar', 'lee', 2, 'caesar_cofounder@cjl.com', '+12345678900', '001 Main St, LA', 'PhD of MIT',
+        'caesar', 'lee', 2, 'caesar_cofounder@cjl.com', '+12345678900', '001 Main St, LA', 34,--doctor of Philosophy
         NULL, NULL, '2025-01-01', 300000.00, 'usd', 'zh_tw', 'en_us', NULL, 'twn', 'usa',
         TRUE, 'chairperson'
     ),
     (
         -- password: AliceCobuildTheCompany@1
         'director_alice', '$2b$12$4MuHfjzYWSesQEHPXVwHv.NWtBWGf5BkLqfB34hj4oJDtaYATyL/q',
-        'alice', 'jackson', 1, 'alice_cofounder@cjl.com', '+12345678901', '002 Main St, LA', 'PhD of Stanford',
+        'alice', 'jackson', 1, 'alice_cofounder@cjl.com', '+12345678901', '002 Main St, LA', 34,
         NULL, NULL, '2025-01-01', 300000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
         TRUE, 'director'
     ),
     (
         -- password: JohnInvestTheCompany@2
         'director_john', '$2b$12$5zQPjFSSGJvnl1RLl0GLGeEKL3RYy4D4Nlbtt.fkSxm0SEsdKeUyi',
-        'john', 'lawrence', 0, 'john_investor@cjl.com', '+525512345678', '001 Main St, Mexico', 'Master of UCLA',
+        'john', 'lawrence', 0, 'john_investor@cjl.com', '+525512345678', '001 Main St, Mexico', 18,
         NULL, NULL, '2025-01-01', 300000.00, 'mxn', 'es_mx', 'en_us', NULL, 'mex', 'usa',
         TRUE, 'director'
     ),
@@ -361,8 +428,9 @@ INSERT INTO `users`(
     (
         -- password: CaesarIsCEO!00
         'ceo_caesar', '$2b$12$cOaJkI.UtH6c8JGdGQjbaO3tbE7l0PeRYxGzjyAprQkoVyvcAJTv2',
-        'caesar', 'lee', 2, 'caesar_ceo@cjl.com', '+886912345678', '001 Ketagalan Boulevard, Taipei', 'PhD of MIT',
-        NULL, NULL, '2025-01-01', 300000.00, 'ntd', 'zh_tw', 'en_us', NULL, 'twn', 'usa'
+        'caesar', 'lee', 2, 'caesar_ceo@cjl.com', '+886912345678', '001 Ketagalan Boulevard, Taipei', 34,
+        NULL, NULL, '2025-01-01', 300000.00, 'ntd', 'zh_tw', 'en_us', NULL, 'twn', 'usa',
+        TRUE, 'ceo'
     ),
 
     -- legal department
@@ -370,86 +438,232 @@ INSERT INTO `users`(
     (
         -- password: SteveLikesMinecraft#2009
         'fox_lawyer', '$2b$12$W7Ovvzni.3022oRiJmJE8OXyetRY1j.ee9r9ZVTKW4qePWVL3NTzW',
-        'fox', 'washington', 0, 'fox_lawyer@cjl.com', '+12345678902', '003 Main St, LA', 'bachelor of Harvard', 
-        1, NULL, '2025-01-02', 200000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+        'fox', 'washington', 0, 'fox_lawyer@cjl.com', '+12345678902', '003 Main St, LA', 26,
+        1, NULL, '2025-01-02', 200000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'clo'
     ),
     (
         -- password: frankHaveToBeALawyer!~_~!233
         'frank_smith_legal_copyright_manager', '$2b$12$PQCemJZSk837oN3zDlvCBeLKMcYF832ywqQ0gq5s82DoHBqCxPizG',
-        'frank', 'smith', 0, 'frank_smith_legal_copyright_manager@cjl.com', '+12345678903', '004 Main St, LA', 'Master of Harvard',
-        1, 1, '2025-01-02', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+        'frank', 'smith', 0, 'frank_smith_legal_copyright_manager@cjl.com', '+12345678903', '004 Main St, LA', 26,
+        1, 1, '2025-01-02', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
     ),
     (
         -- password: frankWannaPlaySteamF!O@R#E$V%E^R&000
         'frank_smith_loves_steam', '$2b$12$0HiSDI1KM1ZEkmmSo2Gox.FHu9aZZvtWgzusG6ySD4SXeQr73GteK',
-        'frank', 'smith', 0, 'frank_smith_lawyer@cjl.com', '+12345678904', '005 Main St, LA', 'bachelor of Yale',
-        1, 1, '2025-01-03', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+        'frank', 'smith', 0, 'frank_smith_lawyer@cjl.com', '+12345678904', '005 Main St, LA', 26,
+        1, 1, '2025-01-03', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
     ),
     (
         -- password: narutoUzumakiLovesUzumakiNaruto(520)
         'uzumaki_naruto_ninja', '$2b$12$D/TDCEgDt6xefjumLz2Iou7jqcHn6z7XS6rRIM63I.yBm7p.B8eqq',
-        'naruto', 'uzumaki', 0, 'naruto_ninja@cjl.com', '+813123445678', '001 Main St, Tokyo', 'bachelor of UCSF',
-        1, 1, '2025-01-02', 100000.00, 'jpy', 'ja_jp', 'en_us', NULL, 'jpn', NULL
+        'naruto', 'uzumaki', 0, 'naruto_ninja@cjl.com', '+813123445678', '001 Main St, Tokyo', 26,
+        1, 1, '2025-01-02', 100000.00, 'jpy', 'ja_jp', 'en_us', NULL, 'jpn', NULL,
+        TRUE, 'employee'
     ),
     (
         -- password: jessica@Blink#2023
         'jessica_bp', '$2b$12$mLfj06n.oEmLba9bvYD/PemnTx18XCUy/yIzu7a5FZpPymTqCmsym',
-        'jessica', 'lee', 1, 'jessica_blackpink@cjl.com', '+12345678905', '006 Main St, LA', 'Master of Yele',
-        1, 2, '2025-01-02', 120000.00, 'usd', 'en_us', 'ko_kr', NULL, 'usa', NULL
+        'jessica', 'lee', 1, 'jessica_blackpink@cjl.com', '+12345678905', '006 Main St, LA', 26,
+        1, 2, '2025-01-02', 120000.00, 'usd', 'en_us', 'ko_kr', NULL, 'usa', NULL,
+        TRUE, 'manager'
     ),
     (
         -- password: Clark~superman~2025
         'clark_sm', '$2b$12$8XxQumDVN9zoj9InQJLKoeJ//NJ5tMdCpk0XGBsXQTYehlMk1LBym',
-        'clark', 'smith', 2, 'clark_on_planet_krypton@cjl.com', '+12345678906', '007 Main St, LA', 'bachelor of MIT',
-        1, 2, '2025-01-02', 100000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+        'clark', 'smith', 2, 'clark_on_planet_krypton@cjl.com', '+12345678906', '007 Main St, LA', 26,
+        1, 2, '2025-01-02', 100000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
     ),
     (
         -- password: MarvelBetterDC!!!Until2018!!!
         'bernard', '$2b$12$QlbQiE/cRBzsV0S6sPEIb.apRpDp6wtyYjsptXwDFFWrAz9089vUu',
-        'james', 'bernard', 0, 'marvel_worser_2018@cjl.com', '+12345678907', '008 Main St, LA', 'Master of MIT',
-        1, 2, '2025-01-03', 120000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+        'james', 'bernard', 0, 'marvel_worser_2018@cjl.com', '+12345678907', '008 Main St, LA', 26,
+        1, 2, '2025-01-03', 120000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        FALSE, 'employee'
     ),
     (
         -- password: Gidle#3@kr
         'jennie', '$2b$12$GE6DAJ1tpqQIrsBRwOfDl.AIjtbGCAz7wnyYVuVJIUOCNysIYveaG',
-        'jennie', 'Li', 1, 'jennie_dislike_jennie@cjl.com', '+12345678908', '009 Main St, LA', 'Master of UCLA',
-        1, 3, '2025-01-03', 150000.00, 'usd', 'en_us', 'zh_cn', 'ko_kr', 'usa', 'can'
+        'jennie', 'Li', 1, 'jennie_dislike_jennie@cjl.com', '+12345678908', '009 Main St, LA', 26,
+        1, 3, '2025-01-03', 150000.00, 'usd', 'en_us', 'zh_cn', 'ko_kr', 'usa', 'can',
+        TRUE, 'manager'
     ),
     (
         -- password: lily_likes_IDLE#2022
         'lily_neverland', '$2b$12$enPXm6/0OLD2ZkP6.yU3zuLRAsM05crQcL6FTNjm5VlUUUakWGh.S',
-        'lily', 'park', 1, 'lily_neverland@cjl.com', '+12345678909', '010 Main St, LA', 'Bachelor of UCLA',
-        1, 3, '2025-01-03', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL
+        'lily', 'park', 1, 'lily_neverland@cjl.com', '+12345678909', '010 Main St, LA', 26,
+        1, 3, '2025-01-03', 150000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
     ),
     (
         -- password: lisa@Lalisa#000
         'la_lisa', '$2b$12$yBFJwiv7SHNyGh1qgL5yZ.efPaXKmHVd2unmLPBsjQ38NCn2aRwIq',
-        'lisa', 'jackson', 1, 'la_lisa@cjl.com', '+12345678910', '011 Main St, LA', 'high school graduate',
-        1, 3, '2025-01-03', 120000.00, 'usd', 'en_us', 'ko_kr', NULL, 'usa', NULL
+        'lisa', 'jackson', 1, 'la_lisa@cjl.com', '+12345678910', '011 Main St, LA', 2,
+        1, 3, '2025-01-03', 120000.00, 'usd', 'en_us', 'ko_kr', NULL, 'usa', NULL,
+        TRUE, 'employee'
     ),
 
     -- technical department
     (
         -- password: CaesarIsCTO!000
         'cto_caesar', '$2b$12$RXUS1sGFKxiDWQo6LTiPe.yzdMWz3mE32L2H66iY0Vqgq6mxDBU7m',
-        'caesar', 'lee', 2, 'caesar_cto@cjl.com', '+12345678911', '001 Ketagalan Boulevard, Taipei', 'PhD of MIT',
-        NULL, NULL, '2025-01-01', 300000.00, 'ntd', 'zh_tw', 'en_us', NULL, 'twn', 'usa'
+        'caesar', 'lee', 2, 'caesar_cto@cjl.com', '+12345678911', '001 Ketagalan Boulevard, Taipei', 34,
+        NULL, NULL, '2025-01-01', 300000.00, 'ntd', 'zh_tw', 'en_us', NULL, 'twn', 'usa',
+        TRUE, 'cto'
     ),
     (
         -- password: peterIs@!spiderman!@22
         'peter_park_spiderman', '$2b$12$jiIit1sxiyWsKp1heLaV.ef0Pfxw57MAAe9zI2eRPGm.Nxi8sEvHi',
-        'peter', 'park', 0, 'pp_sm@cjl.com', '+12345678912', '001 Tech St, LA', 'Bachelor of UCBerkeley',
-        2, 4, '2025-01-03', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL
+        'peter', 'park', 0, 'pp_sm@cjl.com', '+12345678912', '001 Tech St, LA', 7,
+        2, 4, '2025-01-03', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
     ),
     (
         -- password: paterDefeatVoldmort!Y2K
         'harry_potter', '$2b$12$YKpHRX.rwjWJRoj9TIRQ9uVnFh72NcPmiRvdh1OKhYofriZBS/dRa',
-        'pater', 'weasley', 0, 'happy_hppw@cjl.com', '+12345678913', 'Queens, NY', 'Bachelor of MIT',
-        2, 4, '2025-01-03', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL
+        'pater', 'weasley', 0, 'happy_hppw@cjl.com', '+12345678913', 'Queens, NY', 7,
+        2, 4, '2025-01-03', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
     ),
     (
         -- password: finalAnswerIs:42
         'elon_musk', '$2b$12$Qvw1NHhtCX.8xCYaiMdcle4ikQW/0QEYkHITcIzfHJFveJChz9AZO',
-        'elon', 'musk', 0, 'the_hitchhiker_s_guide_to_the_galaxy@cjl.com', '+12345678914', '001 Main St, South Africa', 'Bachelor of Stanford',
-        2, 4, '2025-01-03', 300000.00, 'usd', 'en-za', 'en_ca', 'en_us', 'zaf', 'usa'
+        'elon', 'musk', 0, 'the_hitchhiker_s_guide_to_the_galaxy@cjl.com', '+12345678914', '001 Main St, South Africa', 34,
+        2, 4, '2025-01-03', 300000.00, 'usd', 'en-za', 'en_ca', 'en_us', 'zaf', 'usa',
+        FALSE, 'employee'
     ),
+    (
+        -- password: metaLlamaSucks#2025
+        'mark_zuckerberg', '$2b$12$C/lSMFWUqjY0976cX1QxA.MO07gM4fS2pYWxDOkZiWGIx5RIshI3K',
+        'mark', 'zuckerberg', 0, 'mark_zuck@cjl.com', '+12345678915', '001 Main St, NY', 34,
+        2, 5, '2025-01-03', 300000.00, 'usd', 'en-us', 'zh-cn', NULL, 'usa', NULL,
+        FALSE, 'manager'
+    ),
+    (
+        -- password: blueOriginBetterSpaceX!2024
+        'jeff', '$2b$12$EQYuoY8i/7fghcSstsbCo.0qIfHDvbLNHGXTTvTmsZ/uLwt3u1qEK',
+        'jeff', 'bozes', 0, 'jeff_blue_origin@cjl.com', '+12345678916', '001 Main St, NM', 7,
+        2, 5, '2025-01-03', 300000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        FALSE, 'manager'
+    ),
+    (
+        -- password: SpongeBob@1999
+        'spongebob', '$2b$12$/P5ixX4p3fH6oesB6giDu.SJSs2erYYq8ElxkHq/wesSCKwfqvK06',
+        'spongebob', 'brown', 0, 'spongebob@cjl.com', '+12345678916', '002 Tech St, LA', 7,
+        2, 5, '2025-01-03', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
+    ),
+    (
+        -- password: OptimusPrime@2025
+        'autobot_optimus_prime', '$2b$12$zhk3ybxteG2LcfLH2XdwZejU5cLpTTp/xCBXEsp/pMwyGYfLNoaca',
+        'optimus', 'prime', 3, 'autobot_optimus_prime@cjl.com', '+12345678917', '001 Autobot St, SF', 17,
+        2, 6, '2025-01-04', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        FALSE, 'manager'
+    ),
+    (
+        -- password: Bumblebee@2025
+        'autobot_bumblebee', '$2b$12$C.ByZmrL.1MayU5gnraTUODWNsIyV1hr/YSuhSUxkwhFTPAOtFL5G',
+        'bumblebee', 'jones', 3, 'autobot_bumblebee@cjl.com', '+12345678918', '002 Autobot St, SF', 7,
+        2, 6, '2025-01-04', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
+    ),
+    (
+        -- password: Ratchet@2025
+        'autobot_ratchet', '$2b$12$KQuY1Fv7UrXYqgwrEIrhVOiMoE0n1C/ZtL.joXMcvy3Cofu3GqbsO',
+        'ratchet', 'miller', 3, 'autobot_ratchet@cjl.com', '+12345678919', '003 Autobot St, SF', 7,
+        2, 6, '2025-01-04', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
+    ),
+    (
+        -- password: Megatron@2025
+        'deception_megatron', '$2b$12$bEzpxRNzCCug0p9by6t.VuZNEG8IczDBK7pUjZYuCljX5rsuqDWjW',
+        'megatron', 'martinez', 3, 'deception_megatron@cjl.com', '+12345678920', '001 Deception St, SF', 16,
+        2, 7, '2025-01-04', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
+    ),
+    (
+        -- password: Starscream@2025
+        'deception_starscream', '$2b$12$PmaIjp16SUlr.21ugVK.neAQhnfN/jnsJmgYQdL4kgdhlrv5vUL2O',
+        'starscream', 'anderson', 3, 'deception_anderson@cjl.com', '+12345678921', '002 Deception St, SF', 6,
+        2, 7, '2025-01-04', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
+    ),
+    (
+        -- password: Shockwave@2025
+        'deception_shockwave', '$2b$12$JFlYOizqyK0AMkmJMXKCiOpNeCIkpsU2TeCK3fVMHDEXQvPZQLw4C',
+        'shockwave', 'moore', 3, 'deception_shockwave@cjl.com', '+12345678922', '003 Deception St, SF', 6,
+        2, 7, '2025-01-04', 250000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        FALSE, 'employee'
+    ),
+
+    -- operating department
+
+    (
+        -- password:  ProfessorX@2025
+        'x_men_professor_x_coo', '$2b$12$sL7hSJB7TTM51jkVbFEpUuMG13C3W22Ds8eH4vEacAsJmovwP6vEu',
+        'charles', 'xavier', 0, 'charlesxavier@cjl.com', '+12345678923', '001 Xmen St, SF', 18, 
+        3, NULL, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'coo'
+    ),
+    (
+        -- password: ProfessorX@2025
+        'professor_x_manager', '$2b$12$N5ew.Yyo4Gpw7hsRsCslKuHc3pk369PF01SmoAwvaSjPL7AmVXRme',
+        'charles', 'xavier', 0, 'professorx@cjl.com', '+4915112345679', '001 Xmen St, SF', 18,
+        3, NULL, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
+    ),
+    (
+        -- password: Mystique@2025
+        'mystique', '$2b$12$skiqizoOc3Frh/cbcy2ybOEyKRG1kTOrLMfVN6fKCZLmKc5/z//VS',
+        'raven', 'Darkhölme', 1, 'mystique@cjl.com', '+12345678924', '002 Xmen St, SF', 2,
+        3, 8, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
+    ),
+    (
+        -- password: Wolverine@2025
+        'wolverine', '$2b$12$88U68dszOcF31SHPKWh6yOCVu1/DP4a4KR69WjVjxqLklR3eedhke',
+        'james', 'howlett', 0, 'wolverine@cjl.com', '+12345678925', '003 Xmen St, SF', 16,
+        3, 8, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
+    ),
+    (
+        -- password: Phoenix@2025
+        'phoenix', '$2b$12$4DQjsUV25xHZtubHM0n9UuWF1pMV7vuxgyV3pryddVkyaYZPr40By',
+        'jean', 'grey', 1, 'phoenix@cjl.com', '+12345678926', '004 Xmen St, SF', 6,
+        3, 9, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'manager'
+    ),
+    (
+        -- password: Beast@2025
+        'beast', '$2b$12$/FCCfP6nNOMB/E1TqqC/MO.u/BsOEa4X8JmwscdLtWJTKOZPAHj6S',
+        'henry', 'mccoy', 0, 'beast@cjl.com', '+12345678927', '005 Xmen St, SF', 6,
+        3, 9, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
+    ),
+    (
+        -- password: Magneto@2025
+        'magneto', '$2b$12$.W6jSVcW/ARvhiiK5xe//ecYRCSkqY4paxVMPKwdsKz5IeznKI7Ma',
+        'max', 'eisenhardt', 0, 'magneto@cjl.com', '+12345678928', '006 Xmen St, SF', 6,
+        3, 9, '2025-01-04', 200000.00, 'usd', 'en-us', NULL, NULL, 'usa', NULL,
+        TRUE, 'employee'
+    ),
+
+    -- financial department
+
+    (
+        -- password: AliceCobuildTheCompany@1
+        'alice_cfo', '$2b$12$rstVqLCdNFPus8WmJj3A1uy/pxtqzu/4Gjv3oxieQ.EjcHdxTfLUS',
+        'alice', 'jackson', 1, 'alice_cfo@cjl.com', '+12345678929', '002 Main St, LA', 34,
+        4, NULL, '2025-01-01', 300000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        FALSE, 'cfo'
+    ),
+    (
+        -- password: CaptainAmerica@2025
+        'steve_rogers', '$2b$12$DmQOzmjRhno3ZAprWK5yZerxI4hQOO974nRpsrhc0ySc.Wv4Y4IVi',
+        'steve', 'rogers', 0, 'captain_america@cjl.com', '+12345678930', '001 Marvel St, LA', 2,
+        4, NULL, '2025-01-04', 250000.00, 'usd', 'en_us', NULL, NULL, 'usa', NULL,
+        TRUE, 'cfo'
+    )
