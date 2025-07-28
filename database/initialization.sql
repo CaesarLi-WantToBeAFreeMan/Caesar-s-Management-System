@@ -7,9 +7,23 @@
 -- | SQL author:                         Caesar James LEE               |
 -- +--------------------------------------------------------------------+
 
--- +----------------------------------------------------------------------------+
--- | reference tables: genders, diplomas, currencies, nationalities, languages  |
--- +----------------------------------------------------------------------------+
+-- database
+
+DROP DATABASE IF EXISTS `cms_db`;
+CREATE DATABASE `cms_db`
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+USE `cms_db`;
+
+-- use Unicode
+
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+SET collation_connection = 'utf8mb4_unicode_ci';
+
+-- +--------------------+
+-- | reference tables   |
+-- +--------------------+
 
 -- +------------+
 -- | genders    |
@@ -18,70 +32,34 @@
 DROP TABLE IF EXISTS `genders`;
 
 CREATE TABLE `genders`(
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT = 'unique gender type ID',
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique gender type ID',
     `name` VARCHAR(50) NOT NULL UNIQUE COMMENT 'gender name'
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'gender definitions';
+    COMMENT 'gender definitions';
 
 INSERT INTO `genders`
-    (
-        `id`,  `name`
-    )
+    (`id`,  `name`          )
 VALUES
-    (
-        0,     'male'
-    ),
-    (
-        1,     'demiboy'
-    ),
-    (
-        2,     'female'
-    ),
-    (
-        3,     'demigirl'
-    ),
-    (
-        4,     'two-spirit'
-    ),
-    (
-        5,     'cisgender'
-    ),
-    (
-        6,     'trnasgender'
-    ),
-    (
-        7,     'non-binary'
-    ),
-    (
-        8,     'genderqueer'
-    ),
-    (
-        9,     'genderfluid'
-    ),
-    (
-        10,    'agender'
-    ),
-    (
-        11,    'intersex'
-    ),
-    (
-        12,    'androgynous'
-    ),
-    (
-        13,    'third gender'
-    ),
-    (
-        14,    'bigender'
-    ),
-    (
-        15,    'trigender'
-    ),
-    (
-        16,    'polygender'
-    );
+    (1,     'male'          ),
+    (2,     'demiboy'       ),
+    (3,     'female'        ),
+    (4,     'demigirl'      ),
+    (5,     'two-spirit'    ),
+    (6,     'cisgender'     ),
+    (7,     'transgender'   ),
+    (8,     'non-binary'    ),
+    (9,     'genderqueer'   ),
+    (10,    'genderfluid'   ),
+    (11,    'agender'       ),
+    (12,    'intersex'      ),
+    (13,    'androgynous'   ),
+    (14,    'third gender'  ),
+    (15,    'bigender'      ),
+    (16,    'trigender'     ),
+    (17,    'polygender'    );
 
 -- +------------+
 -- | diplomas   |
@@ -90,134 +68,56 @@ VALUES
 DROP TABLE IF EXISTS `diplomas`;
 
 CREATE TABLE `diplomas`(
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT = 'unique diploma ID',
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique diploma ID',
     `abbreviation` VARCHAR(10) NOT NULL UNIQUE COMMENT 'diploma abbreviation',
     `name` VARCHAR(50) NOT NULL UNIQUE COMMENT 'full diploma name'
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'diploma qualifications';
+    COMMENT 'diploma qualifications';
 
 INSERT INTO `diplomas`
-    (
-        `id`,  `abbreviation`, `name`
-    )
+    (`id`,  `abbreviation`, `name`                                              )
 VALUES
-    (
-        0,     'UHS',          'under high school'
-    ),
-    (
-        1,     'HS',           'high school'
-    ),
-    (
-        2,     'AA',           'Associate of Arts'
-    ),
-    (
-        3,     'AS',           'Associate of Science'
-    ),
-    (
-        4,     'AAS',          'Associate of Applied Science'
-    ),
-    (
-        5,     'BA',           'Bachelor of Arts'
-    ),
-    (
-        6,     'BS',           'Bachelor of Science'
-    ),
-    (
-        7,     'BFA',          'Bachelor of Fine Arts'
-    ),
-    (
-        8,     'BBA',          'Bachelor of Business Administration'
-    ),
-    (
-        9,     'BSBA',         'Bachelor of Science in Business Administration'
-    ),
-    (
-        10,    'BEng',         'Bachelor of Engineering'
-    ),
-    (
-        11,    'BSN',          'Bachelor of Science in Nursing'
-    ),
-    (
-        12,    'BEd',          'Bachelor of Education'
-    ),
-    (
-        13,    'BArch',        'Bachelor of Architecture'
-    ),
-    (
-        14,    'BMus',         'Bachelor of Music'
-    ),
-    (
-        15,    'MA',           'Master of Arts'
-    ),
-    (
-        16,    'MS',           'Master of Science'
-    ),
-    (
-        17,    'MBA',          'Master of Business Administration'
-    ),
-    (
-        18,    'MFA',          'Master of Fine Arts'
-    ),
-    (
-        19,    'MEd',          'Master of Education'
-    ),
-    (
-        20,    'MSW',          'Master of Social Work'
-    ),
-    (
-        21,    'MPA',          'Master of Public Administration'
-    ),
-    (
-        22,    'MPH',          'Master of Public Health'
-    ),
-    (
-        23,    'MSN',          'Master of Science in Nursing'
-    ),
-    (
-        24,    'MEng',         'Master of Engineering'
-    ),
-    (
-        25,    'JD',           'Juris Doctor'
-    ),
-    (
-        26,    'MD',           'Doctor of Medicine'
-    ),
-    (
-        27,    'DO',           'Doctor of Osteopathic Medicine'
-    ),
-    (
-        28,    'DVM',          'Doctor of Veterinary Medicine'
-    ),
-    (
-        29,    'DDS',          'Doctor of Dental Surgery'
-    ),
-    (
-        30,    'DMD',          'Doctor of Medicine in Dentistry'
-    ),
-    (
-        31,    'PharmD',       'Doctor of Pharmacy'
-    ),
-    (
-        32,    'DPT',          'Doctor of Physical Therapy'
-    ),
-    (
-        33,    'PhD',          'Doctor of Philosophy'
-    ),
-    (
-        34,    'EdD',          'Doctor of Education'
-    ),
-    (
-        35,    'PsyD',         'Doctor of Psychology'
-    ),
-    (
-        36,    'DS',           'Doctor of Science'
-    ),
-    (
-        37,    'ThD',          'Doctor of Theology'
-    );
+    (1,     'UHS',          'under high school'                                 ),
+    (2,     'HS',           'high school'                                       ),
+    (3,     'AA',           'Associate of Arts'                                 ),
+    (4,     'AS',           'Associate of Science'                              ),
+    (5,     'AAS',          'Associate of Applied Science'                      ),
+    (6,     'BA',           'Bachelor of Arts'                                  ),
+    (7,     'BS',           'Bachelor of Science'                               ),
+    (8,     'BFA',          'Bachelor of Fine Arts'                             ),
+    (9,     'BBA',          'Bachelor of Business Administration'               ),
+    (10,    'BSBA',         'Bachelor of Science in Business Administration'    ),
+    (11,    'BEng',         'Bachelor of Engineering'                           ),
+    (12,    'BSN',          'Bachelor of Science in Nursing'                    ),
+    (13,    'BEd',          'Bachelor of Education'                             ),
+    (14,    'BArch',        'Bachelor of Architecture'                          ),
+    (15,    'BMus',         'Bachelor of Music'                                 ),
+    (16,    'MA',           'Master of Arts'                                    ),
+    (17,    'MS',           'Master of Science'                                 ),
+    (18,    'MBA',          'Master of Business Administration'                 ),
+    (19,    'MFA',          'Master of Fine Arts'                               ),
+    (20,    'MEd',          'Master of Education'                               ),
+    (21,    'MSW',          'Master of Social Work'                             ),
+    (22,    'MPA',          'Master of Public Administration'                   ),
+    (23,    'MPH',          'Master of Public Health'                           ),
+    (24,    'MSN',          'Master of Science in Nursing'                      ),
+    (25,    'MEng',         'Master of Engineering'                             ),
+    (26,    'JD',           'Juris Doctor'                                      ),
+    (27,    'MD',           'Doctor of Medicine'                                ),
+    (28,    'DO',           'Doctor of Osteopathic Medicine'                    ),
+    (29,    'DVM',          'Doctor of Veterinary Medicine'                     ),
+    (30,    'DDS',          'Doctor of Dental Surgery'                          ),
+    (31,    'DMD',          'Doctor of Medicine in Dentistry'                   ),
+    (32,    'PharmD',       'Doctor of Pharmacy'                                ),
+    (33,    'DPT',          'Doctor of Physical Therapy'                        ),
+    (34,    'PhD',          'Doctor of Philosophy'                              ),
+    (35,    'EdD',          'Doctor of Education'                               ),
+    (36,    'PsyD',         'Doctor of Psychology'                              ),
+    (37,    'DS',           'Doctor of Science'                                 ),
+    (38,    'ThD',          'Doctor of Theology'                                );
 
 -- +------------+
 -- | currencies |
@@ -233,37 +133,37 @@ CREATE TABLE `currencies`(
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'Currency list';
+    COMMENT 'Currency list';
 
 INSERT INTO `currencies`
     (`id`,  `abbreviation`, `name`                                      )
 VALUES
-    (0,     'AED',          'United Arab Emirates dirham'               ),
-    (1,     'AFN',          'Afghan afghani'                            ),
-    (2,     'ALL',          'Albania lek'                               ),
-    (3,     'AMD',          'American dram'                             ),
-    (4,     'AOA',          'Angolan kwanza'                            ),
-    (5,     'ARS',          'Argentine peso'                            ),
-    (6,     'AUD',          'Australian dollar'                         ),
-    (7,     'AWG',          'Aruban florin'                             ),
-    (8,     'AZN',          'Azerbaijani manat'                         ),
-    (9,     'BAM',          'Bosnia and Herzegovina convertible mark'   ),
-    (10,    'BBD',          'Barbados dollar'                           ),
-    (11,    'BDT',          'Bangladeshi taka'                          ),
-    (12,    'BGN',          'Bulgarian lev'                             ),
-    (13,    'BHD',          'Bahraini dinar'                            ),
-    (14,    'BIF',          'Burundian franc'                           ),
-    (15,    'BMD',          'Bermudian dollar'                          ),
-    (16,    'BND',          'Brunei dollar'                             ),
-    (17,    'BOB',          'Boliviano'                                 ),
-    (18,    'BRL',          'Brazilian real'                            ),
-    (19,    'BSD',          'Bahamian dollar'                           ),
-    (20,    'BTN',          'Bhutanese ngultrum'                        ),
-    (21,    'BWP',          'Botswana pula'                             ),
-    (22,    'BYN',          'Belarusian ruble'                          ),
-    (23,    'BZD',          'Belize dollar'                             ),
-    (24,    'CAD',          'Canadian dollar'                           ),
-    (25,    'CDF',          'Congolese franc'                           ),
+    (1,     'AED',          'United Arab Emirates dirham'               ),
+    (2,     'AFN',          'Afghan afghani'                            ),
+    (3,     'ALL',          'Albania lek'                               ),
+    (4,     'AMD',          'Armenian dram'                             ),
+    (5,     'AOA',          'Angolan kwanza'                            ),
+    (6,     'ARS',          'Argentine peso'                            ),
+    (7,     'AUD',          'Australian dollar'                         ),
+    (8,     'AWG',          'Aruban florin'                             ),
+    (9,     'AZN',          'Azerbaijani manat'                         ),
+    (10,    'BAM',          'Bosnia and Herzegovina convertible mark'   ),
+    (11,    'BBD',          'Barbados dollar'                           ),
+    (12,    'BDT',          'Bangladeshi taka'                          ),
+    (13,    'BGN',          'Bulgarian lev'                             ),
+    (14,    'BHD',          'Bahraini dinar'                            ),
+    (15,    'BIF',          'Burundian franc'                           ),
+    (16,    'BMD',          'Bermudian dollar'                          ),
+    (17,    'BND',          'Brunei dollar'                             ),
+    (18,    'BOB',          'Boliviano'                                 ),
+    (19,    'BRL',          'Brazilian real'                            ),
+    (20,    'BSD',          'Bahamian dollar'                           ),
+    (21,    'BTN',          'Bhutanese ngultrum'                        ),
+    (22,    'BWP',          'Botswana pula'                             ),
+    (23,    'BYN',          'Belarusian ruble'                          ),
+    (24,    'BZD',          'Belize dollar'                             ),
+    (25,    'CAD',          'Canadian dollar'                           ),
+    (26,    'CDF',          'Congolese franc'                           ),
     (27,    'CHF',          'Swiss franc'                               ),
     (28,    'CLP',          'Chilean peso'                              ),
     (29,    'CNY',          'Chinese Yuan'                              ),
@@ -370,7 +270,7 @@ VALUES
     (130,   'TJS',          'Tajikistani somoni'                        ),
     (131,   'TMT',          'Turkmenistan manat'                        ),
     (132,   'TND',          'Tunisian dinar'                            ),
-    (133,   'TOP',          'Tongan paʻanga'                            ),
+    (133,   'TOP',          'Tongan pa''anga'                           ),
     (134,   'TRY',          'Turkish lira'                              ),
     (135,   'TTD',          'Trinidad and Tobago dollar'                ),
     (136,   'TWD',          'New Taiwan dollar'                         ),
@@ -394,275 +294,1017 @@ VALUES
     (154,   'ZAR',          'South African rand'                        ),
     (155,   'ZMW',          'Zambian kwacha'                            ),
     (156,   'ZWG',          'Zimbabwe Gold'                             );
-
+                           
 -- +----------------+
 -- | nationalities  |
 -- +----------------+
-
+                           
 DROP TABLE IF EXISTS `nationalities`;
 
 CREATE TABLE `nationalities`(
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique nationality ID',
     `abbreviation` VARCHAR(3) NOT NULL UNIQUE COMMENT 'country code ISO 3166-1 alpha-3',
-    `name` VARCHAR(50) NOT NULL UNIQUE COMMENT 'country name'
+    `name` VARCHAR(55) NOT NULL UNIQUE COMMENT 'country name'
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'Nationalities list';
+    COMMENT 'Nationalities list';
 
 INSERT INTO `nationalities`
-    (`id`,  `abbreviation`, `name`                                                  )
+    (
+        `id`,  `abbreviation`,
+        `name`
+    )
 VALUES
-    (0,     'ABW',          'Aruba'                                                 ),
-    (1,     'AFG',          'Afghanistan'                                           ),
-    (2,     'AGO',          'Angola'                                                ),
-    (3,     'AIA',          'Anguilla'                                              ),
-    (4,     'ALA',          'Åland Islands'                                         ),
-    (5,     'ALB',          'Albania'                                               ),
-    (6,     'AND',          'Andorra'                                               ),
-    (7,     'ARE',          'United Arab Emirates'                                  ),
-    (8,     'ARG',          'Argentina'                                             ),
-    (9,     'ARM',          'Armenia'                                               ),
-    (10,    'ASM',          'American Samoa'                                        ),
-    (11,    'ATA',          'Antarctica'                                            ),
-    (12,    'ATF',          'French Southern Territories'                           ),
-    (13,    'ATG',          'Antigua and Barbuda'                                   ),
-    (14,    'AUS',          'Australia'                                             ),
-    (15,    'AUT',          'Austria'                                               ),
-    (16,    'AZE',          'Azerbaijan'                                            ),
-    (17,    'BDI',          'Burundi'                                               ),
-    (18,    'BEL',          'Belgium'                                               ),
-    (19,    'BEN',          'Benin'                                                 ),
-    (20,    'BES',          'Bonaire, Sint Eustatius and Saba'                      ),
-    (21,    'BFA',          'Burkina Faso'                                          ),
-    (22,    'BGD',          'Bangladesh'                                            ),
-    (23,    'BGR',          'Bulgaria'                                              ),
-    (24,    'BHR',          'Bahrain'                                               ),
-    (25,    'BHS',          'Bahamas'                                               ),
-    (26,    'BIH',          'Bosnia and Herzegovina'                                ),
-    (27,    'BLM',          'Saint Barthélemy'                                      ),
-    (28,    'BLR',          'Belarus'                                               ),
-    (29,    'BLZ',          'Belize'                                                ),
-    (30,    'BMU',          'Bermuda'                                               ),
-    (31,    'BOL',          'Bolivia, Plurinational State of'                       ),
-    (32,    'BRA',          'Brazil'                                                ),
-    (33,    'BRB',          'Barbados'                                              ),
-    (34,    'BRN',          'Brunei Darussalam'                                     ),
-    (35,    'BTN',          'Bhutan'                                                ),
-    (36,    'BVT',          'Bouvet Island'                                         ),
-    (37,    'BWA',          'Botswana'                                              ),
-    (38,    'CAF',          'Central African Republic'                              ),
-    (39,    'CAN',          'Canada'                                                ),
-    (40,    'CCK',          'Cocos (Keeling) Islands'                               ),
-    (41,    'CHE',          'Switzerland'                                           ),
-    (42,    'CHL',          'Chile'                                                 ),
-    (43,    'CHN',          'China'                                                 ),
-    (44,    'CIV',          'Côte d''Ivoire'                                        ),
-    (45,    'CMR',          'Cameroon'                                              ),
-    (46,    'COD',          'Congo, Democratic Republic of the'                     ),
-    (47,    'COG',          'Congo'                                                 ),
-    (48,    'COK',          'Cook Islands'                                          ),
-    (49,    'COL',          'Colombia'                                              ),
-    (50,    'COM',          'Comoros'                                               ),
-    (51,    'CPV',          'Cabo Verde'                                            ),
-    (52,    'CRI',          'Costa Rica'                                            ),
-    (53,    'CUB',          'Cuba'                                                  ),
-    (54,    'CUW',          'Curaçao'                                               ),
-    (55,    'CXR',          'Christmas Island'                                      ),
-    (56,    'CYM',          'Cayman Islands'                                        ),
-    (57,    'CYP',          'Cyprus'                                                ),
-    (58,    'CZE',          'Czechia'                                               ),
-    (59,    'DEU',          'Germany'                                               ),
-    (60,    'DJI',          'Djibouti'                                              ),
-    (61,    'DMA',          'Dominica'                                              ),
-    (62,    'DNK',          'Denmark'                                               ),
-    (63,    'DOM',          'Dominican Republic'                                    ),
-    (64,    'DZA',          'Algeria'                                               ),
-    (65,    'ECU',          'Ecuador'                                               ),
-    (66,    'EGY',          'Egypt'                                                 ),
-    (67,    'ERI',          'Eritrea'                                               ),
-    (68,    'ESH',          'Western Sahara'                                        ),
-    (69,    'ESP',          'Spain'                                                 ),
-    (70,    'EST',          'Estonia'                                               ),
-    (71,    'ETH',          'Ethiopia'                                              ),
-    (72,    'FIN',          'Finland'                                               ),
-    (73,    'FJI',          'Fiji'                                                  ),
-    (74,    'FLK',          'Falkland Islands (Malvinas)'                           ),
-    (75,    'FRA',          'France'                                                ),
-    (76,    'FRO',          'Faroe Islands'                                         ),
-    (77,    'FSM',          'Micronesia, Federated States of'                       ),
-    (78,    'GAB',          'Gabon'                                                 ),
-    (79,    'GBR',          'United Kingdom of Great Britain and Northern Ireland'  ),
-    (80,    'GEO',          'Georgia'                                               ),
-    (81,    'GGY',          'Guernsey'                                              ),
-    (82,    'GHA',          'Ghana'                                                 ),
-    (83,    'GIB',          'Gibraltar'                                             ),
-    (84,    'GIN',          'Guinea'                                                ),
-    (85,    'GLP',          'Guadeloupe'                                            ),
-    (86,    'GMB',          'Gambia'                                                ),
-    (87,    'GNB',          'Guinea-Bissau'                                         ),
-    (88,    'GNQ',          'Equatorial Guinea'                                     ),
-    (89,    'GRC',          'Greece'                                                ),
-    (90,    'GRD',          'Grenada'                                               ),
-    (91,    'GRL',          'Greenland'                                             ),
-    (92,    'GTM',          'Guatemala'                                             ),
-    (93,    'GUF',          'French Guiana'                                         ),
-    (94,    'GUM',          'Guam'                                                  ),
-    (95,    'GUY',          'Guyana'                                                ),
-    (96,    'HKG',          'Hong Kong'                                             ),
-    (97,    'HMD',          'Heard Island and McDonald Islands'                     ),
-    (98,    'HND',          'Honduras'                                              ),
-    (99,    'HRV',          'Croatia'                                               ),
-    (100,   'HTI',          'Haiti'                                                 ),
-    (101,   'HUN',          'Hungary'                                               ),
-    (102,   'IDN',          'Indonesia'                                             ),
-    (103,   'IMN',          'Isle of Man'                                           ),
-    (104,   'IND',          'India'                                                 ),
-    (105,   'IOT',          'British Indian Ocean Territory'                        ),
-    (106,   'IRL',          'Ireland'                                               ),
-    (107,   'IRN',          'Iran, Islamic Republic of'                             ),
-    (108,   'IRQ',          'Iraq'                                                  ),
-    (109,   'ISL',          'Iceland'                                               ),
-    (110,   'ISR',          'Israel'                                                ),
-    (111,   'ITA',          'Italy'                                                 ),
-    (112,   'JAM',          'Jamaica'                                               ),
-    (113,   'JEY',          'Jersey'                                                ),
-    (114,   'JOR',          'Jordan'                                                ),
-    (115,   'JPN',          'Japan'                                                 ),
-    (116,   'KAZ',          'Kazakhstan'                                            ),
-    (117,   'KEN',          'Kenya'                                                 ),
-    (118,   'KGZ',          'Kyrgyzstan'                                            ),
-    (119,   'KHM',          'Cambodia'                                              ),
-    (120,   'KIR',          'Kiribati'                                              ),
-    (121,   'KNA',          'Saint Kitts and Nevis'                                 ),
-    (122,   'KOR',          'Korea, Republic of'                                    ),
-    (123,   'KWT',          'Kuwait'                                                ),
-    (124,   'LAO',          "Lao People's Democratic Republic"                      ),
-    (125,   'LBN',          'Lebanon'                                               ),
-    (126,   'LBR',          'Liberia'                                               ),
-    (127,   'LBY',          'Libya'                                                 ),
-    (128,   'LCA',          'Saint Lucia'                                           ),
-    (129,   'LIE',          'Liechtenstein'                                         ),
-    (130,   'LKA',          'Sri Lanka'                                             ),
-    (131,   'LSO',          'Lesotho'                                               ),
-    (132,   'LTU',          'Lithuania'                                             ),
-    (133,   'LUX',          'Luxembourg'                                            ),
-    (134,   'LVA',          'Latvia'                                                ),
-    (135,   'MAC',          'Macao'                                                 ),
-    (136,   'MAF',          'Saint Martin (French part)'                            ),
-    (137,   'MAR',          'Morocco'                                               ),
-    (138,   'MCO',          'Monaco'                                                ),
-    (139,   'MDA',          "Moldova, Republic of"                                  ),
-    (140,   'MDG',          'Madagascar'                                            ),
-    (141,   'MDV',          'Maldives'                                              ),
-    (142,   'MEX',          'Mexico'                                                ),
-    (143,   'MHL',          'Marshall Islands'                                      ),
-    (144,   'MKD',          'North Macedonia'                                       ),
-    (145,   'MLI',          'Mali'                                                  ),
-    (146,   'MLT',          'Malta'                                                 ),
-    (147,   'MMR',          'Myanmar'                                               ),
-    (148,   'MNE',          'Montenegro'                                            ),
-    (149,   'MNG',          'Mongolia'                                              ),
-    (150,   'MNP',          'Northern Mariana Islands'                              ),
-    (151,   'MOZ',          'Mozambique'                                            ),
-    (152,   'MRT',          'Mauritania'                                            ),
-    (153,   'MSR',          'Montserrat'                                            ),
-    (154,   'MTQ',          'Martinique'                                            ),
-    (155,   'MUS',          'Mauritius'                                             ),
-    (156,   'MWI',          'Malawi'                                                ),
-    (157,   'MYS',          'Malaysia'                                              ),
-    (158,   'MYT',          'Mayotte'                                               ),
-    (159,   'NAM',          'Namibia'                                               ),
-    (160,   'NCL',          'New Caledonia'                                         ),
-    (161,   'NER',          'Niger'                                                 ),
-    (162,   'NFK',          'Norfolk Island'                                        ),
-    (163,   'NGA',          'Nigeria'                                               ),
-    (164,   'NIC',          'Nicaragua'                                             ),
-    (165,   'NIU',          'Niue'                                                  ),
-    (166,   'NLD',          "Netherlands, Kingdom of the"                           ),
-    (167,   'NOR',          'Norway'                                                ),
-    (168,   'NPL',          'Nepal'                                                 ),
-    (169,   'NRU',          'Nauru'                                                 ),
-    (170,   'NZL',          'New Zealand'                                           ),
-    (171,   'OMN',          'Oman'                                                  ),
-    (172,   'PAK',          'Pakistan'                                              ),
-    (173,   'PAN',          'Panama'                                                ),
-    (174,   'PCN',          'Pitcairn'                                              ),
-    (175,   'PER',          'Peru'                                                  ),
-    (176,   'PHL',          'Philippines'                                           ),
-    (177,   'PLW',          'Palau'                                                 ),
-    (178,   'PNG',          'Papua New Guinea'                                      ),
-    (179,   'POL',          'Poland'                                                ),
-    (180,   'PRI',          'Puerto Rico'                                           ),
-    (181,   'PRK',          "Korea, Democratic People's Republic of"                ),
-    (182,   'PRT',          'Portugal'                                              ),
-    (183,   'PRY',          'Paraguay'                                              ),
-    (184,   'PSE',          "Palestine, State of"                                   ),
-    (185,   'PYF',          'French Polynesia'                                      ),
-    (186,   'QAT',          'Qatar'                                                 ),
-    (187,   'REU',          'Réunion'                                               ),
-    (188,   'ROU',          'Romania'                                               ),
-    (189,   'RUS',          'Russian Federation'                                    ),
-    (190,   'RWA',          'Rwanda'                                                ),
-    (191,   'SAU',          'Saudi Arabia'                                          ),
-    (192,   'SDN',          'Sudan'                                                 ),
-    (193,   'SEN',          'Senegal'                                               ),
-    (194,   'SGP',          'Singapore'                                             ),
-    (195,   'SGS',          'South Georgia and the South Sandwich Islands'          ),
-    (196,   'SHN',          "Saint Helena, Ascension and Tristan da Cunha"          ),
-    (197,   'SJM',          'Svalbard and Jan Mayen'                                ),
-    (198,   'SLB',          'Solomon Islands'                                       ),
-    (199,   'SLE',          'Sierra Leone'                                          ),
-    (200,   'SLV',          'El Salvador'                                           ),
-    (201,   'SMR',          'San Marino'                                            ),
-    (202,   'SOM',          'Somalia'                                               ),
-    (203,   'SPM',          'Saint Pierre and Miquelon'                             ),
-    (204,   'SRB',          'Serbia'                                                ),
-    (205,   'SSD',          'South Sudan'                                           ),
-    (206,   'STP',          'Sao Tome and Principe'                                 ),
-    (207,   'SUR',          'Suriname'                                              ),
-    (208,   'SVK',          'Slovakia'                                              ),
-    (209,   'SVN',          'Slovenia'                                              ),
-    (210,   'SWE',          'Sweden'                                                ),
-    (211,   'SWZ',          'Eswatini'                                              ),
-    (212,   'SXM',          'Sint Maarten (Dutch part)'                             ),
-    (213,   'SYC',          'Seychelles'                                            ),
-    (214,   'SYR',          'Syrian Arab Republic'                                  ),
-    (215,   'TCA',          'Turks and Caicos Islands'                              ),
-    (216,   'TCD',          'Chad'                                                  ),
-    (217,   'TGO',          'Togo'                                                  ),
-    (218,   'THA',          'Thailand'                                              ),
-    (219,   'TJK',          'Tajikistan'                                            ),
-    (220,   'TKL',          'Tokelau'                                               ),
-    (221,   'TKM',          'Turkmenistan'                                          ),
-    (222,   'TLS',          'Timor-Leste'                                           ),
-    (223,   'TON',          'Tonga'                                                 ),
-    (224,   'TTO',          'Trinidad and Tobago'                                   ),
-    (225,   'TUN',          'Tunisia'                                               ),
-    (226,   'TUR',          'Türkiye'                                               ),
-    (227,   'TUV',          'Tuvalu'                                                ),
-    (228,   'TWN',          'Taiwan, Province of China'                             ),
-    (229,   'TZA',          'Tanzania, United Republic of'                          ),
-    (230,   'UGA',          'Uganda'                                                ),
-    (231,   'UKR',          'Ukraine'                                               ),
-    (232,   'UMI',          'United States Minor Outlying Islands'                  ),
-    (233,   'URY',          'Uruguay'                                               ),
-    (234,   'USA',          'United States of America'                              ),
-    (235,   'UZB',          'Uzbekistan'                                            ),
-    (236,   'VAT',          'Holy See'                                              ),
-    (237,   'VCT',          'Saint Vincent and the Grenadines'                      ),
-    (238,   'VEN',          "Venezuela, Bolivarian Republic of"                     ),
-    (239,   'VGB',          'Virgin Islands (British)'                              ),
-    (240,   'VIR',          'Virgin Islands (U.S.)'                                 ),
-    (241,   'VNM',          'Viet Nam'                                              ),
-    (242,   'VUT',          'Vanuatu'                                               ),
-    (243,   'WLF',          'Wallis and Futuna'                                     ),
-    (244,   'WSM',          'Samoa'                                                 ),
-    (245,   'YEM',          'Yemen'                                                 ),
-    (246,   'ZAF',          'South Africa'                                          ),
-    (247,   'ZMB',          'Zambia'                                                ),
-    (248,   'ZWE',          'Zimbabwe'                                              );
+    (
+        1,      'ABW',
+        'Aruba'
+    ),
+    (
+        2,      'AFG',
+        'Afghanistan'
+    ),
+    (
+        3,      'AGO',
+        'Angola'
+    ),
+    (
+        4,      'AIA',
+        'Anguilla'
+    ),
+    (
+        5,      'ALA',
+        'Åland Islands'
+    ),
+    (
+        6,      'ALB',
+        'Albania'
+    ),
+    (
+        7,      'AND',
+        'Andorra'
+    ),
+    (
+        8,      'ARE',
+        'United Arab Emirates'
+    ),
+    (
+        9,      'ARG',
+        'Argentina'
+    ),
+    (
+        10,     'ARM',
+        'Armenia'
+    ),
+    (
+        11,     'ASM',
+        'American Samoa'
+    ),
+    (
+        12,     'ATA',
+        'Antarctica'
+    ),
+    (
+        13,     'ATF',
+        'French Southern Territories'
+    ),
+    (
+        14,     'ATG',
+        'Antigua and Barbuda'
+    ),
+    (
+        15,     'AUS',
+        'Australia'
+    ),
+    (
+        16,     'AUT',
+        'Austria'
+    ),
+    (
+        17,     'AZE',
+        'Azerbaijan'
+    ),
+    (
+        18,     'BDI',
+        'Burundi'
+    ),
+    (
+        19,     'BEL',
+        'Belgium'
+    ),
+    (
+        20,     'BFA',
+        'Burkina Faso'
+    ),
+    (
+        21,     'BGD',
+        'Bangladesh'
+    ),
+    (
+        22,     'BGR',
+        'Bulgaria'
+    ),
+    (
+        23,     'BHR',
+        'Bahrain'
+    ),
+    (
+        24,     'BHS',
+        'Bahamas'
+    ),
+    (
+        25,     'BIH',
+        'Bosnia and Herzegovina'
+    ),
+    (
+        26,     'BLM',
+        'Saint Barthélemy'
+    ),
+    (
+        27,     'BLR',
+        'Belarus'
+    ),
+    (
+        28,     'BLZ',
+        'Belize'
+    ),
+    (
+        29,     'BMU',
+        'Bermuda'
+    ),
+    (
+        30,     'BOL',
+        'Bolivia, Plurinational State of'
+    ),
+    (
+        31,     'BRA',
+        'Brazil'
+    ),
+    (
+        32,     'BRB',
+        'Barbados'
+    ),
+    (
+        33,     'BRN',
+        'Brunei Darussalam'
+    ),
+    (
+        34,     'BTN',
+        'Bhutan'
+    ),
+    (
+        35,     'BVT',
+        'Bouvet Island'
+    ),
+    (
+        36,     'BWA',
+        'Botswana'
+    ),
+    (
+        37,     'CAF',
+        'Central African Republic'
+    ),
+    (
+        38,     'CAN',
+        'Canada'
+    ),
+    (
+        39,     'CCK',
+        'Cocos (Keeling) Islands'
+    ),
+    (
+        40,     'CHE',
+        'Switzerland'
+    ),
+    (
+        41,     'CHL',
+        'Chile'
+    ),
+    (
+        42,     'CHN',
+        'China'
+    ),
+    (
+        43,     'CIV',
+        'Côte d'
+    ),
+    (
+        44,     'CMR',
+        'Cameroon'
+    ),
+    (
+        45,     'COD',
+        'Congo, Democratic Republic of the'
+    ),
+    (
+        46,     'COG',
+        'Congo'
+    ),
+    (
+        47,     'COK',
+        'Cook Islands'
+    ),
+    (
+        48,     'COL',
+        'Colombia'
+    ),
+    (
+        49,     'COM',
+        'Comoros'
+    ),
+    (
+        50,     'CPV',
+        'Cabo Verde'
+    ),
+    (
+        51,     'CRI',
+        'Costa Rica'
+    ),
+    (
+        52,     'CUB',
+        'Cuba'
+    ),
+    (
+        53,     'CUW',
+        'Curaçao'
+    ),
+    (
+        54,     'CXR',
+        'Christmas Island'
+    ),
+    (
+        55,     'CYM',
+        'Cayman Islands'
+    ),
+    (
+        56,     'CYP',
+        'Cyprus'
+    ),
+    (
+        57,     'CZE',
+        'Czechia'
+    ),
+    (
+        58,     'DEU',
+        'Germany'
+    ),
+    (
+        59,     'DJI',
+        'Djibouti'
+    ),
+    (
+        60,     'DMA',
+        'Dominica'
+    ),
+    (
+        61,     'DNK',
+        'Denmark'
+    ),
+    (
+        62,     'DOM',
+        'Dominican Republic'
+    ),
+    (
+        63,     'DZA',
+        'Algeria'
+    ),
+    (
+        64,     'ECU',
+        'Ecuador'
+    ),
+    (
+        65,     'EGY',
+        'Egypt'
+    ),
+    (
+        66,     'ERI',
+        'Eritrea'
+    ),
+    (
+        67,     'ESH',
+        'Western Sahara'
+    ),
+    (
+        68,     'ESP',
+        'Spain'
+    ),
+    (
+        69,     'EST',
+        'Estonia'
+    ),
+    (
+        70,     'ETH',
+        'Ethiopia'
+    ),
+    (
+        71,     'FIN',
+        'Finland'
+    ),
+    (
+        72,     'FJI',
+        'Fiji'
+    ),
+    (
+        73,     'FLK',
+        'Falkland Islands (Malvinas)'
+    ),
+    (
+        74,     'FRA',
+        'France'
+    ),
+    (
+        75,     'FRO',
+        'Faroe Islands'
+    ),
+    (
+        76,     'FSM',
+        'Micronesia, Federated States of'
+    ),
+    (
+        77,     'GAB',
+        'Gabon'
+    ),
+    (
+        78,     'GBR',
+        'United Kingdom of Great Britain and Northern Ireland'
+    ),
+    (
+        79,     'GEO',
+        'Georgia'
+    ),
+    (
+        80,     'GGY',
+        'Guernsey'
+    ),
+    (
+        81,     'GHA',
+        'Ghana'
+    ),
+    (
+        82,     'GIB',
+        'Gibraltar'
+    ),
+    (
+        83,     'GIN',
+        'Guinea'
+    ),
+    (
+        84,     'GLP',
+        'Guadeloupe'
+    ),
+    (
+        85,     'GMB',
+        'Gambia'
+    ),
+    (
+        86,     'GNB',
+        'Guinea-Bissau'
+    ),
+    (
+        87,     'GNQ',
+        'Equatorial Guinea'
+    ),
+    (
+        88,     'GRC',
+        'Greece'
+    ),
+    (
+        89,     'GRD',
+        'Grenada'
+    ),
+    (
+        90,     'GRL',
+        'Greenland'
+    ),
+    (
+        91,     'GTM',
+        'Guatemala'
+    ),
+    (
+        92,     'GUF',
+        'French Guiana'
+    ),
+    (
+        93,     'GUM',
+        'Guam'
+    ),
+    (
+        94,     'GUY',
+        'Guyana'
+    ),
+    (
+        95,     'HKG',
+        'Hong Kong'
+    ),
+    (
+        96,     'HMD',
+        'Heard Island and McDonald Islands'
+    ),
+    (
+        97,     'HND',
+        'Honduras'
+    ),
+    (
+        98,     'HRV',
+        'Croatia'
+    ),
+    (
+        99,     'HTI',
+        'Haiti'
+    ),
+    (
+        100,    'HUN',
+        'Hungary'
+    ),
+    (
+        101,    'IDN',
+        'Indonesia'
+    ),
+    (
+        102,    'IMN',
+        'Isle of Man'
+    ),
+    (
+        103,    'IND',
+        'India'
+    ),
+    (
+        104,    'IOT',
+        'British Indian Ocean Territory'
+    ),
+    (
+        105,    'IRL',
+        'Ireland'
+    ),
+    (
+        106,    'IRN',
+        'Iran, Islamic Republic of'
+    ),
+    (
+        107,    'IRQ',
+        'Iraq'
+    ),
+    (
+        108,    'ISL',
+        'Iceland'
+    ),
+    (
+        109,    'ISR',
+        'Israel'
+    ),
+    (
+        110,    'ITA',
+        'Italy'
+    ),
+    (
+        111,    'JAM',
+        'Jamaica'
+    ),
+    (
+        112,    'JEY',
+        'Jersey'
+    ),
+    (
+        113,    'JOR',
+        'Jordan'
+    ),
+    (
+        114,    'JPN',
+        'Japan'
+    ),
+    (
+        115,    'KAZ',
+        'Kazakhstan'
+    ),
+    (
+        116,    'KEN',
+        'Kenya'
+    ),
+    (
+        117,    'KGZ',
+        'Kyrgyzstan'
+    ),
+    (
+        118,    'KHM',
+        'Cambodia'
+    ),
+    (
+        119,    'KIR',
+        'Kiribati'
+    ),
+    (
+        120,    'KNA',
+        'Saint Kitts and Nevis'
+    ),
+    (
+        121,    'KOR',
+        'Korea, Republic of'
+    ),
+    (
+        122,    'KWT',
+        'Kuwait'
+    ),
+    (
+        123,    'LAO',
+        'Lao People'
+    ),
+    (
+        124,    'LBN',
+        'Lebanon'
+    ),
+    (
+        125,    'LBR',
+        'Liberia'
+    ),
+    (
+        126,    'LBY',
+        'Libya'
+    ),
+    (
+        127,    'LCA',
+        'Saint Lucia'
+    ),
+    (
+        128,    'LIE',
+        'Liechtenstein'
+    ),
+    (
+        129,    'LKA',
+        'Sri Lanka'
+    ),
+    (
+        130,    'LSO',
+        'Lesotho'
+    ),
+    (
+        131,    'LTU',
+        'Lithuania'
+    ),
+    (
+        132,    'LUX',
+        'Luxembourg'
+    ),
+    (
+        133,    'LVA',
+        'Latvia'
+    ),
+    (
+        134,    'MAC',
+        'Macao'
+    ),
+    (
+        135,    'MAF',
+        'Saint Martin (French part)'
+    ),
+    (
+        136,    'MAR',
+        'Morocco'
+    ),
+    (
+        137,    'MCO',
+        'Monaco'
+    ),
+    (
+        138,    'MDA',
+        'Moldova'
+    ),
+    (
+        139,    'MDG',
+        'Madagascar'
+    ),
+    (
+        140,    'MDV',
+        'Maldives'
+    ),
+    (
+        141,    'MEX',
+        'Mexico'
+    ),
+    (
+        142,    'MHL',
+        'Marshall Islands'
+    ),
+    (
+        143,    'MKD',
+        'North Macedonia'
+    ),
+    (
+        144,    'MLI',
+        'Mali'
+    ),
+    (
+        145,    'MLT',
+        'Malta'
+    ),
+    (
+        146,    'MMR',
+        'Myanmar'
+    ),
+    (
+        147,    'MNE',
+        'Montenegro'
+    ),
+    (
+        148,    'MNG',
+        'Mongolia'
+    ),
+    (
+        149,    'MNP',
+        'Northern Mariana Islands'
+    ),
+    (
+        150,    'MOZ',
+        'Mozambique'
+    ),
+    (
+        151,    'MRT',
+        'Mauritania'
+    ),
+    (
+        152,    'MSR',
+        'Montserrat'
+    ),
+    (
+        153,    'MTQ',
+        'Martinique'
+    ),
+    (
+        154,    'MUS',
+        'Mauritius'
+    ),
+    (
+        155,    'MWI',
+        'Malawi'
+    ),
+    (
+        156,    'MYS',
+        'Malaysia'
+    ),
+    (
+        157,    'MYT',
+        'Mayotte'
+    ),
+    (
+        158,    'NAM',
+        'Namibia'
+    ),
+    (
+        159,    'NCL',
+        'New Caledonia'
+    ),
+    (
+        160,    'NER',
+        'Niger'
+    ),
+    (
+        161,    'NFK',
+        'Norfolk Island'
+    ),
+    (
+        162,    'NGA',
+        'Nigeria'
+    ),
+    (
+        163,    'NIC',
+        'Nicaragua'
+    ),
+    (
+        164,    'NIU',
+        'Niue'
+    ),
+    (
+        165,    'NLD',
+        'Netherlands'
+    ),
+    (
+        166,    'NOR',
+        'Norway'
+    ),
+    (
+        167,    'NPL',
+        'Nepal'
+    ),
+    (
+        168,    'NRU',
+        'Nauru'
+    ),
+    (
+        169,    'NZL',
+        'New Zealand'
+    ),
+    (
+        170,    'OMN',
+        'Oman'
+    ),
+    (
+        171,    'PAK',
+        'Pakistan'
+    ),
+    (
+        172,    'PAN',
+        'Panama'
+    ),
+    (
+        173,    'PCN',
+        'Pitcairn'
+    ),
+    (
+        174,    'PER',
+        'Peru'
+    ),
+    (
+        175,    'PHL',
+        'Philippines'
+    ),
+    (
+        176,    'PLW',
+        'Palau'
+    ),
+    (
+        177,    'PNG',
+        'Papua New Guinea'
+    ),
+    (
+        178,    'POL',
+        'Poland'
+    ),
+    (
+        179,    'PRI',
+        'Puerto Rico'
+    ),
+    (
+        180,    'PRK',
+        'Korea, Democratic People'
+    ),
+    (
+        181,    'PRT',
+        'Portugal'
+    ),
+    (
+        182,    'PRY',
+        'Paraguay'
+    ),
+    (
+        183,    'PSE',
+        'Palestine'
+    ),
+    (
+        184,    'PYF',
+        'French Polynesia'
+    ),
+    (
+        185,    'QAT',
+        'Qatar'
+    ),
+    (
+        186,    'REU',
+        'Réunion'
+    ),
+    (
+        187,    'ROU',
+        'Romania'
+    ),
+    (
+        188,    'RUS',
+        'Russian Federation'
+    ),
+    (
+        189,    'RWA',
+        'Rwanda'
+    ),
+    (
+        190,    'SAU',
+        'Saudi Arabia'
+    ),
+    (
+        191,    'SDN',
+        'Sudan'
+    ),
+    (
+        192,    'SEN',
+        'Senegal'
+    ),
+    (
+        193,    'SGP',
+        'Singapore'
+    ),
+    (
+        194,    'SGS',
+        'South Georgia and the South Sandwich Islands'
+    ),
+    (
+        195,    'SHN',
+        'Saint Helena'
+    ),
+    (
+        196,    'SJM',
+        'Svalbard and Jan Mayen'
+    ),
+    (
+        197,    'SLB',
+        'Solomon Islands'
+    ),
+    (
+        198,    'SLE',
+        'Sierra Leone'
+    ),
+    (
+        199,    'SLV',
+        'El Salvador'
+    ),
+    (
+        200,    'SMR',
+        'San Marino'
+    ),
+    (
+        201,    'SOM',
+        'Somalia'
+    ),
+    (
+        202,    'SPM',
+        'Saint Pierre and Miquelon'
+    ),
+    (
+        203,    'SRB',
+        'Serbia'
+    ),
+    (
+        204,    'SSD',
+        'South Sudan'
+    ),
+    (
+        205,    'STP',
+        'Sao Tome and Principe'
+    ),
+    (
+        206,    'SUR',
+        'Suriname'
+    ),
+    (
+        207,    'SVK',
+        'Slovakia'
+    ),
+    (
+        208,    'SVN',
+        'Slovenia'
+    ),
+    (
+        209,    'SWE',
+        'Sweden'
+    ),
+    (
+        210,    'SWZ',
+        'Eswatini'
+    ),
+    (
+        211,    'SXM',
+        'Sint Maarten (Dutch part)'
+    ),
+    (
+        212,    'SYC',
+        'Seychelles'
+    ),
+    (
+        213,    'SYR',
+        'Syrian Arab Republic'
+    ),
+    (
+        214,    'TCA',
+        'Turks and Caicos Islands'
+    ),
+    (
+        215,    'TCD',
+        'Chad'
+    ),
+    (
+        216,    'TGO',
+        'Togo'
+    ),
+    (
+        217,    'THA',
+        'Thailand'
+    ),
+    (
+        218,    'TJK',
+        'Tajikistan'
+    ),
+    (
+        219,    'TKL',
+        'Tokelau'
+    ),
+    (
+        220,    'TKM',
+        'Turkmenistan'
+    ),
+    (
+        221,    'TLS',
+        'Timor-Leste'
+    ),
+    (
+        222,    'TON',
+        'Tonga'
+    ),
+    (
+        223,    'TTO',
+        'Trinidad and Tobago'
+    ),
+    (
+        224,    'TUN',
+        'Tunisia'
+    ),
+    (
+        225,    'TUR',
+        'Türkiye'
+    ),
+    (
+        226,    'TUV',
+        'Tuvalu'
+    ),
+    (
+        227,    'TWN',
+        'Taiwan'
+    ),
+    (
+        228,    'TZA',
+        'Tanzania, United Republic of'
+    ),
+    (
+        229,    'UGA',
+        'Uganda'
+    ),
+    (
+        230,    'UKR',
+        'Ukraine'
+    ),
+    (
+        231,    'UMI',
+        'United States Minor Outlying Islands'
+    ),
+    (
+        232,    'URY',
+        'Uruguay'
+    ),
+    (
+        233,    'USA',
+        'United States of America'
+    ),
+    (
+        234,    'UZB',
+        'Uzbekistan'
+    ),
+    (
+        235,    'VAT',
+        'Holy See'
+    ),
+    (
+        236,    'VCT',
+        'Saint Vincent and the Grenadines'
+    ),
+    (
+        237,    'VEN',
+        'Venezuela'
+    ),
+    (
+        238,    'VGB',
+        'Virgin Islands (British)'
+    ),
+    (
+        239,    'VIR',
+        'Virgin Islands (U.S.)'
+    ),
+    (
+        240,    'VNM',
+        'Viet Nam'
+    ),
+    (
+        241,    'VUT',
+        'Vanuatu'
+    ),
+    (
+        242,    'WLF',
+        'Wallis and Futuna'
+    ),
+    (
+        243,    'WSM',
+        'Samoa'
+    ),
+    (
+        244,    'YEM',
+        'Yemen'
+    ),
+    (
+        245,    'ZAF',
+        'South Africa'
+    ),
+    (
+        246,    'ZMB',
+        'Zambia'
+    ),
+    (
+        247,    'ZWE',
+        'Zimbabwe'
+    );
 
 -- +------------+
 -- | languages  |
@@ -672,68 +1314,206 @@ DROP TABLE IF EXISTS `languages`;
 
 CREATE TABLE `languages`(
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique language ID',
-    `abbreviation` VARCHAR(3) NOT NULL UNIQUE COMMENT 'language code BCP 47',
+    `abbreviation` VARCHAR(5) NOT NULL UNIQUE COMMENT 'language code BCP 47',
     `name` VARCHAR(50) NOT NULL UNIQUE COMMENT 'language name and region'
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'Supported languages';
+    COMMENT 'Supported languages';
 
 INSERT INTO `languages`
     (`id`,  `abbreviation`, `name`                          )
 VALUES
-    (0,     'ar_SA',        'Arabic (Saudi Arabia)'         ),
-    (1,     'bn_BD',        'Bangla (Bangladesh)'           ),
-    (2,     'bn_IN',        'Bangla (India)'                ),
-    (3,     'cs_CZ',        'Czech (Czech Republic)'        ),
-    (4,     'da_DK',        'Danish (Denmark)'              ),
-    (5,     'de_AT',        'Austrian German'               ),
-    (6,     'de_CH',        'Swiss German'                  ),
-    (7,     'de_DE',        'Standard German'               ),
-    (8,     'el_GR',        'Modern Greek'                  ),
-    (9,     'en_AU',        'Australian English'            ),
-    (10,    'en_CA',        'Canadian English'              ),
-    (11,    'en_GB',        'Kingdom British English'       ),
-    (12,    'en_IE',        'Irish English'                 ),
-    (13,    'en_IN',        'Indian English'                ),
-    (14,    'en_NZ',        'Zealand New Zealand English'   ),
-    (15,    'en_US',        'States US English'             ),
-    (16,    'en_ZA',        'English (South Africa)'        ),
-    (17,    'es_AR',        'Argentine Spanish'             ),
-    (18,    'es_CL',        'Chilean Spanish'               ),
-    (19,    'es_CO',        'Colombian Spanish'             ),
-    (20,    'es_ES',        'Castilian Spanish'             ),
-    (21,    'es_MX',        'Mexican Spanish'               ),
-    (22,    'es_US',        'American Spanish'              ),
-    (25,    'fr_CA',        'Canadian French'               ),
-    (26,    'fr_CH',        'Swiss French'                  ),
-    (27,    'fr_FR',        'Standard French'               ),
-    (28,    'he_IL',        'Hebrew (Israel)'               ),
-    (29,    'hi_IN',        'Hindi (India)'                 ),
-    (30,    'hu_HU',        'Hungarian (Hungary)'           ),
-    (31,    'id_ID',        'Indonesian (Indonesia)'        ),
-    (32,    'it_CH',        'Swiss Italian'                 ),
-    (33,    'it_IT',        'Standard Italian'              ),
-    (34,    'ja_JP',        'Japanese (Japan)'              ),
-    (35,    'ko_KR',        'Korean (Republic of Korea)'    ),
-    (36,    'nl_BE',        'Belgian Dutch'                 ),
-    (37,    'nl_NL',        'Standard Dutch'                ),
-    (38,    'no_NO',        'Norwegian (Norway)'            ),
-    (39,    'pl_PL',        'Polish (Poland)'               ),
-    (40,    'pt_BR',        'Brazilian Portuguese'          ),
-    (41,    'pt_PT',        'European Portuguese'           ),
-    (42,    'ro_RO',        'Romanian (Romania)'            ),
-    (43,    'ru_RU',        'Russian (Russian Federation)'  ),
-    (44,    'sk_SK',        'Slovak (Slovakia)'             ),
-    (45,    'sv_SE',        'Swedish (Sweden)'              ),
-    (46,    'ta_IN',        'Indian Tamil'                  ),
-    (47,    'ta_LK',        'Sri Lankan Tamil'              ),
-    (48,    'th_TH',        'Thai (Thailand)'               ),
-    (49,    'tr_TR',        'Turkish (Turkey)'              ),
-    (50,    'zh_CN',        'Chinese (China)'               ),
-    (51,    'zh_HK',        'Chinese (Hong Kong)'           ),
-    (52,    'zh_TW',        'Chinese (Taiwan)'              );
+    (1,     'ar_SA',        'Arabic (Saudi Arabia)'         ),
+    (2,     'bn_BD',        'Bangla (Bangladesh)'           ),
+    (3,     'bn_IN',        'Bangla (India)'                ),
+    (4,     'cs_CZ',        'Czech (Czech Republic)'        ),
+    (5,     'da_DK',        'Danish (Denmark)'              ),
+    (6,     'de_AT',        'Austrian German'               ),
+    (7,     'de_CH',        'Swiss German'                  ),
+    (8,     'de_DE',        'Standard German'               ),
+    (9,     'el_GR',        'Modern Greek'                  ),
+    (10,    'en_AU',        'Australian English'            ),
+    (11,    'en_CA',        'Canadian English'              ),
+    (12,    'en_GB',        'Kingdom British English'       ),
+    (13,    'en_IE',        'Irish English'                 ),
+    (14,    'en_IN',        'Indian English'                ),
+    (15,    'en_NZ',        'New Zealand English'           ),
+    (16,    'en_US',        'States US English'             ),
+    (17,    'en_ZA',        'English (South Africa)'        ),
+    (18,    'es_AR',        'Argentine Spanish'             ),
+    (19,    'es_CL',        'Chilean Spanish'               ),
+    (20,    'es_CO',        'Colombian Spanish'             ),
+    (21,    'es_ES',        'Castilian Spanish'             ),
+    (22,    'es_MX',        'Mexican Spanish'               ),
+    (23,    'es_US',        'American Spanish'              ),
+    (24,    'fr_CA',        'Canadian French'               ),
+    (25,    'fr_CH',        'Swiss French'                  ),
+    (26,    'fr_FR',        'Standard French'               ),
+    (27,    'he_IL',        'Hebrew (Israel)'               ),
+    (28,    'hi_IN',        'Hindi (India)'                 ),
+    (29,    'hu_HU',        'Hungarian (Hungary)'           ),
+    (30,    'id_ID',        'Indonesian (Indonesia)'        ),
+    (31,    'it_CH',        'Swiss Italian'                 ),
+    (32,    'it_IT',        'Standard Italian'              ),
+    (33,    'ja_JP',        'Japanese (Japan)'              ),
+    (34,    'ko_KR',        'Korean (Republic of Korea)'    ),
+    (35,    'nl_BE',        'Belgian Dutch'                 ),
+    (36,    'nl_NL',        'Standard Dutch'                ),
+    (37,    'no_NO',        'Norwegian (Norway)'            ),
+    (38,    'pl_PL',        'Polish (Poland)'               ),
+    (39,    'pt_BR',        'Brazilian Portuguese'          ),
+    (40,    'pt_PT',        'European Portuguese'           ),
+    (41,    'ro_RO',        'Romanian (Romania)'            ),
+    (42,    'ru_RU',        'Russian (Russian Federation)'  ),
+    (43,    'sk_SK',        'Slovak (Slovakia)'             ),
+    (44,    'sv_SE',        'Swedish (Sweden)'              ),
+    (45,    'ta_IN',        'Indian Tamil'                  ),
+    (46,    'ta_LK',        'Sri Lankan Tamil'              ),
+    (47,    'th_TH',        'Thai (Thailand)'               ),
+    (48,    'tr_TR',        'Turkish (Turkey)'              ),
+    (49,    'zh_CN',        'Chinese (China)'               ),
+    (50,    'zh_HK',        'Chinese (Hong Kong)'           ),
+    (51,    'zh_TW',        'Chinese (Taiwan)'              );
+
+-- +----------------+
+-- | request_types  |
+-- +----------------+
+
+CREATE TABLE `request_types`(
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique request type ID',
+    `type` VARCHAR(50) NOT NULL UNIQUE COMMENT 'request type'
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'types of requests';
+
+INSERT INTO `request_types`
+    (`id`,  `type`              )
+VALUES
+    (1,     'promotion'         ),
+    (2,     'salary_increase'   ),
+    (3,     'quit'              ),
+    (4,     'change_department' ),
+    (5,     'change_team'       ),
+    (6,     'create_department' ),
+    (7,     'create_team'       ),
+    (8,     'leave'             ),
+    (9,     'personal_leave'    ),
+    (10,    'sick_leave'        ),
+    (11,    'annual_leave'      ),
+    (12,    'maternity_leave'   ),
+    (13,    'paternity_leave'   ),
+    (14,    'official_leave'    ),
+    (15,    'funeral_leave'     ),
+    (16,    'menstrual_leave'   ),
+    (17,    'marriage_leave'    ),
+    (18,    'unpaid_leave'      ),
+    (19,    'paid_leave'        ),
+    (20,    'parental_leave'    ),
+    (21,    'temporary_break'   ),
+    (22,    'work_overtime'     ),
+    (23,    'negotiate'         ),
+    (24,    'meeting'           );
+                
+-- +----------------+
+-- | request_status |
+-- +----------------+
+
+CREATE TABLE `request_status`(
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique request status ID',
+    `type` VARCHAR(50) NOT NULL UNIQUE COMMENT 'request status type'
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'status values for requests';
+
+INSERT INTO `request_status`
+    (`id`,  `type`              )
+VALUES
+    (1,     'pending'           ),
+    (2,     'approved'          ),
+    (3,     'rejected'          ),
+    (4,     'need_negotiate'    );
+
+-- +--------+
+-- | roles  |
+-- +--------+
+
+CREATE TABLE `roles`(
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique role ID',
+    `name` VARCHAR(20) NOT NULL UNIQUE COMMENT 'role name'
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'user roles and job positions';
+
+INSERT INTO `roles`
+    (`id`,  `name`          )
+VALUES
+    (1,     'chairperson'   ),
+    (2,     'director'      ),
+    (3,     'ceo'           ),
+    (4,     'clo'           ),
+    (5,     'cto'           ),
+    (6,     'coo'           ),
+    (7,     'cfo'           ),
+    (8,     'cmo'           ),
+    (9,     'cso'           ),
+    (10,    'chro'          ),
+    (11,    'cio'           ),
+    (12,    'cco'           ),
+    (13,    'manager'       ),
+    (14,    'employee'      );
+          
+-- +------------+
+-- | log types  |
+-- +------------+
+
+CREATE TABLE `log_types`(
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique log type ID',
+    `type` VARCHAR(50) NOT NULL UNIQUE COMMENT 'type of log event'
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'types of event logs';
+
+INSERT INTO `log_types`
+    (`id`,  `type`              )
+VALUES
+    (1,     'register'          ),
+    (2,     'login'             ),
+    (3,     'logout'            ),
+    (4,     'reset_password'    ),
+    (5,     'update_info'       ),
+    (6,     'view_info'         ),
+    (7,     'report_data'       ),
+    (8,     'upload_data'       ),
+    (9,     'create_department' ),
+    (10,    'update_department' ),
+    (11,    'delete_department' ),
+    (12,    'create_team'       ),
+    (13,    'update_team'       ),
+    (14,    'delete_team'       ),
+    (15,    'create_role'       ),
+    (16,    'update_role'       ),
+    (17,    'delete_role'       ),
+    (18,    'update_user'       ),
+    (19,    'delete_user'       ),
+    (20,    'create_skill'      ),
+    (21,    'update_skill'      ),
+    (22,    'delete_skill'      ),
+    (23,    'send_request'      ),
+    (24,    'view_request'      ),
+    (25,    'approve_request'   ),
+    (26,    'reject_request'    ),
+    (27,    'send_message'      ),
+    (28,    'read_message'      );
 
 -- +----------------------------------------+
 -- | departments, teams and roles tables    |
@@ -747,45 +1527,58 @@ DROP TABLE IF EXISTS `departments`;
 
 CREATE TABLE `departments`(
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique department ID',
-    `officer_id` BIGINT UNSIGNED COMMENT 'officer of the department',
     `name` VARCHAR(100) NOT NULL UNIQUE COMMENT 'department name',
     `description` TEXT NOT NULL COMMENT 'department description',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation timestamp',
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update timestamp',
-
-    CONSTRAINT `fk_departments_officer`
-        FOREIGN KEY(`officer_id`)
-        REFERENCES `users`(`id`)
-        ON DELETE CASCADE
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update timestamp'
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'departments in the company';
+    COMMENT 'departments in the company';
 
 INSERT INTO `departments`
-    (`id`,  `officer_id`,   `name`,
-     `description`                                                     )
+    (
+        `id`,   `name`,
+        `description`
+    )
 VALUES
-    (0,     4,              'legal department', 
-     'Manage legal affairs, ensuring compliance, handling contracts, IP, litigation, and risk management to protect the company from legal risks.'     ),
-    (1,     14,             'technical department',
-     'Develops, implements, and maintains tech solutions, focusing on software, hardware, IT infrastructure, and cybersecurity.'                  ),
-    (2,     27,             'operations department',
-     'Optimize daily processes, logistics, and resource management to ensure smooth business operations, efficiency, and quality.'                    ),
-    (3,     35,             'financial department',
-     'Oversee budgeting, accounting, payroll, financial reporting, and ensures compliance with financial regulations to maintain the company'    ),
-    (4,     42,             'marketing department',
-     'Promote the company''s products/services, manages advertising, market research, and digital strategies to enhance brand visibility.'    ),
-    (5,     52,             'strategy & innovation department',
-     'Define long-term strategy, explores new opportunities, and drives innovation through research, planning, and business development.'            ),
-    (6,     59,             'human resources department',
-     'Handle recruitment, training, performance, employee relations, and benefits to build a productive, aligned workforce.'                           ),
-    (7,     69,             'IT department',
-     'Manage network, data security, software, and provides IT support to ensure smooth operation and efficient tools for employees.'              ),
-    (8,     79,             'compliance & risk department',
-     'Monitor adherence to laws and internal policies, conducts risk assessments, and develops strategies to minimize legal and financial risks.'   );
-
+    (
+        1,      'legal department', 
+        'Manage legal affairs, ensuring compliance, handling contracts, IP, litigation, and risk management to protect the company from legal risks.'
+    ),
+    (
+        2,      'technical department',
+        'Develops, implements, and maintains tech solutions, focusing on software, hardware, IT infrastructure, and cybersecurity.'
+    ),
+    (
+        3,      'operations department',
+        'Optimize daily processes, logistics, and resource management to ensure smooth business operations, efficiency, and quality.'
+    ),
+    (
+        4,      'financial department',
+        'Oversee budgeting, accounting, payroll, financial reporting, and ensures compliance with financial regulations to maintain the company'
+    ),
+    (
+        5,      'marketing department',
+        'Promote the company'
+    ),
+    (
+        6,      'strategy & innovation department',
+        'Define long-term strategy, explores new opportunities, and drives innovation through research, planning, and business development.'
+    ),
+    (
+        7,      'human resources department',
+        'Handle recruitment, training, performance, employee relations, and benefits to build a productive, aligned workforce.'
+    ),
+    (
+        8,      'IT department',
+        'Manage network, data security, software, and provides IT support to ensure smooth operation and efficient tools for employees.'
+    ),
+    (
+        9,      'compliance & risk department',
+        'Monitor adherence to laws and internal policies, conducts risk assessments, and develops strategies to minimize legal and financial risks.'
+    );
 
 -- +--------+
 -- | teams  |
@@ -795,17 +1588,12 @@ DROP TABLE IF EXISTS `teams`;
 
 CREATE TABLE `teams`(
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique team ID',
-    `manager_id` BIGINT UNSIGNED NOT NULL COMMENT 'manager of the team',
     `department_id` INT UNSIGNED NOT NULL COMMENT 'department of the team',
     `name` VARCHAR(100) NOT NULL UNIQUE COMMENT 'team name',
     `description` TEXT COMMENT 'team description',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation timestamp',
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update timestamp',
 
-    CONSTRAINT `fk_teams_manager`
-        FOREIGN KEY(`manager_id`)
-        REFERENCES `users`(`id`)
-        ON DELETE CASCADE,
     CONSTRAINT `fk_teams_department`
         FOREIGN KEY(`department_id`)
         REFERENCES `departments`(`id`)
@@ -814,95 +1602,142 @@ CREATE TABLE `teams`(
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'teams within departments';
+    COMMENT 'teams within departments';
 
 INSERT INTO `teams`
-    (`id`,  `manager_id`,   `department_id`,    `name`,
-     `description`)
+    (
+        `id`,   `department_id`,    `name`,
+        `description`
+    )
 VALUES
-    (0,     5, 0, 'copyright team',
-     'Protect the company''s intellectual property and manages copyright issues.'),
-    (1,     8, 0, 'litigation team',
-     'Handle legal disputes and represents the company in court.'),
-    (2,     11, 0, 'compliance team',
-     'Ensure company practices align with laws and regulations.'),
-    (3,     15, 1, 'backend development team',
-     'Build and maintains server-side logic, APIs, and database systems.'),
-    (4,     20, 1, 'frontend development team',
-     'Design and develops user interfaces for web and mobile platforms.'),
-    (5,     22, 1, 'data science team',
-     'Analyze data to support decision-making and build intelligent systems.'),
-    (6,     24, 1, 'security team',
-     'Protect systems from cyber threats and ensures data integrity.'),
-    (7,     28, 2, 'logistics team',
-     'Manage supply chains, inventory, and product distribution.'),
-    (8,     31, 2, 'project management team',
-     'Plan, execute, and monitor projects to ensure timely delivery.'),
-    (9,    36, 3, 'accounting team',
-     'Manage financial records, reporting, and ensures compliance with standards.'),
-    (10,    39, 3, 'investment team',
-     'Oversee company investments and develops financial growth strategies.'),
-    (11,    43, 4, 'advertisement team',
-     'Design ad campaigns to boost brand awareness and product reach.'),
-    (12,    46, 4, 'market research team',
-     'Study market trends and consumer needs to guide strategy.'),
-    (13,    49, 4, 'digital marketing team',
-     'Promote the brand through digital platforms like social media and SEO.'),
-    (14,    53, 5, 'innovation team',
-     'Explore new ideas and technologies to improve products or services.'),
-    (15,    56, 5, 'business development team',
-     'Identify growth opportunities and builds strategic partnerships.'),
-    (16,    60, 6, 'recruitment team',
-     'Attract, interview, and hire top talent for the organization.'),
-    (17,    63, 6, 'training team',
-     'Develop programs to enhance employee skills and growth.'),
-    (18,    66, 6, 'employee relations team',
-     'Manage workplace issues and fosters a positive culture.'),
-    (19,    70, 7, 'network infrastructure team',
-     'Design and maintains network systems and hardware.'),
-    (20,    73, 7, 'software development team',
-     'Build internal tools and systems to support operations.'),
-    (21,    76, 7, 'it support team',
-     'Provide tech support and troubleshooting for all staff.'),
-    (22,    80, 8, 'risk management team',
-     'Assess and mitigates business and operational risks.');
-    (23,    83, 8, 'audit team',
-     'Review internal processes to ensure accuracy and legal compliance.');
+    (
+        1,      1,                  'copyright team',
+        'Protect the company'
+    ),
+    (
+        2,      1,                  'litigation team',
+        'Handle legal disputes and represents the company in court.'
+    ),
+    (
+        3,      1,                  'compliance team',
+        'Ensure company practices align with laws and regulations.'
+    ),
+    (
+        4,      2,                  'backend development team',
+        'Build and maintains server-side logic, APIs, and database systems.'
+    ),
+    (
+        5,      2,                  'frontend development team',
+        'Design and develops user interfaces for web and mobile platforms.'
+    ),
+    (
+        6,      2,                  'data science team',
+        'Analyze data to support decision-making and build intelligent systems.'
+    ),
+    (
+        7,      2,                  'security team',
+        'Protect systems from cyber threats and ensures data integrity.'
+    ),
+    (
+        8,      3,                  'logistics team',
+        'Manage supply chains, inventory, and product distribution.'
+    ),
+    (
+        9,      3,                  'project management team',
+        'Plan, execute, and monitor projects to ensure timely delivery.'
+    ),
+    (
+        10,     4,                  'accounting team',
+        'Manage financial records, reporting, and ensures compliance with standards.'
+    ),
+    (
+        11,     4,                  'investment team',
+        'Oversee company investments and develops financial growth strategies.'
+    ),
+    (
+        12,     5,                  'advertisement team',
+        'Design ad campaigns to boost brand awareness and product reach.'
+    ),
+    (
+        13,     5,                  'market research team',
+        'Study market trends and consumer needs to guide strategy.'
+    ),
+    (
+        14,     5,                  'digital marketing team',
+        'Promote the brand through digital platforms like social media and SEO.'
+    ),
+    (
+        15,     6,                  'innovation team',
+        'Explore new ideas and technologies to improve products or services.'
+    ),
+    (
+        16,     6,                  'business development team',
+        'Identify growth opportunities and builds strategic partnerships.'
+    ),
+    (
+        17,     7,                  'recruitment team',
+        'Attract, interview, and hire top talent for the organization.'
+    ),
+    (
+        18,     7,                  'training team',
+        'Develop programs to enhance employee skills and growth.'
+    ),
+    (
+        19,     7,                  'employee relations team',
+        'Manage workplace issues and fosters a positive culture.'
+    ),
+    (
+        20,     8,                  'network infrastructure team',
+        'Design and maintains network systems and hardware.'
+    ),
+    (
+        21,     8,                  'software development team',
+        'Build internal tools and systems to support operations.'
+    ),
+    (
+        22,     8,                  'it support team',
+        'Provide tech support and troubleshooting for all staff.'
+    ),
+    (
+        23,     9,                  'risk management team',
+        'Assess and mitigates business and operational risks.'
+    ),
+    (
+        24,     9,                  'audit team',
+        'Review internal processes to ensure accuracy and legal compliance.'
+    );
 
--- +----------------+
--- | roles Table    |
--- +----------------+
+-- +------------+
+-- | file types |
+-- +------------+
 
-CREATE TABLE `roles`(
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique role ID',
-    `name` VARCHAR(20) NOT NULL UNIQUE COMMENT 'role name'
+CREATE TABLE `file_types`(
+    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique file type ID',
+    `abbreviation` VARCHAR(10) NOT NULL UNIQUE COMMENT 'file type short code',
+    `name` VARCHAR(50) NOT NULL UNIQUE COMMENT 'file type name'
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'user roles and job positions';
+    COMMENT 'supported upload and report file types';
 
-INSERT INTO `roles`
-    (`id`,  `name`          )
+INSERT INTO `file_types`
+    (`id`,  `abbreviation`,    `name`                   )
 VALUES
-    (0,     'chairperson'   ),
-    (1,     'director'      ),
-    (2,     'ceo'           ),
-    (3,     'clo'           ),
-    (4,     'cto'           ),
-    (5,     'coo'           ),
-    (6,     'cfo'           ),
-    (7,     'cmo'           ),
-    (8,     'cso'           ),
-    (9,     'chro'          ),
-    (10,    'cio'           ),
-    (11,    'cco'           );
-    (12,    'manager'       );
-    (13,    'employee'      );
+    (1,     'excel',           'Microsoft Excel'        ),
+    (2,     'sheet',           'Google Sheet'           ),
+    (3,     'md',              'Markdown'               ),
+    (4,     'latex',           'LaTeX'                  ),
+    (5,     'csv',             'Comma Separated values' ),
+    (6,     'tsv',             'Tab Separated Values'   );
 
--- +================+
--- | users Table    |
--- +================+
+-- +------------+
+-- | log tables |
+-- +------------+
+
+-- +--------+
+-- | users  |
+-- +--------+
 
 CREATE TABLE `users`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique user ID',
@@ -917,13 +1752,13 @@ CREATE TABLE `users`(
     `department_id` INT UNSIGNED DEFAULT NULL COMMENT 'department ID defined in departments table',
     `team_id` INT UNSIGNED DEFAULT NULL COMMENT 'team ID defined in teams table',
     `role_id` INT UNSIGNED NOT NULL COMMENT 'role ID defined in roles table',
-    `hire_date` DATE NOT NULL DEFAULT CURRENT_DATE COMMENT 'user hired date',
+    `hire_date` DATE DEFAULT NULL COMMENT 'user hired date',
     `salary` DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'user salary',
-    `currency_id` INT UNSIGNED NOT NULL DEFAULT 140 COMMENT 'display currency ID defined in currencies table, default is USD',
-    `first_language_id` INT UNSIGNED NOT NULL DEFAULT 15 COMMENT 'user''s first language defined in languages table, default is en_US',
+    `currency_id` INT UNSIGNED NOT NULL DEFAULT 141 COMMENT 'display currency ID defined in currencies table, default is USD',
+    `first_language_id` INT UNSIGNED NOT NULL DEFAULT 16 COMMENT 'user''s first language defined in languages table, default is en_US',
     `second_language_id` INT UNSIGNED DEFAULT NULL COMMENT 'user''s second language defined in languages table, default is NULL',
     `third_language_id` INT UNSIGNED DEFAULT NULL COMMENT 'user''s third language defined in languages table, default is NULL',
-    `first_nationality_id` INT UNSIGNED DEFAULT 234 COMMENT 'user''s first nationality id defined in nationalities table, default is USA',
+    `first_nationality_id` INT UNSIGNED DEFAULT 235 COMMENT 'user''s first nationality id defined in nationalities table, default is USA',
     `second_nationality_id` INT UNSIGNED DEFAULT NULL COMMENT 'user''s second nationality id defined in nationalities table, default is NULL',
     `status` BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'account status, enable/disable',
     `icon` VARCHAR(255) DEFAULT NULL COMMENT 'user icon URL/path',
@@ -979,213 +1814,978 @@ CREATE TABLE `users`(
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT = 'company employees';
+    COMMENT 'company employees';
 
-INSERT INTO `users` 
+INSERT INTO `users`
 (
-  `id`, `username`, `password`, `first_name`, `last_name`, `gender_id`, `email`, `phone`, `diploma_id`, 
-  `department_id`, `team_id`, `role_id`, `hire_date`, `salary`, `currency_id`, `first_language_id`, 
-  `second_language_id`, `third_language_id`, `first_nationality_id`, `second_nationality_id`, 
-  `status`, `icon`, `description`, `created_at`, `updated_at`
-) VALUES
-(0, 'chairperson_caesar', '$2b$12$rH9e.zA8OSgih7v4QreUrOHJtNBkfjyQN1DrnzOR9qJlP1VyKSARS', 'Caesar', 'Lee', 1, 'ceasar_native@cjl.com', '12345678900', 33,
- NULL, NULL, 0, '2025-01-01', 300000, 147, 52, 15, NULL, 228, 234, TRUE, NULL, NULL, '2025-01-01 00:00:00', '2025-01-01 00:00:00'),
-(1, 'director_alice', '$2b$12$4MuHfjzYWSesQEHPXVwHv.NWtBWGf5BkLqfB34hj4oJDtaYATyL/q', 'Alice', 'Jackson', 2, 'alice_director@cjl.com', '12345678901', 33,
- NULL, NULL, 1, '2025-01-01', 300000, 141, 15, NULL, NULL, 234, NULL, TRUE, NULL, NULL, '2025-01-01 00:00:00', '2025-01-01 00:00:00'),
-(2, 'director_john', '$2b$12$5zQPjFSSGJvnl1RLl0GLGeEKL3RYy4D4Nlbtt.fkSxm0SEsdKeUyi', 'John', 'Lawrence', 0, 'john_investor@cjl.com', '525512345678', 17,
- NULL, NULL, 1, '2025-01-01', 300000, 93, 20, 15, NULL, 142, 234, TRUE, NULL, NULL, '2025-01-01 00:00:00', '2025-01-01 00:00:00'),
-(3, 'ceo_caesar', '$2b$12$cOaJkI.UtH6c8JGdGQjbaO3tbE7l0PeRYxGzjyAprQkoVyvcAJTv2', 'Caesar', 'Lee', 1, 'ceasar_ceo@cjl.com', '886912345678', 33,
- NULL, NULL, 2, '2025-01-01', 300000, 137, 52, 15, NULL, 228, 234, TRUE, NULL, NULL, '2025-01-01 00:00:00', '2025-01-01 00:00:00'),
-(4, 'fox_lawyer', '$2b$12$W7Ovvzni.3022oRiJmJE8OXyetRY1j.ee9r9ZVTKW4qePWVL3NTzW', 'Steve', 'Washington', 9, 'fox_lawyer@cjl.com', '12345678902', 1,
- 0, NULL, 3, '2025-01-02', 200000, 141, 15, NULL, NULL, 234, NULL, TRUE, NULL, NULL, '2025-01-02 00:00:00', '2025-01-02 00:00:00'),
-(5, 'frank_smith_legal_copyright_manager', '$2b$12$PQCemJZSk837oN3zDlvCBeLKMcYF832ywqQ0gq5s82DoHBqCxPizG', 'Frank', 'Smith', 8, 'frank_smith_legal_copyright_manager@cjl.com', '12345678903', 1,
- 0, 0, 3, '2025-01-02', 150000, 141, 15, NULL, NULL, 234, NULL, TRUE, NULL, NULL, '2025-01-02 00:00:00', '2025-01-02 00:00:00'),
-(6, 'frank_smith_loves_steam', '$2b$12$0HiSDI1KM1ZEkmmSo2Gox.FHu9aZZvtWgzusG6ySD4SXeQr73GteK', 'Frank', 'Smith', 14, 'frank_smith_lawyer@cjl.com', '12345678904', 1,
- 0, 0, 11, '2025-01-03', 150000, 141, 15, NULL, NULL, 234, NULL, TRUE, NULL, NULL, '2025-01-03 00:00:00', '2025-01-03 00:00:00'),
-(7, 'uzumaki_naruto_ninja', '$2b$12$D/TDCEgDt6xefjumLz2Iou7jqcHn6z7XS6rRIM63I.yBm7p.B8eqq', 'Naruto', 'Uzumaki', 11, 'naruto_ninja@cjl.com', '813123445678', 1,
- 0, 0, 11, '2025-01-02', 100000, 66, 34, 15, NULL, 119, NULL, TRUE, NULL, NULL, '2025-01-02 00:00:00', '2025-01-02 00:00:00'),
-(8, 'jessica_bp', '$2b$12$mLfj06n.oEmLba9bvYD/PemnTx18XCUy/yIzu7a5FZpPymTqCmsym', 'Jessica', 'Lee', 3, 'jessica_blackpink@cjl.com', '12345678905', 1,
- 0, 1, 3, '2025-01-02', 120000, 141, 15, 35, NULL, 234, NULL, TRUE, NULL, NULL, '2025-01-02 00:00:00', '2025-01-02 00:00:00'),
-(9, 'clark_sm', '$2b$12$8XxQumDVN9zoj9InQJLKoeJ//NJ5tMdCpk0XGBsXQTYehlMk1LBym', 'Clark', 'Smith', 0, 'clark_on_planet_krypton@cjl.com', '12345678906', 1,
- 0, 1, 11, '2025-01-02', 100000, 141, 15, NULL, NULL, 234, NULL, TRUE, NULL, NULL, '2025-01-02 00:00:00', '2025-01-02 00:00:00');
+    `id`,   `username`,
+    `password`,
+    `first_name`,   `last_name`,    `gender_id`,    `email`,
+    `phone`,        `diploma_id`,   `department_id`,    `team_id`,  `role_id`,
+    `hire_date`,    `salary`,   `currency_id`,  `first_language_id`,
+    `second_language_id`,   `third_language_id`,    `first_nationality_id`,
+    `second_nationality_id`,    `status`
+)
+VALUES
+(
+    1,      'chairperson_caesar',
+    '$2b$12$rH9e.zA8OSgih7v4QreUrOHJtNBkfjyQN1DrnzOR9qJlP1VyKSARS',
+    'Caesar',       'Lee',          2,              'ceasar_cofounder@cjl.com',
+    '12345678900',  34,             NULL,               NULL,       1,
+    '2025-01-01',   300000.00,  148,            51,
+    16,                     NULL,                   227,
+    233,                        TRUE
+),
+(
+    2,      'director_alice',
+    '$2b$12$4MuHfjzYWSesQEHPXVwHv.NWtBWGf5BkLqfB34hj4oJDtaYATyL/q',
+    'Alice',        'Jackson',      4,              'alice_cofounder@cjl.com',
+    '12345678901',  34,             NULL,               NULL,       2,
+    '2025-01-01',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    3,      'director_john',
+    '$2b$12$5zQPjFSSGJvnl1RLl0GLGeEKL3RYy4D4Nlbtt.fkSxm0SEsdKeUyi',
+    'John',         'Lawrence',     1,              'john_investor@cjl.com',
+    '525512345678', 18,             NULL,               NULL,       2,
+    '2025-01-01',   300000.00,  94,             22,
+    16,                     NULL,                   141,
+    235,                        TRUE
+),
+(
+    4,      'ceo_caesar',
+    '$2b$12$cOaJkI.UtH6c8JGdGQjbaO3tbE7l0PeRYxGzjyAprQkoVyvcAJTv2',
+    'Caesar',       'Lee',          2,              'ceasar_ceo@cjl.com',
+    '886912345678', 34,             NULL,               NULL,       3,
+    '2025-01-01',   300000.00,  138,            51,
+    16,                     NULL,                   229,
+    233,                        TRUE
+),
+(
+    5,      'fox_lawyer',
+    '$2b$12$W7Ovvzni.3022oRiJmJE8OXyetRY1j.ee9r9ZVTKW4qePWVL3NTzW',
+    'Steve',        'Washington',   10,             'fox_lawyer@cjl.com',
+    '12345678902',  2,              1,                  NULL,       4,
+    '2025-01-02',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    6,      'frank_smith_legal_copyright_manager',
+    '$2b$12$PQCemJZSk837oN3zDlvCBeLKMcYF832ywqQ0gq5s82DoHBqCxPizG',
+    'Frank',        'Smith',        9,              'frank_smith_legal_copyright_manager@cjl.com',
+    '12345678903',  2,              1,                  1,          4,
+    '2025-01-02',   150000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    7,      'frank_smith_loves_steam',
+    '$2b$12$0HiSDI1KM1ZEkmmSo2Gox.FHu9aZZvtWgzusG6ySD4SXeQr73GteK',
+    'Frank',        'Smith',        15,             'frank_smith_lawyer@cjl.com',
+    '12345678904',  2,              1,                  1,          12,
+    '2025-01-03',   150000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    8,      'uzumaki_naruto_ninja',
+    '$2b$12$D/TDCEgDt6xefjumLz2Iou7jqcHn6z7XS6rRIM63I.yBm7p.B8eqq',
+    'Naruto',       'Uzumaki',      12,             'naruto_ninja@cjl.com',
+    '81312345678',  2,              1,                  1,          12,
+    '2025-01-02',   100000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    9,      'jessica_bp',
+    '$2b$12$mLfj06n.oEmLba9bvYD/PemnTx18XCUy/yIzu7a5FZpPymTqCmsym',
+    'Jessica',      'Lee',          4,              'jessica_blackpink@cjl.com',
+    '12345678905',  2,              1,                  2,          4,
+    '2025-01-02',   120000.00,  142,            16,
+    34,                     NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    10,     'clark_sm',
+    '$2b$12$8XxQumDVN9zoj9InQJLKoeJ//NJ5tMdCpk0XGBsXQTYehlMk1LBym',
+    'Clark',        'Smith',        1,              'clark_on_planet_krypton@cjl.com',
+    '12345678906',  2,              1,                  2,          12,
+    '2025-01-02',   100000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    11,     'bernard',
+    '$2b$12$QlbQiE/cRBzsV0S6sPEIb.apRpDp6wtyYjsptXwDFFWrAz9089vUu',
+    'James',        'Bernard',      1,              'marvel_worser_2018@cjl.com',
+    '12345678907',  2,              1,                  2,          12,
+    '2025-01-03',   120000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       FALSE
+),
+(
+    12,     'jennie',
+    '$2b$12$GE6DAJ1tpqQIrsBRwOfDl.AIjtbGCAz7wnyYVuVJIUOCNysIYveaG',
+    'Jennie',       'Li',           4,              'jennie_dislike_jennie@cjl.com',
+    '12345678908',  2,              1,                  3,          4,
+    '2025-01-03',   150000.00,  142,            16,
+    51,                     34,                     233,
+    121,                        TRUE
+),
+(
+    13,     'lily_neverland',
+    '$2b$12$enPXm6/0OLD2ZkP6.yU3zuLRAsM05crQcL6FTNjm5VlUUUakWGh.S',
+    'Lily',         'Park',         4,              'lily_neverland@cjl.com',
+    '12345678909',  2,              1,                  3,          4,
+    '2025-01-03',   150000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    14,     'la_lisa',
+    '$2b$12$yBFJwiv7SHNyGh1qgL5yZ.efPaXKmHVd2unmLPBsjQ38NCn2aRwIq',
+    'Lisa',         'Jackson',      11,             'la_lisa@cjl.com',
+    '12345678910',  2,              1,                  3,          4,
+    '2025-01-03',   120000.00,  142,            16,
+    34,                     NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    15,     'cto_caesar',
+    '$2b$12$RXUS1sGFKxiDWQo6LTiPe.yzdMWz3mE32L2H66iY0Vqgq6mxDBU7m',
+    'Caesar',       'Lee',          2,              'caesar_cto@cjl.com',
+    '12345678911',  34,             2,                  NULL,       5,
+    '2025-01-01',   300000.00,  138,            51,
+    16,                     NULL,                   227,
+    233,                        TRUE
+),
+(
+    16,     'peter_park_spiderman',
+    '$2b$12$jiIit1sxiyWsKp1heLaV.ef0Pfxw57MAAe9zI2eRPGm.Nxi8sEvHi',
+    'Peter',        'Park',         1,              'pp_sm@cjl.com',
+    '12345678912',  2,              2,                  4,          4,
+    '2025-01-03',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    17,     'harry_potter',
+    '$2b$12$YKpHRX.rwjWJRoj9TIRQ9uVnFh72NcPmiRvdh1OKhYofriZBS/dRa',
+    'Harry',        'Potter',       1,              'happy_hppw@cjl.com',
+    '12345678913',  7,              2,                  4,          12,
+    '2025-01-03',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    18,     'elon_musk',
+    '$2b$12$Qvw1NHhtCX.8xCYaiMdcle4ikQW/0QEYkHITcIzfHJFveJChz9AZO',
+    'Elon',         'Musk',         1,              'the_hitchhiker_s_guide_to_the_galaxy@cjl.com',
+    '12345678914',  34,             2,                  4,          12,
+    '2025-01-03',   300000.00,  142,            17,
+    16,                     NULL,                   245,
+    233,                        FALSE
+),
+(
+    19,     'mark_zuckerberg',
+    '$2b$12$C/lSMFWUqjY0976cX1QxA.MO07gM4fS2pYWxDOkZiWGIx5RIshI3K',
+    'Mark',         'Zuckerberg',   1,              'mark_zuck@cjl.com',
+    '12345678915',  34,             2,                  5,          4,
+    '2025-01-03',   300000.00,  142,            16,
+    49,                     NULL,                   233,
+    NULL,                       FALSE
+),
+(
+    20,     'jeff',
+    '$2b$12$EQYuoY8i/7fghcSstsbCo.0qIfHDvbLNHGXTTvTmsZ/uLwt3u1qEK',
+    'Jeff',         'Bozes',        1,              'jeff_blue_origin@cjl.com',
+    '12345678916',  7,              2,                  5,          4,
+    '2025-01-03',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       FALSE
+),
+(
+    21,     'spongebob',
+    '$2b$12$/P5ixX4p3fH6oesB6giDu.SJSs2erYYq8ElxkHq/wesSCKwfqvK06',
+    'Spongebob',    'Brown',        14,             'spongebob@cjl.com',
+    '12345678917',  7,              2,                  5,          4,
+    '2025-01-03',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    22,     'autobot_optimus_prime',
+    '$2b$12$zhk3ybxteG2LcfLH2XdwZejU5cLpTTp/xCBXEsp/pMwyGYfLNoaca',
+    'Optimus',      'Prime',        14,             'autobot_optimus_prime@cjl.com',
+    '12345678918',  17,             2,                  6,          4,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       FALSE
+),
+(
+    23,     'autobot_bumblebee',
+    '$2b$12$C.ByZmrL.1MayU5gnraTUODWNsIyV1hr/YSuhSUxkwhFTPAOtFL5G',
+    'Bumblebee',    'Jones',        14,             'autobot_bumblebee@cjl.com',
+    '12345678919',  8,              2,                  6,          4,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    24,     'autobot_ratchet',
+    '$2b$12$KQuY1Fv7UrXYqgwrEIrhVOiMoE0n1C/ZtL.joXMcvy3Cofu3GqbsO',
+    'Ratchet',      'Miller',       14,             'autobot_ratchet@cjl.com',
+    '12345678920',  7,              2,                  6,          12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    25,     'deception_megatron',
+    '$2b$12$bEzpxRNzCCug0p9by6t.VuZNEG8IczDBK7pUjZYuCljX5rsuqDWjW',
+    'Megatron',     'Martinez',     14,             'deception_megatron@cjl.com',
+    '12345678921',  17,             2,                  7,          4,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    26,     'deception_starscream',
+    '$2b$12$PmaIjp16SUlr.21ugVK.neAQhnfN/jnsJmgYQdL4kgdhlrv5vUL2O',
+    'Starscream',   'Starscream',   14,             'deception_anderson@cjl.com',
+    '12345678922',  8,              2,                  7,          12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    27,     'deception_shockwave',
+    '$2b$12$JFlYOizqyK0AMkmJMXKCiOpNeCIkpsU2TeCK3fVMHDEXQvPZQLw4C',
+    'Shockwave',    'Moore',        14,             'deception_shockwave@cjl.com',
+    '12345678923',  8,              2,                  7,          12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       FALSE
+),
+(
+    28,     'x_men_professor_x_coo',
+    '$2b$12$sL7hSJB7TTM51jkVbFEpUuMG13C3W22Ds8eH4vEacAsJmovwP6vEu',
+    'Charles',      'Xavier',       1,              'charlesxavier@cjl.com',
+    '12345678924',  18,             3,                  NULL,       6,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    29,     'professor_x_manager',
+    '$2b$12$N5ew.Yyo4Gpw7hsRsCslKuHc3pk369PF01SmoAwvaSjPL7AmVXRme',
+    'Charles',      'Xavier',       1,              'professorx@cjl.com',
+    '4915112345678',18,             3,                  8,          4,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    30,     'mystique',
+    '$2b$12$skiqizoOc3Frh/cbcy2ybOEyKRG1kTOrLMfVN6fKCZLmKc5/z//VS',
+    'Raven',        'Darkhölme',    3,              'mystique@cjl.com',
+    '12345678925',  1,              3,                  8,          12,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    31,     'wolverine',
+    '$2b$12$88U68dszOcF31SHPKWh6yOCVu1/DP4a4KR69WjVjxqLklR3eedhke',
+    'James',        'Howlett',      1,              'wolverine@cjl.com',
+    '12345678926',  16,             3,                  8,          12,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    32,     'phoenix',
+    '$2b$12$4DQjsUV25xHZtubHM0n9UuWF1pMV7vuxgyV3pryddVkyaYZPr40By',
+    'Jean',         'Grey',         4,              'phoenix@cjl.com',
+    '12345678927',  8,              3,                  9,          4,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    33,     'beast',
+    '$2b$12$/FCCfP6nNOMB/E1TqqC/MO.u/BsOEa4X8JmwscdLtWJTKOZPAHj6S',
+    'Henry',        'McCoy',        1,              'beast@cjl.com',
+    '12345678928',  8,              3,                  9,          12,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    34,     'magneto',
+    '$2b$12$.W6jSVcW/ARvhiiK5xe//ecYRCSkqY4paxVMPKwdsKz5IeznKI7Ma',
+    'Max',          'Eisenhardt',   1,              'magneto@cjl.com',
+    '12345678929',  8,              3,                  9,          12,
+    '2025-01-04',   200000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    35,     'alice_cfo',
+    '$2b$12$rstVqLCdNFPus8WmJj3A1uy/pxtqzu/4Gjv3oxieQ.EjcHdxTfLUS',
+    'Alice',        'Jackson',      4,              'alice_cfo@cjl.com',
+    '12345678930',  34,             4,                  NULL,       7,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       FALSE
+),
+(
+    36,     'captain_america',
+    '$2b$12$DmQOzmjRhno3ZAprWK5yZerxI4hQOO974nRpsrhc0ySc.Wv4Y4IVi',
+    'Steve',        'Rogers',       1,              'captain_america@cjl.com',
+    '12345678931',  2,              4,                  10,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    37,     'iron_man',
+    '$2b$12$BGegCT6ysZYs2c4aH.xyEeSeM2c9H9esxsMsd8Qh.Jeb4Vk883GwC',
+    'Tony',         'Stack',        1,              'iron_man@cjl.com',
+    '12345678932',  17,             4,                  10,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    38,     'thor',
+    '$2b$12$w6Tzk5.CpXA959WTQGJRnuoomI1rbbR61I7.7gs4527vkOVf8dLra',
+    'Thor',         'Thor',         1,              'thor@cjl.com',
+    '12345678933',  1,              4,                  10,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    39,     'black_widow',
+    '$2b$12$H6ffT4i/kwZEO3SOKajfFeW4fK6C4FpxrxbilZ.luGv0M2GM1Oodm',
+    'Natasha',      'Romanoff',     4,              'black_widow@cjl.com',
+    '12345678934',  1,              4,                  10,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    40,     'yelena_belova',
+    '$2b$12$M3/nwYA5lVjbuOcNNDW9COqzFh1glUyWgPLxbbdRk4w3rtC871j0y',
+    'Yelena',       'Belova',       4,              'yelena_belova@cjl.com',
+    '12345678935',  1,              4,                  11,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    41,     'bucky_barnes',
+    '$2b$12$JxXVlyYMKOM3NHlR7EOIWOrBHdfuTgOq372nVc6FH8xg3QVuR5ld6',
+    'Bucky',        'Barnes',       1,              'bucky_barnes@cjl.com',
+    '12345678936',  7,              4,                  11,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    42,     'hulk',
+    '$2b$12$.icyPyFDdjhiDNMqhsaHquoBCbKUFd9BO6tfS/uxflEWGqWAAo80S',
+    'Bruce',        'Banner',       15,             'bruce_banner@cjl.com',
+    '12345678937',  34,             4,                  11,         12,
+    '2025-01-04',   250000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    43,     'wanda_maximoff',
+    '$2b$12$djxysZ5Dj96xQIklP0.ccOO5rT3nKawTESMY9OrU02K9CPt73wYie',
+    'Wanda',        'Maximoff',     4,              'wanda_maximoff@cjl.com',
+    '12345678938',  8,              5,                  NULL,       8,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    44,     'vision',
+    '$2b$12$yvLfx/7nAkIkYOAnqQiE5O8WpOHYH77oHLd/.f8CFnu1n7USK8/1q',
+    'Vision',       'Vision',       11,             'vision@cjl.com',
+    '12345678939',  7,              5,                  12,         8,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    45,     'falcon',
+    '$2b$12$ZAtvCEnVNZIuN/6J9zlg4OcjFW0bU6wBkZgntJym7q1R9s.HNUjXq',
+    'Sam',          'Wilson',       1,              'falcon@cjl.com',
+    '12345678940',  9,              5,                  12,         12,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    46,     'spider_man',
+    '$2b$12$FlqdmEz5fFhBK4jRYedpKuYVEaqnON9IT4hGkOmpGQmdBZUYuLqlG',
+    'Peter',        'Parker',       1,              'spider_man@cjl.com',
+    '12345678941',  2,              5,                  12,         12,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    47,     'black_panther',
+    '$2b$12$WW/EhXPVQf2deDwdOKemfudJFBaecc21rS2Yq4K9TnnXn/rv5QVYu',
+    'T''Challa',    'T''Challa',    1,              'black_panther@cjl.com',
+    '12345678942',  7,              5,                  13,         8,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    48,     'groot',
+    '$2b$12$bHKL1aRBaqiCcekOEvVJbuccgsMJbgdscYYCbRpzeKmZWumRHEGwS',
+    'Groot',        'Groot',        11,             'i_am_groot@cjl.com',
+    '12345678943',  2,              5,                  13,         12,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    49,     'rocket',
+    '$2b$12$XyqascqmOton9w2pFIjFi.ZXlLUwvLGM1E4JyP1KMCoica7WeGism',
+    'Rocket',       'Rocket',       14,             'rocket@cjl.com',
+    '12345678944',  2,              5,                  13,         12,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    50,     'gamora',
+    '$2b$12$bdUQOSyLx0mY2KKKAoi8jek.3Wju5STQaPGldcL8cfEaOZQT4nfaa',
+    'Gamora',       'Gamora',       4,              'gamora@cjl.com',
+    '12345678945',  7,              5,                  14,         8,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    51,     'star_lord',
+    '$2b$12$f1DcZutEQgIWKEjXSIF0SeASLVx9tQ/EeR2m8T4pBG4ZZchj45EOq',
+    'Peter',        'Quill',        1,              'star_lord@cjl.com',
+    '12345678946',  7,              5,                  14,         12,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    52,     'thanos',
+    '$2b$12$QGWvkxBywUeODe3tApL9GeqNr2Z.Qdq1Y9naJwJmHPsEHW66lOjEO',
+    'Thanos',       'Thanos',       1,              'thanos@cjl.com',
+    '12345678947',  7,              5,                  14,         12,
+    '2025-01-04',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    53,     'eren_yeager',
+    '$2b$12$tvd93mqLhAbYl6c20VxtIOGNjjSQYrq/S8MdfEIVCsyNaKimReBDO',
+    'Eren',         'Yeager',       1,              'eren_yeager@cjl.com',
+    '12345678948',  7,              6,                  NULL,       9,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    54,     'mikasa_ackerman',
+    '$2b$12$cFrajuXW1DFcZrfKx/K3yOczl/cPgN5cxzKqrJ3MeArJAOwNawJZ6',
+    'Mikasa',       'Ackerman',     4,              'mikasa_ackerman@cjl.com',
+    '12345678949',  7,              6,                  15,         9,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    55,     'armin_arlert',
+    '$2b$12$8vnkqZS460GDsOlW0IGy.eJrXZsZVNGRR2Hiu5l3AQEjSssInRhNq',
+    'Armin',        'Arlert',       1,              'armin_arlert@cjl.com',
+    '12345678950',  7,              6,                  15,         9,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    56,     'reiner_braun',
+    '$2b$12$4z7IAroEZe8EMXVVF2nJR.9lFFWtAXIfQ60nTmD3ysHEc8r8Au.AC',
+    'Reiner',       'Braun',        1,              'reiner_braun@cjl.com',
+    '12345678951',  7,              6,                  16,         9,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    57,     'berthold_hoover',
+    '$2b$12$iF9nkzYAlrn0Fk3YEojnA.aCkcYY/r7l4iTCJ8b7MN3h33oU8pVGW',
+    'Bertholdt',    'Hoover',       1,              'berthold_hoover@cjl.com',
+    '12345678952',  7,              6,                  16,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    58,     'annie_leonhart',
+    '$2b$12$mHmJR4oBHp9nc8dH3PGFkOvsjvtJW/1wAXazedkRLdRQHIw7BxTTq',
+    'Annie',        'Leonhart',     4,              'annie_leonhart@cjl.com',
+    '12345678953',  7,              6,                  16,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    59,     'connie_springer',
+    '$2b$12$YpyA7pzsySdTvXbB41ISWea2R6dRIt93685P9BVhad4cKKPQ4C7Am',
+    'Connie',       'Springer',     1,              'connie_springer@cjl.com',
+    '12345678954',  16,             6,                  16,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    60,     'sasha_blouse',
+    '$2b$12$TQahxBJVM0kxukjn/JJpDOZa3tTWwjD9.iWuDp2jX37C7vS1il9Zm',
+    'Sasha',        'Blouse',       4,              'sasha_blouse@cjl.com',
+    '12345678955',  7,              7,                  NULL,       10,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    61,     'historia_reiss',
+    '$2b$12$s2liH34KmvxaSWK3czu35.anBqGF3/.N2y4Amn9pdDh5cTFJP0Rdq',
+    'Historia',     'Reiss',        4,              'historia_reiss@cjl.com',
+    '12345678956',  7,              7,                  17,         10,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    62,     'christa_lenz',
+    '$2b$12$gtT4RoAUTpFxbFDfpKcgeekRFifNvHIxInD9klvLT4fhJrl0h75U2',
+    'Christa',      'Lenz',         4,              'christa_lenz@cjl.com',
+    '12345678957',  7,              7,                  17,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    63,     'ymir',
+    '$2b$12$seYW7zIf6LzLMpkpipRuoe3erlh0gwYNCt9FpVSQ9psnRTYtSqo0K',
+    'Ymir',         'Ymir',         4,              'ymir@cjl.com',
+    '12345678958',  7,              7,                  17,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    64,     'floch_forster',
+    '$2b$12$hSh1TxbH4IEco5fqpIfEgOguEzlgV5nSv5S4XCmc9ZhRprZtOTyvK',
+    'Floch',        'Forster',      1,              'floch_forster@cjl.com',
+    '12345678959',  7,              7,                  18,         10,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    65,     'erwin_smith',
+    '$2b$12$RnClpE1SecGPpL2YJDXNp.DANFAo9GC8BJl.9Ru3hpwbLpIDpliE6',
+    'Erwin',        'Smith',        1,              'erwin_smith@cjl.com',
+    '12345678960',  7,              7,                  18,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    66,     'levi_ackerman',
+    '$2b$12$GkaAdrtAx3iZVnv8quCZVOm9HP88GH9sPY9SMmoWGtxNtx696zgyW',
+    'Levi',         'Ackerman',     1,              'levi_ackerman@cjl.com',
+    '12345678961',  7,              7,                  18,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    67,     'hange_zoe',
+    '$2b$12$2xNALeW4zlfOsWJm8XVr4eIwJn7ZKsttY9oiaZRctsPkWIlqXu09m',
+    'Hange',        'Zoe',          11,             'hange_zoe@cjl.com',
+    '12345678962',  7,              7,                  19,         10,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    68,     'marlo_fredenburg',
+    '$2b$12$8BbdwiVNiOR/5iEB/9VLi.aOZ.cPVzmzRf.641SPJ98GER.XpedO.',
+    'Marlo',        'Fredenburg',   1,              'marlo_fredenburg@cjl.com',
+    '12345678963',  7,              7,                  19,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    69,     'hitch_dreyse',
+    '$2b$12$q0XGYaR4EzFxiZfVIGnSR.QKUNltsgs4OyyvgxkSMRHAcXLcGsVu2',
+    'Hitch',        'Dreyse',       1,              'hitch_dreyse@cjl.com',
+    '12345678964',  7,              7,                  19,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    70,     'ymir_fritz',
+    '$2b$12$Y5pmyXuClJAsU32X4k8S7.ZM73K1.VhyvY1m7nWuc4IWUSW0yEDYG',
+    'Ymir',         'Fritz',        11,             'ymir_fritz@cjl.com',
+    '12345678965',  2,              8,                  NULL,       11,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    71,     'maria_fritz',
+    '$2b$12$kpjmFJnuN4xXGibmJBLAPuJBlOxZpg2TStAythCI1pxWsF7wyQ7f.',
+    'Maria',        'Fritz',        11,             'maria_fritz@cjl.com',
+    '12345678966',  2,              8,                  20,         11,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    72,     'rose_fritz',
+    '$2b$12$0yD4dgYep9U8SokGElPUx.7EGYrj2ozrmpQI.8bcrlwxxB3/ziDiq',
+    'Rose',         'Fritz',        11,             'rose_fritz@cjl.com',
+    '12345678967',  2,              8,                  20,         11,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    73,     'sina_fritz',
+    '$2b$12$6.wsks4VCm/MiGrwtMhKqunvid7r97UsojXIoGTcMiFneYq0lLHGy',
+    'Sina',         'Fritz',        11,             'sina_fritz@cjl.com',
+    '12345678968',  2,              8,                  20,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    74,     'grisha_yeager',
+    '$2b$12$RDOtgJkTsO2K7F.EQbOOOumP6Oyu8agCFMBdsrVtkjzIf0duQmjjO',
+    'Grisha',       'Yeager',       1,              'grisha_yeager@cjl.com',
+    '12345678969',  2,              8,                  21,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    75,     'carla_yeager',
+    '$2b$12$IWPCYgfbc1KapNhbjhxshu2qWcgf4PuAneYVZoqGGc6oxVTEZq7Rq',
+    'Carla',        'Yeager',       11,             'carla_yeager@cjl.com',
+    '12345678970',  2,              8,                  21,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    76,     'zeka_yeager',
+    '$2b$12$N36Da0ZZah3y9lR6XbCCJOzFVe9oLh/.iaKshCP76gkxvFFRinch2',
+    'Zeka',         'Yeager',       1,              'zeka_yeager@cjl.com',
+    '12345678971',  7,              8,                  21,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    77,     'pieck_finger',
+    '$2b$12$xIPB3YMuXOTM/xyUlZlmCuguM4MA4uzqKduRkLWNGHFyymNJUP7zS',
+    'Pieck',        'Finger',       4,              'pieck_finger@cjl.com',
+    '12345678972',  7,              8,                  22,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    78,     'gabi_braun',
+    '$2b$12$oQ.Epx0NPCx78Oisz0J1aeIH1ItgsDF9BlQl1XTnvGwteDlenHK0.',
+    'Gabi',         'Braun',        4,              'gabi_braun@cjl.com',
+    '12345678973',  7,              8,                  22,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    79,     'falco_grice',
+    '$2b$12$JQ80rdF0pkgxGNa1B4zEs.rCQu.RBCXFqo3/TIKoNsF6YHtuMk1yK',
+    'Falco',        'Grice',        1,              'falco_grice@cjl.com',
+    '12345678974',  7,              8,                  22,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    80,     'yelena_aot',
+    '$2b$12$3hCFM3B3PESvFz4bB9tfeOzh4dpLCtGtuIFkenLo2yNskbApMQRw2',
+    'Yelena',       'Yelena',       4,              'yelena_aot@cjl.com',
+    '12345678975',  7,              9,                  NULL,       12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    81,     'onyankopon',
+    '$2b$12$DkKMwp8gH5iW/QhkY.5h5.MiMycLrWD1JXnhNU6kB9stGDQh7Zzam',
+    'Onyankopon',   'Onyankopon',   1,              'onyankopon@cjl.com',
+    '12345678976',  7,              9,                  23,         12,
+    '2025-01-05',   300000.00,  67,             33,
+    16,                     NULL,                   114,
+    NULL,                       TRUE
+),
+(
+    82,     'jessica_jones',
+    '$2b$12$E9P.MMCVc7b8SiXgsGt6sO2x.N.hUNjGpVrPdlTiqbgJ2//WVWpLG',
+    'Jessica',      'Jones',        4,              'jessica_jones@cjl.com',
+    '12345678977',  7,              9,                  23,         12,
+    '2025-01-05',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    83,     'luke_cage',
+    '$2b$12$vfpyLsZ6HYLp.fLU08nCW.gEphmooo1G5Ince9dVIGMD.KdoVRECy',
+    'Luke',         'Cage',         1,              'luke_cage@cjl.com',
+    '12345678978',  7,              9,                  23,         12,
+    '2025-01-05',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    84,     'patricia_walker',
+    '$2b$12$zutR4zvqXUAufL2CFfrw0eOLyawT3Q1p3DEFjrNb6M1Xv5UGaytt.',
+    'Patricia',     'Walker',       4,              'patricia_walker@cjl.com',
+    '12345678979',  7,              9,                  24,         12,
+    '2025-01-05',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    85,     'daredevil',
+    '$2b$12$r3eDonEmKdx7oPIy7QBeJ.hdKB/2xQvCZpTyaSQF8Q/thMWEJlFdq',
+    'Matt',         'Murdock',      1,              'daredevil@cjl.com',
+    '12345678980',  2,              9,                  24,         12,
+    '2025-01-05',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+),
+(
+    86,     'iron_fist',
+    '$2b$12$lzOdeIzrsaKt1xI9u7/jMOZF95u1D5NVrTEo/NrVos6T2jpYzbsiu',
+    'Danny',        'Rand',         1,              'iron_fist@cjl.com',
+    '12345678981',  7,              9,                  24,         12,
+    '2025-01-05',   300000.00,  142,            16,
+    NULL,                   NULL,                   233,
+    NULL,                       TRUE
+);
 
--- Due to length, only top 10 users shown here; remaining users follow similar mapping and are inserted accordingly.
+-- add officer_id for departments
 
--- ===========================
--- Request and Status Types
--- ===========================
+ALTER TABLE `departments`
+    ADD COLUMN `officer_id` BIGINT UNSIGNED COMMENT 'officer of the department',
+    ADD CONSTRAINT `fk_departments_officer`
+        FOREIGN KEY(`officer_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE;
+UPDATE `departments` SET `officer_id` = 5 WHERE `id` = 1;
+UPDATE `departments` SET `officer_id` = 15 WHERE `id` = 2;
+UPDATE `departments` SET `officer_id` = 28 WHERE `id` = 3;
+UPDATE `departments` SET `officer_id` = 36 WHERE `id` = 4;
+UPDATE `departments` SET `officer_id` = 43 WHERE `id` = 5;
+UPDATE `departments` SET `officer_id` = 53 WHERE `id` = 6;
+UPDATE `departments` SET `officer_id` = 59 WHERE `id` = 7;
+UPDATE `departments` SET `officer_id` = 69 WHERE `id` = 8;
+UPDATE `departments` SET `officer_id` = 79 WHERE `id` = 9;
 
-CREATE TABLE request_types (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Request type ID',
-    type VARCHAR(50) NOT NULL UNIQUE COMMENT 'Request type'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Types of requests';
+-- add manager_id for teams
 
-INSERT INTO request_types (id, type) VALUES
-(0,'promotion'),
-(1,'salary_increase'),
-(2,'quit'),
-(3,'change_department'),
-(4,'change_team'),
-(5,'create_department'),
-(6,'create_team'),
-(7,'leave'),
-(8,'personal_leave'),
-(9,'sick_leave'),
-(10,'annual_leave'),
-(11,'maternity_leave'),
-(12,'paternity_leave'),
-(13,'official_leave'),
-(14,'funeral_leave'),
-(15,'menstrual_leave'),
-(16,'marriage_leave'),
-(17,'unpaid_leave'),
-(18,'paid_leave'),
-(19,'parental_leave'),
-(20,'temporary_break'),
-(21,'work_overtime'),
-(22,'negotiate'),
-(23,'meeting');
+ALTER TABLE `teams`
+    ADD COLUMN `manager_id` BIGINT UNSIGNED COMMENT 'manager of the team',
+    ADD CONSTRAINT `fk_teams_manager`
+        FOREIGN KEY(`manager_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE;
+UPDATE `teams` SET `manager_id` = 6 WHERE `id` = 1;
+UPDATE `teams` SET `manager_id` = 9 WHERE `id` = 2;
+UPDATE `teams` SET `manager_id` = 12 WHERE `id` = 3;
+UPDATE `teams` SET `manager_id` = 16 WHERE `id` = 4;
+UPDATE `teams` SET `manager_id` = 21 WHERE `id` = 5;
+UPDATE `teams` SET `manager_id` = 23 WHERE `id` = 6;
+UPDATE `teams` SET `manager_id` = 25 WHERE `id` = 7;
+UPDATE `teams` SET `manager_id` = 29 WHERE `id` = 8;
+UPDATE `teams` SET `manager_id` = 32 WHERE `id` = 9;
+UPDATE `teams` SET `manager_id` = 37 WHERE `id` = 10;
+UPDATE `teams` SET `manager_id` = 40 WHERE `id` = 11;
+UPDATE `teams` SET `manager_id` = 44 WHERE `id` = 12;
+UPDATE `teams` SET `manager_id` = 47 WHERE `id` = 13;
+UPDATE `teams` SET `manager_id` = 50 WHERE `id` = 14;
+UPDATE `teams` SET `manager_id` = 54 WHERE `id` = 15;
+UPDATE `teams` SET `manager_id` = 57 WHERE `id` = 16;
+UPDATE `teams` SET `manager_id` = 61 WHERE `id` = 17;
+UPDATE `teams` SET `manager_id` = 64 WHERE `id` = 18;
+UPDATE `teams` SET `manager_id` = 67 WHERE `id` = 19;
+UPDATE `teams` SET `manager_id` = 71 WHERE `id` = 20;
+UPDATE `teams` SET `manager_id` = 74 WHERE `id` = 21;
+UPDATE `teams` SET `manager_id` = 77 WHERE `id` = 22;
+UPDATE `teams` SET `manager_id` = 81 WHERE `id` = 23;
+UPDATE `teams` SET `manager_id` = 84 WHERE `id` = 24;
 
-CREATE TABLE request_statuses (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Request status ID',
-    type VARCHAR(50) NOT NULL UNIQUE COMMENT 'Request status type'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Status values for requests';
+-- +------------+
+-- | requests   |
+-- +------------+
 
-INSERT INTO request_statuses (id, type) VALUES
-(0,'pending'),
-(1,'approved'),
-(2,'rejected'),
-(3,'need_negotiate');
+CREATE TABLE `requests`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique request ID',
+    `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user making the request',
+    `type_id` INT UNSIGNED NOT NULL COMMENT 'type of request',
+    `details` TEXT DEFAULT NULL COMMENT 'additional details of the request',
+    `status` INT UNSIGNED DEFAULT 0 COMMENT 'request status',
+    `handler_id` BIGINT UNSIGNED NOT NULL COMMENT 'user handling the request',
+    `handle_details` TEXT DEFAULT NULL COMMENT 'details about handling',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'request creation time',
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update time',
 
--- ===========================
--- Requests Table
--- ===========================
+    CONSTRAINT `fk_requests_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_requests_type`
+        FOREIGN KEY (`type_id`)
+        REFERENCES `request_types`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_requests_status`
+        FOREIGN KEY (`status`)
+        REFERENCES `request_status`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_requests_handler`
+        FOREIGN KEY (`handler_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'user requests for changes and actions';
 
-CREATE TABLE requests (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Request ID',
-    user_id BIGINT UNSIGNED NOT NULL COMMENT 'User making the request',
-    type_id INT UNSIGNED NOT NULL COMMENT 'Type of request',
-    details TEXT DEFAULT NULL COMMENT 'Additional details of the request',
-    status INT UNSIGNED DEFAULT 0 COMMENT 'Request status',
-    handler_id BIGINT UNSIGNED NOT NULL COMMENT 'User handling the request',
-    handle_details TEXT DEFAULT NULL COMMENT 'Details about handling',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Request creation time',
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
-    CONSTRAINT fk_requests_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_requests_type FOREIGN KEY (type_id) REFERENCES request_types(id) ON DELETE CASCADE,
-    CONSTRAINT fk_requests_status FOREIGN KEY (status) REFERENCES request_statuses(id) ON DELETE CASCADE,
-    CONSTRAINT fk_requests_handler FOREIGN KEY (handler_id) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='User requests for changes and actions';
+-- +------------+
+-- | messages   |
+-- +------------+
 
--- ===========================
--- Messages Table
--- ===========================
+CREATE TABLE `messages`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique message ID',
+    `sender_id` BIGINT UNSIGNED NOT NULL COMMENT 'user who sends the message',
+    `receiver_id` BIGINT UNSIGNED NOT NULL COMMENT 'user who receives the message',
+    `title` VARCHAR(50) NOT NULL COMMENT 'message title',
+    `content` TEXT DEFAULT NULL COMMENT 'message content',
+    `is_read` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'read status',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'message creation time',
 
-CREATE TABLE messages (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Message ID',
-    sender_id BIGINT UNSIGNED NOT NULL COMMENT 'User who sends the message',
-    receiver_id BIGINT UNSIGNED NOT NULL COMMENT 'User who receives the message',
-    title VARCHAR(50) NOT NULL COMMENT 'Message title',
-    content TEXT DEFAULT NULL COMMENT 'Message content',
-    is_read BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Read status flag',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Message creation time',
-    CONSTRAINT fk_messages_sender FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_messages_receiver FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Internal messaging system between users';
+    CONSTRAINT `fk_messages_sender`
+        FOREIGN KEY (`sender_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_messages_receiver`
+        FOREIGN KEY (`receiver_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'internal messaging system between employees';
 
--- ===========================
--- Log Types Table
--- ===========================
+-- +--------+
+-- | Logs   |
+-- +--------+
 
-CREATE TABLE log_types (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Log type ID',
-    type VARCHAR(50) NOT NULL UNIQUE COMMENT 'Type of log event'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Types of event logs';
+CREATE TABLE `logs`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique log entry ID',
+    `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user involved in the event',
+    `type` INT UNSIGNED NOT NULL COMMENT 'log type',
+    `details` TEXT DEFAULT NULL COMMENT 'additional details about the log event',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'log creation time',
 
-INSERT INTO log_types (id, type) VALUES
-(0, 'register'),
-(1, 'login'),
-(2, 'logout'),
-(3, 'reset_password'),
-(4, 'update_info'),
-(5, 'view_info'),
-(6, 'report_data'),
-(7, 'upload_data'),
-(8, 'create_department'),
-(9, 'update_department'),
-(10, 'delete_department'),
-(11, 'create_team'),
-(12, 'update_team'),
-(13, 'delete_team'),
-(14, 'create_role'),
-(15, 'update_role'),
-(16, 'delete_role'),
-(17, 'update_user'),
-(18, 'delete_user'),
-(19, 'create_skill'),
-(20, 'update_skill'),
-(21, 'delete_skill'),
-(22, 'send_request'),
-(23, 'view_request'),
-(24, 'approve_request'),
-(25, 'reject_request'),
-(26, 'send_message'),
-(27, 'read_message');
+    CONSTRAINT `fk_logs_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_logs_type`
+        FOREIGN KEY (`type`)
+        REFERENCES `log_types`(`id`)
+        ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'audit logs for user activities';
 
--- ===========================
--- Logs Table
--- ===========================
+-- +------------+
+-- | uploads    |
+-- +------------+
 
-CREATE TABLE logs (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Log entry ID',
-    user_id BIGINT UNSIGNED NOT NULL COMMENT 'User involved in the event',
-    type INT UNSIGNED NOT NULL COMMENT 'Log type',
-    details TEXT DEFAULT NULL COMMENT 'Additional details about the log event',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Log creation time',
-    CONSTRAINT fk_logs_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_logs_type FOREIGN KEY (type) REFERENCES log_types(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Audit logs for user activities';
+CREATE TABLE `uploads`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique upload ID',
+    `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user who uploaded the file',
+    `file_type_id` INT UNSIGNED NOT NULL COMMENT 'file type',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'upload time',
 
--- ===========================
--- File Types Table
--- ===========================
+    CONSTRAINT `fk_uploads_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_uploads_file_type`
+        FOREIGN KEY (`file_type_id`)
+        REFERENCES `file_types`(`id`)
+        ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'file upload records';
 
-CREATE TABLE file_types (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'File type ID',
-    abbreviation VARCHAR(10) NOT NULL UNIQUE COMMENT 'File type short code',
-    name VARCHAR(50) NOT NULL UNIQUE COMMENT 'File type name'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Supported upload and report file types';
+-- +------------+
+-- | reports    |
+-- +------------+
 
-INSERT INTO file_types (id, abbreviation, name) VALUES
-(0, 'excel', 'Microsoft Excel'),
-(1, 'sheet', 'Google Sheet'),
-(2, 'md', 'Markdown'),
-(3, 'latex', 'LaTeX'),
-(4, 'csv', 'Comma Separated values'),
-(5, 'tsv', 'Tab Separated Values');
+CREATE TABLE `reports`(
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique report ID',
+    `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user who generated the report',
+    `file_type_id` INT UNSIGNED NOT NULL COMMENT 'report file type',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'report generation time',
 
--- ===========================
--- Uploads and Reports Tables
--- ===========================
-
-CREATE TABLE uploads (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Upload ID',
-    user_id BIGINT UNSIGNED NOT NULL COMMENT 'User who uploaded the file',
-    file_type_id INT UNSIGNED NOT NULL COMMENT 'File type',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Upload time',
-    CONSTRAINT fk_uploads_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_uploads_file_type FOREIGN KEY (file_type_id) REFERENCES file_types(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='File upload records';
-
-CREATE TABLE reports (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Report ID',
-    user_id BIGINT UNSIGNED NOT NULL COMMENT 'User who generated the report',
-    file_type_id INT UNSIGNED NOT NULL COMMENT 'Report file type',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Report generation time',
-    CONSTRAINT fk_reports_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_reports_file_type FOREIGN KEY (file_type_id) REFERENCES file_types(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Generated report records';
-
--- ============================================
--- End of SQL script
--- ============================================
+    CONSTRAINT `fk_reports_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_reports_file_type`
+        FOREIGN KEY (`file_type_id`)
+        REFERENCES `file_types`(`id`)
+        ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT 'generated report records';
