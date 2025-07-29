@@ -1,26 +1,159 @@
-#Spring Boot configuration
 spring:
-    datasource: #database accessing settings
-        driver-class-name: com.mysql.cj.jdbc.Driver #JDBC driver class name for MySQL
-        url: jdbc:mysql://localhost:3306/cms_db?useSSL=false&serverTimezone=UTC
-        username: root #username of the MySQL database
-        #password: Caesar@8964 #password of the MySQL database (Caesar At Home Computer)
-        password: 123456 #password of the MySQL database (Caesar At Company Computer)
+    application:
+        name: caesar-management-system
 
+    #mySQL database configuration
+    datasource:
+        url: jdbc:mysql://localhost:3306/cms_db?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=GMT
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    #JPA and hibernate configuration
     jpa:
         hibernate:
             ddl-auto: validate
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
         show-sql: true
 
+    #redis configuration
     redis:
         host: localhost
         port: 6379
+        password:
+        database: 0
 
-server: #server settings
-    port: 3002 #set the application runs on port 3002 (http://localhost:3002)
+    #rabbitMQ configuration
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
 
-#application metadata
-application:
-    title: Caesar's Management System #name of the application
-    version: 0.1.0-ALPHA #version of the application
-    group: Caesar James LEE #author or organization of the application
+    #file upload configuration
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 12MB
+            max-request-size: 18MB
+
+    #OAuth2 configuration for multiple providers
+#security:
+    #oauth2:
+        #client:
+            #registration:
+                #google:
+                    #client-id: your_google_client_id
+                    #client-secret: your_google_client_secret
+                    #scope: profile,email
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/google"
+                #microsoft:
+                    #client-id: your_microsoft_client_id
+                    #client-secret: your_microsoft_client_secret
+                    #scope: openid,profile,email
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/microsoft"
+                    #authorization-grant-type: authorization_code
+                    #provider: microsoft
+                #apple:
+                    #client-id: your_apple_client_id
+                    #client-secret: your_apple_client_secret
+                    #scope: name,email
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/apple"
+                    #authorization-grant-type: authorization_code
+                    #provider: apple
+                #adobe:
+                    #client-id: your_adobe_client_id
+                    #client-secret: your_adobe_client_secret
+                    #scope: openid,profile,email
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/adobe"
+                    #authorization-grant-type: authorization_code
+                    #provider: adobe
+                #github:
+                    #client-id: your_github_client_id
+                    #client-secret: your_github_client_secret
+                    #scope: read:user,user:email
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/github"
+                #linkedin:
+                    #client-id: your_linkedin_client_id
+                    #client-secret: your_linkedin_client_secret
+                    #scope: r_liteprofile,r_emailaddress
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/linkedin"
+                    #authorization-grant-type: authorization_code
+                    #provider: linkedin
+                #facebook:
+                    #client-id: your_facebook_client_id
+                    #client-secret: your_facebook_client_secret
+                    #scope: public_profile,email
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
+                #instagram:
+                    #client-id: your_instagram_client_id
+                    #client-secret: your_instagram_client_secret
+                    #scope: user_profile,user_media
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/instagram"
+                    #authorization-grant-type: authorization_code
+                    #provider: instagram
+                #x:
+                    #client-id: your_x_client_id
+                    #client-secret: your_x_client_secret
+                    #scope: read,write
+                    #redirect-uri: "{baseUrl}/login/oauth2/code/x"
+                    #authorization-grant-type: authorization_code
+                    #provider: x
+            #provider:
+                #microsoft:
+                    #authorization-uri: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+                    #token-uri: https://login.microsoftonline.com/common/oauth2/v2.0/token
+                    #user-info-uri: https://graph.microsoft.com/oidc/userinfo
+                    #user-name-attribute: name
+                #apple:
+                    #authorization-uri: https://appleid.apple.com/auth/authorize
+                    #token-uri: https://appleid.apple.com/auth/token
+                    #user-info-uri: https://appleid.apple.com/auth/userinfo
+                    #user-name-attribute: name
+                #adobe:
+                    #authorization-uri: https://ims-na1.adobelogin.com/ims/authorize/v2
+                    #token-uri: https://ims-na1.adobelogin.com/ims/token/v3
+                    #user-info-uri: https://ims-na1.adobelogin.com/ims/userinfo
+                    #user-name-attribute: displayName
+                #linkedin:
+                    #authorization-uri: https://www.linkedin.com/oauth/v2/authorization
+                    #token-uri: https://www.linkedin.com/oauth/v2/accessToken
+                    #user-info-uri: https://api.linkedin.com/v2/me
+                    #user-name-attribute: localizedFirstName
+                #instagram:
+                    #authorization-uri: https://api.instagram.com/oauth/authorize
+                    #token-uri: https://api.instagram.com/oauth/access_token
+                    #user-info-uri: https://graph.instagram.com/me
+                    #user-name-attribute: username
+                #x:
+                    #authorization-uri: https://api.x.com/oauth/authorize
+                    #token-uri: https://api.x.com/oauth2/token
+                    #user-info-uri: https://api.x.com/2/users/me
+                    #user-name-attribute: username
+
+#server configuration
+server:
+    port: 3002
+    forward-headers-strategy: framework #for Nginx reverse proxy
+    servlet:
+        session:
+            timeout: 30m
+
+#logging configuration
+logging:
+    level:
+        root: INFO
+        org.springframework: INFO
+        org.hibernate: INFO
+
+#application-specific settings
+app:
+    default:
+        currency: USD
+        language: en_US
+        mode: dark
+    pagination:
+        default-size: 12

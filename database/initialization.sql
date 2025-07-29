@@ -1758,7 +1758,7 @@ CREATE TABLE `users`(
     `first_language_id` INT UNSIGNED NOT NULL DEFAULT 16 COMMENT 'user''s first language defined in languages table, default is en_US',
     `second_language_id` INT UNSIGNED DEFAULT NULL COMMENT 'user''s second language defined in languages table, default is NULL',
     `third_language_id` INT UNSIGNED DEFAULT NULL COMMENT 'user''s third language defined in languages table, default is NULL',
-    `first_nationality_id` INT UNSIGNED DEFAULT 235 COMMENT 'user''s first nationality id defined in nationalities table, default is USA',
+    `first_nationality_id` INT UNSIGNED NOT NULL DEFAULT 235 COMMENT 'user''s first nationality id defined in nationalities table, default is USA',
     `second_nationality_id` INT UNSIGNED DEFAULT NULL COMMENT 'user''s second nationality id defined in nationalities table, default is NULL',
     `status` BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'account status, enable/disable',
     `icon` VARCHAR(255) DEFAULT NULL COMMENT 'user icon URL/path',

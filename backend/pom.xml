@@ -1,161 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+		<version>3.5.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<groupId>com.caesarjlee</groupId><!--application author or organization-->
-	<artifactId>backend</artifactId><!--application type-->
-	<version>0.1.0-ALPHA</version><!--application version-->
-	<name>Caesar-s-Management-System</name><!--application name-->
-	<description>Caesar's Management System</description><!--application description-->
+    <groupId>com.caesarjlee</groupId>
+    <artifactId>cms</artifactId>
+    <version>0.1.0-ALPHA</version>
+    <name>cms</name>
+    <description>Caesar&apos;s Management System</description>
+    <url>https://github.com/CaesarLi-WantToBeAFreeMan/Caesar-s-Management-System</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>caesarjlee</id>
+            <name>Caesar James LEE</name>
+            <email>krbw0110010000@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/CaesarLi-WantToBeAFreeMan/Caesar-s-Management-System.git</connection>
+        <developerConnection>scm:git:ssh://github.com/CaesarLi-WantToBeAFreeMan/Caesar-s-Management-System.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/CaesarLi-WantToBeAFreeMan/Caesar-s-Management-System</url>
+    </scm>
 
 	<properties>
-		<java.version>21</java.version><!--java version, recommend use LTS for long term support version, like 8, 11, 17, 21 etc-->
+		<java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<dependencies>
-		<!--spring boot email sender dependency-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
+        <!--Spring Boot Starters-->
 
-		<!--spring boot security dependency-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+        <!--Web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--JPA-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--Oauth2 Client-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <!--Redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--RabbitMQ-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <!--Validation-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
-		<!--spring boot security crypto dependency-->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-crypto</artifactId>
-		</dependency>
+        <!--MySQL-->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+            <scope>runtime</scope>
+        </dependency>
 
-		<!--spring web dependency-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+        <!--file handling-->
+        <!--Excel-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.5</version>
+        </dependency>
+        <!--CSV-->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
+        </dependency>
+        <!--LaTeX and Markdown-->
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-all</artifactId>
+            <version>0.64.8</version>
+        </dependency>
 
-		<!--spring boot validation dependency-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
+        <!--drivers-->
+        <!--Google Drive-->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-drive</artifactId>
+            <version>v3-rev20230822-2.0.0</version>
+        </dependency>
+        <!--Microsoft OneDrive-->
+        <dependency>
+            <groupId>com.microsoft.graph</groupId>
+            <artifactId>microsoft-graph</artifactId>
+            <version>5.66.0</version>
+        </dependency>
 
-		<!--spring boot jpa dependency-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
+            <optional>true</optional>
+        </dependency>
 
-		<!--spring data commons dependency-->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-commons</artifactId>
-		</dependency>
-
-		<!--MySQL database dependency-->
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<version>8.0.33</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!--lombok dependency-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.34</version>
-			<optional>true</optional>
-		</dependency>
-
-		<!--jakarta validation dependency-->
-		<dependency>
-			<groupId>jakarta.validation</groupId>
-			<artifactId>jakarta.validation-api</artifactId>
-			<version>3.1.0</version>
-		</dependency>
-
-		<!--hibernate validator (implement of jakarta validation)-->
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-
-		<!--jwt api dependency-->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
-		</dependency>
-
-		<!--jwt implementation dependency-->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
-		</dependency>
-
-		<!--jwt jackson dependency-->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
-		</dependency>
-
-		<!--Spring boot Redis-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-
-		<!--spring boot amqp-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-
-		<!--spring boot test dependency-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<!--spring secruity test dependency-->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <!--testing-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-
-				<!--enable biuld info-->
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
-        </plugins>
+		</plugins>
 	</build>
 </project>
