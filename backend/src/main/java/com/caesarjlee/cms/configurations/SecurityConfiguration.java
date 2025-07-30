@@ -1,9 +1,8 @@
 package com.caesarjlee.cms.configurations;
 
-import com.caesarjlee.cms.services.CustomOAuth2UserService;
 import com.caesarjlee.cms.services.CustomUserDetailsService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,8 +22,10 @@ public class SecurityConfiguration{
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    /*
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
+    */
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -34,35 +36,39 @@ public class SecurityConfiguration{
         );
     }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(customUserDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthenticationProvider;
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    @Bean AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity    .csrf(
+        httpSecurity
+                        /*enable csrf
+                        .csrf(
                             csrf -> csrf.disable()
                         )
-                        .authorizeHttpRequests(
-                            auth ->
-                                auth.requestMatchers("/password-reset/**")
-                                        .permitAll()
-                                    .requestMatchers("/employees/**")
-                                        .authenticated()
-                                    .anyRequest()
-                                        .permitAll()
+                        */
+                        .sessionManagement(
+                            session -> session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
                             )
-                        .formLogin(form -> form.permitAll())
-                        .logout(logout -> logout.permitAll());
+                        )
+                        .authorizeHttpRequests(
+                            auth -> auth    .requestMatchers("/api/auth/**")
+                                                .permitAll()
+                                            .anyRequest()
+                                                .authenticated()
+                            )
+                        .exceptionHandling(
+                            exception -> exception.authenticationEntryPoint(
+                                (request, response, authException) -> {
+                                    response    .setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                    response    .setContentType("application/json");
+                                    response    .getWriter()
+                                                .write("{\"error\": \"Unauthorized\"}");
+                                }
+                            )
+                        );
                         /*
                         .oauth2Login(
                             oauth2 -> oauth2.userInfoEndpoint(
@@ -70,7 +76,6 @@ public class SecurityConfiguration{
                             )
                         );
                         */
-        httpSecurity.authenticationProvider(daoAuthenticationProvider());
         return httpSecurity.build();
     }
 }

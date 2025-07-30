@@ -8,26 +8,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "log_types")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role{
+public class LogType{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "name is required")
-    @Size(max = 20, message = "name length: (0, 20] characters")
-    private String name;
+    @NotBlank(message = "type is required")
+    @Size(max = 50, message = "type length: (0, 50] characters")
+    private String type;
 
-    public static Role of(
-        String name
+    public static LogType of(
+        String type
     ){
-        return new Role(
+        return new LogType(
             null,
-            name
+            type
         );
     }
 }

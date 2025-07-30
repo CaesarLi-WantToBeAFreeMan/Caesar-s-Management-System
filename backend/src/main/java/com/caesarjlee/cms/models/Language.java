@@ -8,25 +8,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "languages")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role{
+public class Language{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "abbreviation is required")
+    @Size(min = 5, max = 5, message = "abbreviation must be 5 characters")
+    private String abbreviation;
+
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "name is required")
-    @Size(max = 20, message = "name length: (0, 20] characters")
+    @Size(max = 50, message = "name length: (0, 50] characters")
     private String name;
 
-    public static Role of(
+    public static Language of(
+        String abbreviation,
         String name
     ){
-        return new Role(
+        return new Language(
             null,
+            abbreviation,
             name
         );
     }

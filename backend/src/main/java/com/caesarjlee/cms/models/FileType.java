@@ -8,25 +8,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "file_types")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role{
+public class FileType{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "abbreviation is required")
+    @Size(max = 10, message = "abbreviation length: (0, 10] characters")
+    private String abbreviation;
+
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "name is required")
-    @Size(max = 20, message = "name length: (0, 20] characters")
+    @Size(max = 50, message = "name length: (0, 10] characters")
     private String name;
 
-    public static Role of(
+    public static FileType of(
+        String abbreviation,
         String name
     ){
-        return new Role(
+        return new FileType(
             null,
+            abbreviation,
             name
         );
     }

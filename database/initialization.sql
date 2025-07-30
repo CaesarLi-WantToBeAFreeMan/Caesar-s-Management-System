@@ -313,997 +313,749 @@ CREATE TABLE `nationalities`(
 
 INSERT INTO `nationalities`
     (
-        `id`,  `abbreviation`,
-        `name`
+        `id`,  `abbreviation`,  `name`
     )
 VALUES
     (
-        1,      'ABW',
-        'Aruba'
+        1,      'ABW',          'Aruba'
     ),
     (
-        2,      'AFG',
-        'Afghanistan'
+        2,      'AFG',          'Afghanistan'
     ),
     (
-        3,      'AGO',
-        'Angola'
+        3,      'AGO',          'Angola'
     ),
     (
-        4,      'AIA',
-        'Anguilla'
+        4,      'AIA',          'Anguilla'
     ),
     (
-        5,      'ALA',
-        'Åland Islands'
+        5,      'ALA',          'Åland Islands'
     ),
     (
-        6,      'ALB',
-        'Albania'
+        6,      'ALB',          'Albania'
     ),
     (
-        7,      'AND',
-        'Andorra'
+        7,      'AND',          'Andorra'
     ),
     (
-        8,      'ARE',
-        'United Arab Emirates'
+        8,      'ARE',          'United Arab Emirates'
     ),
     (
-        9,      'ARG',
-        'Argentina'
+        9,      'ARG',          'Argentina'
     ),
     (
-        10,     'ARM',
-        'Armenia'
+        10,     'ARM',          'Armenia'
     ),
     (
-        11,     'ASM',
-        'American Samoa'
+        11,     'ASM',          'American Samoa'
     ),
     (
-        12,     'ATA',
-        'Antarctica'
+        12,     'ATA',          'Antarctica'
     ),
     (
-        13,     'ATF',
-        'French Southern Territories'
+        13,     'ATF',          'French Southern Territories'
     ),
     (
-        14,     'ATG',
-        'Antigua and Barbuda'
+        14,     'ATG',          'Antigua and Barbuda'
     ),
     (
-        15,     'AUS',
-        'Australia'
+        15,     'AUS',          'Australia'
     ),
     (
-        16,     'AUT',
-        'Austria'
+        16,     'AUT',          'Austria'
     ),
     (
-        17,     'AZE',
-        'Azerbaijan'
+        17,     'AZE',          'Azerbaijan'
     ),
     (
-        18,     'BDI',
-        'Burundi'
+        18,     'BDI',          'Burundi'
     ),
     (
-        19,     'BEL',
-        'Belgium'
+        19,     'BEL',          'Belgium'
     ),
     (
-        20,     'BFA',
-        'Burkina Faso'
+        20,     'BFA',          'Burkina Faso'
     ),
     (
-        21,     'BGD',
-        'Bangladesh'
+        21,     'BGD',          'Bangladesh'
     ),
     (
-        22,     'BGR',
-        'Bulgaria'
+        22,     'BGR',          'Bulgaria'
     ),
     (
-        23,     'BHR',
-        'Bahrain'
+        23,     'BHR',          'Bahrain'
     ),
     (
-        24,     'BHS',
-        'Bahamas'
+        24,     'BHS',          'Bahamas'
     ),
     (
-        25,     'BIH',
-        'Bosnia and Herzegovina'
+        25,     'BIH',          'Bosnia and Herzegovina'
     ),
     (
-        26,     'BLM',
-        'Saint Barthélemy'
+        26,     'BLM',          'Saint Barthélemy'
     ),
     (
-        27,     'BLR',
-        'Belarus'
+        27,     'BLR',          'Belarus'
     ),
     (
-        28,     'BLZ',
-        'Belize'
+        28,     'BLZ',          'Belize'
     ),
     (
-        29,     'BMU',
-        'Bermuda'
+        29,     'BMU',          'Bermuda'
     ),
     (
-        30,     'BOL',
-        'Bolivia, Plurinational State of'
+        30,     'BOL',          'Bolivia, Plurinational State of'
     ),
     (
-        31,     'BRA',
-        'Brazil'
+        31,     'BRA',          'Brazil'
     ),
     (
-        32,     'BRB',
-        'Barbados'
+        32,     'BRB',          'Barbados'
     ),
     (
-        33,     'BRN',
-        'Brunei Darussalam'
+        33,     'BRN',          'Brunei Darussalam'
     ),
     (
-        34,     'BTN',
-        'Bhutan'
+        34,     'BTN',          'Bhutan'
     ),
     (
-        35,     'BVT',
-        'Bouvet Island'
+        35,     'BVT',          'Bouvet Island'
     ),
     (
-        36,     'BWA',
-        'Botswana'
+        36,     'BWA',          'Botswana'
     ),
     (
-        37,     'CAF',
-        'Central African Republic'
+        37,     'CAF',          'Central African Republic'
     ),
     (
-        38,     'CAN',
-        'Canada'
+        38,     'CAN',          'Canada'
     ),
     (
-        39,     'CCK',
-        'Cocos (Keeling) Islands'
+        39,     'CCK',          'Cocos (Keeling) Islands'
     ),
     (
-        40,     'CHE',
-        'Switzerland'
+        40,     'CHE',          'Switzerland'
     ),
     (
-        41,     'CHL',
-        'Chile'
+        41,     'CHL',          'Chile'
     ),
     (
-        42,     'CHN',
-        'China'
+        42,     'CHN',          'China'
     ),
     (
-        43,     'CIV',
-        'Côte d'
+        43,     'CIV',          'Côte d'
     ),
     (
-        44,     'CMR',
-        'Cameroon'
+        44,     'CMR',          'Cameroon'
     ),
     (
-        45,     'COD',
-        'Congo, Democratic Republic of the'
+        45,     'COD',          'Congo, Democratic Republic of the'
     ),
     (
-        46,     'COG',
-        'Congo'
+        46,     'COG',          'Congo'
     ),
     (
-        47,     'COK',
-        'Cook Islands'
+        47,     'COK',          'Cook Islands'
     ),
     (
-        48,     'COL',
-        'Colombia'
+        48,     'COL',          'Colombia'
     ),
     (
-        49,     'COM',
-        'Comoros'
+        49,     'COM',          'Comoros'
     ),
     (
-        50,     'CPV',
-        'Cabo Verde'
+        50,     'CPV',          'Cabo Verde'
     ),
     (
-        51,     'CRI',
-        'Costa Rica'
+        51,     'CRI',          'Costa Rica'
     ),
     (
-        52,     'CUB',
-        'Cuba'
+        52,     'CUB',          'Cuba'
     ),
     (
-        53,     'CUW',
-        'Curaçao'
+        53,     'CUW',          'Curaçao'
     ),
     (
-        54,     'CXR',
-        'Christmas Island'
+        54,     'CXR',          'Christmas Island'
     ),
     (
-        55,     'CYM',
-        'Cayman Islands'
+        55,     'CYM',          'Cayman Islands'
     ),
     (
-        56,     'CYP',
-        'Cyprus'
+        56,     'CYP',          'Cyprus'
     ),
     (
-        57,     'CZE',
-        'Czechia'
+        57,     'CZE',          'Czechia'
     ),
     (
-        58,     'DEU',
-        'Germany'
+        58,     'DEU',          'Germany'
     ),
     (
-        59,     'DJI',
-        'Djibouti'
+        59,     'DJI',          'Djibouti'
     ),
     (
-        60,     'DMA',
-        'Dominica'
+        60,     'DMA',          'Dominica'
     ),
     (
-        61,     'DNK',
-        'Denmark'
+        61,     'DNK',          'Denmark'
     ),
     (
-        62,     'DOM',
-        'Dominican Republic'
+        62,     'DOM',          'Dominican Republic'
     ),
     (
-        63,     'DZA',
-        'Algeria'
+        63,     'DZA',          'Algeria'
     ),
     (
-        64,     'ECU',
-        'Ecuador'
+        64,     'ECU',          'Ecuador'
     ),
     (
-        65,     'EGY',
-        'Egypt'
+        65,     'EGY',          'Egypt'
     ),
     (
-        66,     'ERI',
-        'Eritrea'
+        66,     'ERI',          'Eritrea'
     ),
     (
-        67,     'ESH',
-        'Western Sahara'
+        67,     'ESH',          'Western Sahara'
     ),
     (
-        68,     'ESP',
-        'Spain'
+        68,     'ESP',          'Spain'
     ),
     (
-        69,     'EST',
-        'Estonia'
+        69,     'EST',          'Estonia'
     ),
     (
-        70,     'ETH',
-        'Ethiopia'
+        70,     'ETH',          'Ethiopia'
     ),
     (
-        71,     'FIN',
-        'Finland'
+        71,     'FIN',          'Finland'
     ),
     (
-        72,     'FJI',
-        'Fiji'
+        72,     'FJI',          'Fiji'
     ),
     (
-        73,     'FLK',
-        'Falkland Islands (Malvinas)'
+        73,     'FLK',          'Falkland Islands (Malvinas)'
     ),
     (
-        74,     'FRA',
-        'France'
+        74,     'FRA',          'France'
     ),
     (
-        75,     'FRO',
-        'Faroe Islands'
+        75,     'FRO',          'Faroe Islands'
     ),
     (
-        76,     'FSM',
-        'Micronesia, Federated States of'
+        76,     'FSM',          'Micronesia, Federated States of'
     ),
     (
-        77,     'GAB',
-        'Gabon'
+        77,     'GAB',          'Gabon'
     ),
     (
-        78,     'GBR',
-        'United Kingdom of Great Britain and Northern Ireland'
+        78,     'GBR',          'United Kingdom of Great Britain and Northern Ireland'
     ),
     (
-        79,     'GEO',
-        'Georgia'
+        79,     'GEO',          'Georgia'
     ),
     (
-        80,     'GGY',
-        'Guernsey'
+        80,     'GGY',          'Guernsey'
     ),
     (
-        81,     'GHA',
-        'Ghana'
+        81,     'GHA',          'Ghana'
     ),
     (
-        82,     'GIB',
-        'Gibraltar'
+        82,     'GIB',          'Gibraltar'
     ),
     (
-        83,     'GIN',
-        'Guinea'
+        83,     'GIN',          'Guinea'
     ),
     (
-        84,     'GLP',
-        'Guadeloupe'
+        84,     'GLP',          'Guadeloupe'
     ),
     (
-        85,     'GMB',
-        'Gambia'
+        85,     'GMB',          'Gambia'
     ),
     (
-        86,     'GNB',
-        'Guinea-Bissau'
+        86,     'GNB',          'Guinea-Bissau'
     ),
     (
-        87,     'GNQ',
-        'Equatorial Guinea'
+        87,     'GNQ',          'Equatorial Guinea'
     ),
     (
-        88,     'GRC',
-        'Greece'
+        88,     'GRC',          'Greece'
     ),
     (
-        89,     'GRD',
-        'Grenada'
+        89,     'GRD',          'Grenada'
     ),
     (
-        90,     'GRL',
-        'Greenland'
+        90,     'GRL',          'Greenland'
     ),
     (
-        91,     'GTM',
-        'Guatemala'
+        91,     'GTM',          'Guatemala'
     ),
     (
-        92,     'GUF',
-        'French Guiana'
+        92,     'GUF',          'French Guiana'
     ),
     (
-        93,     'GUM',
-        'Guam'
+        93,     'GUM',          'Guam'
     ),
     (
-        94,     'GUY',
-        'Guyana'
+        94,     'GUY',          'Guyana'
     ),
     (
-        95,     'HKG',
-        'Hong Kong'
+        95,     'HKG',          'Hong Kong'
     ),
     (
-        96,     'HMD',
-        'Heard Island and McDonald Islands'
+        96,     'HMD',          'Heard Island and McDonald Islands'
     ),
     (
-        97,     'HND',
-        'Honduras'
+        97,     'HND',          'Honduras'
     ),
     (
-        98,     'HRV',
-        'Croatia'
+        98,     'HRV',          'Croatia'
     ),
     (
-        99,     'HTI',
-        'Haiti'
+        99,     'HTI',          'Haiti'
     ),
     (
-        100,    'HUN',
-        'Hungary'
+        100,    'HUN',          'Hungary'
     ),
     (
-        101,    'IDN',
-        'Indonesia'
+        101,    'IDN',          'Indonesia'
     ),
     (
-        102,    'IMN',
-        'Isle of Man'
+        102,    'IMN',          'Isle of Man'
     ),
     (
-        103,    'IND',
-        'India'
+        103,    'IND',          'India'
     ),
     (
-        104,    'IOT',
-        'British Indian Ocean Territory'
+        104,    'IOT',          'British Indian Ocean Territory'
     ),
     (
-        105,    'IRL',
-        'Ireland'
+        105,    'IRL',          'Ireland'
     ),
     (
-        106,    'IRN',
-        'Iran, Islamic Republic of'
+        106,    'IRN',          'Iran, Islamic Republic of'
     ),
     (
-        107,    'IRQ',
-        'Iraq'
+        107,    'IRQ',          'Iraq'
     ),
     (
-        108,    'ISL',
-        'Iceland'
+        108,    'ISL',          'Iceland'
     ),
     (
-        109,    'ISR',
-        'Israel'
+        109,    'ISR',          'Israel'
     ),
     (
-        110,    'ITA',
-        'Italy'
+        110,    'ITA',          'Italy'
     ),
     (
-        111,    'JAM',
-        'Jamaica'
+        111,    'JAM',          'Jamaica'
     ),
     (
-        112,    'JEY',
-        'Jersey'
+        112,    'JEY',          'Jersey'
     ),
     (
-        113,    'JOR',
-        'Jordan'
+        113,    'JOR',          'Jordan'
     ),
     (
-        114,    'JPN',
-        'Japan'
+        114,    'JPN',          'Japan'
     ),
     (
-        115,    'KAZ',
-        'Kazakhstan'
+        115,    'KAZ',          'Kazakhstan'
     ),
     (
-        116,    'KEN',
-        'Kenya'
+        116,    'KEN',          'Kenya'
     ),
     (
-        117,    'KGZ',
-        'Kyrgyzstan'
+        117,    'KGZ',          'Kyrgyzstan'
     ),
     (
-        118,    'KHM',
-        'Cambodia'
+        118,    'KHM',          'Cambodia'
     ),
     (
-        119,    'KIR',
-        'Kiribati'
+        119,    'KIR',          'Kiribati'
     ),
     (
-        120,    'KNA',
-        'Saint Kitts and Nevis'
+        120,    'KNA',          'Saint Kitts and Nevis'
     ),
     (
-        121,    'KOR',
-        'Korea, Republic of'
+        121,    'KOR',          'Korea, Republic of'
     ),
     (
-        122,    'KWT',
-        'Kuwait'
+        122,    'KWT',          'Kuwait'
     ),
     (
-        123,    'LAO',
-        'Lao People'
+        123,    'LAO',          'Lao People'
     ),
     (
-        124,    'LBN',
-        'Lebanon'
+        124,    'LBN',          'Lebanon'
     ),
     (
-        125,    'LBR',
-        'Liberia'
+        125,    'LBR',          'Liberia'
     ),
     (
-        126,    'LBY',
-        'Libya'
+        126,    'LBY',          'Libya'
     ),
     (
-        127,    'LCA',
-        'Saint Lucia'
+        127,    'LCA',          'Saint Lucia'
     ),
     (
-        128,    'LIE',
-        'Liechtenstein'
+        128,    'LIE',          'Liechtenstein'
     ),
     (
-        129,    'LKA',
-        'Sri Lanka'
+        129,    'LKA',          'Sri Lanka'
     ),
     (
-        130,    'LSO',
-        'Lesotho'
+        130,    'LSO',          'Lesotho'
     ),
     (
-        131,    'LTU',
-        'Lithuania'
+        131,    'LTU',          'Lithuania'
     ),
     (
-        132,    'LUX',
-        'Luxembourg'
+        132,    'LUX',          'Luxembourg'
     ),
     (
-        133,    'LVA',
-        'Latvia'
+        133,    'LVA',          'Latvia'
     ),
     (
-        134,    'MAC',
-        'Macao'
+        134,    'MAC',          'Macao'
     ),
     (
-        135,    'MAF',
-        'Saint Martin (French part)'
+        135,    'MAF',          'Saint Martin (French part)'
     ),
     (
-        136,    'MAR',
-        'Morocco'
+        136,    'MAR',          'Morocco'
     ),
     (
-        137,    'MCO',
-        'Monaco'
+        137,    'MCO',          'Monaco'
     ),
     (
-        138,    'MDA',
-        'Moldova'
+        138,    'MDA',          'Moldova'
     ),
     (
-        139,    'MDG',
-        'Madagascar'
+        139,    'MDG',          'Madagascar'
     ),
     (
-        140,    'MDV',
-        'Maldives'
+        140,    'MDV',          'Maldives'
     ),
     (
-        141,    'MEX',
-        'Mexico'
+        141,    'MEX',          'Mexico'
     ),
     (
-        142,    'MHL',
-        'Marshall Islands'
+        142,    'MHL',          'Marshall Islands'
     ),
     (
-        143,    'MKD',
-        'North Macedonia'
+        143,    'MKD',          'North Macedonia'
     ),
     (
-        144,    'MLI',
-        'Mali'
+        144,    'MLI',          'Mali'
     ),
     (
-        145,    'MLT',
-        'Malta'
+        145,    'MLT',          'Malta'
     ),
     (
-        146,    'MMR',
-        'Myanmar'
+        146,    'MMR',          'Myanmar'
     ),
     (
-        147,    'MNE',
-        'Montenegro'
+        147,    'MNE',          'Montenegro'
     ),
     (
-        148,    'MNG',
-        'Mongolia'
+        148,    'MNG',          'Mongolia'
     ),
     (
-        149,    'MNP',
-        'Northern Mariana Islands'
+        149,    'MNP',          'Northern Mariana Islands'
     ),
     (
-        150,    'MOZ',
-        'Mozambique'
+        150,    'MOZ',          'Mozambique'
     ),
     (
-        151,    'MRT',
-        'Mauritania'
+        151,    'MRT',          'Mauritania'
     ),
     (
-        152,    'MSR',
-        'Montserrat'
+        152,    'MSR',          'Montserrat'
     ),
     (
-        153,    'MTQ',
-        'Martinique'
+        153,    'MTQ',          'Martinique'
     ),
     (
-        154,    'MUS',
-        'Mauritius'
+        154,    'MUS',          'Mauritius'
     ),
     (
-        155,    'MWI',
-        'Malawi'
+        155,    'MWI',          'Malawi'
     ),
     (
-        156,    'MYS',
-        'Malaysia'
+        156,    'MYS',          'Malaysia'
     ),
     (
-        157,    'MYT',
-        'Mayotte'
+        157,    'MYT',          'Mayotte'
     ),
     (
-        158,    'NAM',
-        'Namibia'
+        158,    'NAM',          'Namibia'
     ),
     (
-        159,    'NCL',
-        'New Caledonia'
+        159,    'NCL',          'New Caledonia'
     ),
     (
-        160,    'NER',
-        'Niger'
+        160,    'NER',          'Niger'
     ),
     (
-        161,    'NFK',
-        'Norfolk Island'
+        161,    'NFK',          'Norfolk Island'
     ),
     (
-        162,    'NGA',
-        'Nigeria'
+        162,    'NGA',          'Nigeria'
     ),
     (
-        163,    'NIC',
-        'Nicaragua'
+        163,    'NIC',          'Nicaragua'
     ),
     (
-        164,    'NIU',
-        'Niue'
+        164,    'NIU',          'Niue'
     ),
     (
-        165,    'NLD',
-        'Netherlands'
+        165,    'NLD',          'Netherlands'
     ),
     (
-        166,    'NOR',
-        'Norway'
+        166,    'NOR',          'Norway'
     ),
     (
-        167,    'NPL',
-        'Nepal'
+        167,    'NPL',          'Nepal'
     ),
     (
-        168,    'NRU',
-        'Nauru'
+        168,    'NRU',          'Nauru'
     ),
     (
-        169,    'NZL',
-        'New Zealand'
+        169,    'NZL',          'New Zealand'
     ),
     (
-        170,    'OMN',
-        'Oman'
+        170,    'OMN',          'Oman'
     ),
     (
-        171,    'PAK',
-        'Pakistan'
+        171,    'PAK',          'Pakistan'
     ),
     (
-        172,    'PAN',
-        'Panama'
+        172,    'PAN',          'Panama'
     ),
     (
-        173,    'PCN',
-        'Pitcairn'
+        173,    'PCN',          'Pitcairn'
     ),
     (
-        174,    'PER',
-        'Peru'
+        174,    'PER',          'Peru'
     ),
     (
-        175,    'PHL',
-        'Philippines'
+        175,    'PHL',          'Philippines'
     ),
     (
-        176,    'PLW',
-        'Palau'
+        176,    'PLW',          'Palau'
     ),
     (
-        177,    'PNG',
-        'Papua New Guinea'
+        177,    'PNG',          'Papua New Guinea'
     ),
     (
-        178,    'POL',
-        'Poland'
+        178,    'POL',          'Poland'
     ),
     (
-        179,    'PRI',
-        'Puerto Rico'
+        179,    'PRI',          'Puerto Rico'
     ),
     (
-        180,    'PRK',
-        'Korea, Democratic People'
+        180,    'PRK',          'Korea, Democratic People'
     ),
     (
-        181,    'PRT',
-        'Portugal'
+        181,    'PRT',          'Portugal'
     ),
     (
-        182,    'PRY',
-        'Paraguay'
+        182,    'PRY',          'Paraguay'
     ),
     (
-        183,    'PSE',
-        'Palestine'
+        183,    'PSE',          'Palestine'
     ),
     (
-        184,    'PYF',
-        'French Polynesia'
+        184,    'PYF',          'French Polynesia'
     ),
     (
-        185,    'QAT',
-        'Qatar'
+        185,    'QAT',          'Qatar'
     ),
     (
-        186,    'REU',
-        'Réunion'
+        186,    'REU',          'Réunion'
     ),
     (
-        187,    'ROU',
-        'Romania'
+        187,    'ROU',          'Romania'
     ),
     (
-        188,    'RUS',
-        'Russian Federation'
+        188,    'RUS',          'Russian Federation'
     ),
     (
-        189,    'RWA',
-        'Rwanda'
+        189,    'RWA',          'Rwanda'
     ),
     (
-        190,    'SAU',
-        'Saudi Arabia'
+        190,    'SAU',          'Saudi Arabia'
     ),
     (
-        191,    'SDN',
-        'Sudan'
+        191,    'SDN',          'Sudan'
     ),
     (
-        192,    'SEN',
-        'Senegal'
+        192,    'SEN',          'Senegal'
     ),
     (
-        193,    'SGP',
-        'Singapore'
+        193,    'SGP',          'Singapore'
     ),
     (
-        194,    'SGS',
-        'South Georgia and the South Sandwich Islands'
+        194,    'SGS',          'South Georgia and the South Sandwich Islands'
     ),
     (
-        195,    'SHN',
-        'Saint Helena'
+        195,    'SHN',          'Saint Helena'
     ),
     (
-        196,    'SJM',
-        'Svalbard and Jan Mayen'
+        196,    'SJM',          'Svalbard and Jan Mayen'
     ),
     (
-        197,    'SLB',
-        'Solomon Islands'
+        197,    'SLB',          'Solomon Islands'
     ),
     (
-        198,    'SLE',
-        'Sierra Leone'
+        198,    'SLE',          'Sierra Leone'
     ),
     (
-        199,    'SLV',
-        'El Salvador'
+        199,    'SLV',          'El Salvador'
     ),
     (
-        200,    'SMR',
-        'San Marino'
+        200,    'SMR',          'San Marino'
     ),
     (
-        201,    'SOM',
-        'Somalia'
+        201,    'SOM',          'Somalia'
     ),
     (
-        202,    'SPM',
-        'Saint Pierre and Miquelon'
+        202,    'SPM',          'Saint Pierre and Miquelon'
     ),
     (
-        203,    'SRB',
-        'Serbia'
+        203,    'SRB',          'Serbia'
     ),
     (
-        204,    'SSD',
-        'South Sudan'
+        204,    'SSD',          'South Sudan'
     ),
     (
-        205,    'STP',
-        'Sao Tome and Principe'
+        205,    'STP',          'Sao Tome and Principe'
     ),
     (
-        206,    'SUR',
-        'Suriname'
+        206,    'SUR',          'Suriname'
     ),
     (
-        207,    'SVK',
-        'Slovakia'
+        207,    'SVK',          'Slovakia'
     ),
     (
-        208,    'SVN',
-        'Slovenia'
+        208,    'SVN',          'Slovenia'
     ),
     (
-        209,    'SWE',
-        'Sweden'
+        209,    'SWE',          'Sweden'
     ),
     (
-        210,    'SWZ',
-        'Eswatini'
+        210,    'SWZ',          'Eswatini'
     ),
     (
-        211,    'SXM',
-        'Sint Maarten (Dutch part)'
+        211,    'SXM',          'Sint Maarten (Dutch part)'
     ),
     (
-        212,    'SYC',
-        'Seychelles'
+        212,    'SYC',          'Seychelles'
     ),
     (
-        213,    'SYR',
-        'Syrian Arab Republic'
+        213,    'SYR',          'Syrian Arab Republic'
     ),
     (
-        214,    'TCA',
-        'Turks and Caicos Islands'
+        214,    'TCA',          'Turks and Caicos Islands'
     ),
     (
-        215,    'TCD',
-        'Chad'
+        215,    'TCD',          'Chad'
     ),
     (
-        216,    'TGO',
-        'Togo'
+        216,    'TGO',          'Togo'
     ),
     (
-        217,    'THA',
-        'Thailand'
+        217,    'THA',          'Thailand'
     ),
     (
-        218,    'TJK',
-        'Tajikistan'
+        218,    'TJK',          'Tajikistan'
     ),
     (
-        219,    'TKL',
-        'Tokelau'
+        219,    'TKL',          'Tokelau'
     ),
     (
-        220,    'TKM',
-        'Turkmenistan'
+        220,    'TKM',          'Turkmenistan'
     ),
     (
-        221,    'TLS',
-        'Timor-Leste'
+        221,    'TLS',          'Timor-Leste'
     ),
     (
-        222,    'TON',
-        'Tonga'
+        222,    'TON',          'Tonga'
     ),
     (
-        223,    'TTO',
-        'Trinidad and Tobago'
+        223,    'TTO',          'Trinidad and Tobago'
     ),
     (
-        224,    'TUN',
-        'Tunisia'
+        224,    'TUN',          'Tunisia'
     ),
     (
-        225,    'TUR',
-        'Türkiye'
+        225,    'TUR',          'Türkiye'
     ),
     (
-        226,    'TUV',
-        'Tuvalu'
+        226,    'TUV',          'Tuvalu'
     ),
     (
-        227,    'TWN',
-        'Taiwan'
+        227,    'TWN',          'Taiwan'
     ),
     (
-        228,    'TZA',
-        'Tanzania, United Republic of'
+        228,    'TZA',          'Tanzania, United Republic of'
     ),
     (
-        229,    'UGA',
-        'Uganda'
+        229,    'UGA',          'Uganda'
     ),
     (
-        230,    'UKR',
-        'Ukraine'
+        230,    'UKR',          'Ukraine'
     ),
     (
-        231,    'UMI',
-        'United States Minor Outlying Islands'
+        231,    'UMI',          'United States Minor Outlying Islands'
     ),
     (
-        232,    'URY',
-        'Uruguay'
+        232,    'URY',          'Uruguay'
     ),
     (
-        233,    'USA',
-        'United States of America'
+        233,    'USA',          'United States of America'
     ),
     (
-        234,    'UZB',
-        'Uzbekistan'
+        234,    'UZB',          'Uzbekistan'
     ),
     (
-        235,    'VAT',
-        'Holy See'
+        235,    'VAT',          'Holy See'
     ),
     (
-        236,    'VCT',
-        'Saint Vincent and the Grenadines'
+        236,    'VCT',          'Saint Vincent and the Grenadines'
     ),
     (
-        237,    'VEN',
-        'Venezuela'
+        237,    'VEN',          'Venezuela'
     ),
     (
-        238,    'VGB',
-        'Virgin Islands (British)'
+        238,    'VGB',          'Virgin Islands (British)'
     ),
     (
-        239,    'VIR',
-        'Virgin Islands (U.S.)'
+        239,    'VIR',          'Virgin Islands (U.S.)'
     ),
     (
-        240,    'VNM',
-        'Viet Nam'
+        240,    'VNM',          'Viet Nam'
     ),
     (
-        241,    'VUT',
-        'Vanuatu'
+        241,    'VUT',          'Vanuatu'
     ),
     (
-        242,    'WLF',
-        'Wallis and Futuna'
+        242,    'WLF',          'Wallis and Futuna'
     ),
     (
-        243,    'WSM',
-        'Samoa'
+        243,    'WSM',          'Samoa'
     ),
     (
-        244,    'YEM',
-        'Yemen'
+        244,    'YEM',          'Yemen'
     ),
     (
-        245,    'ZAF',
-        'South Africa'
+        245,    'ZAF',          'South Africa'
     ),
     (
-        246,    'ZMB',
-        'Zambia'
+        246,    'ZMB',          'Zambia'
     ),
     (
-        247,    'ZWE',
-        'Zimbabwe'
+        247,    'ZWE',          'Zimbabwe'
     );
 
 -- +------------+
@@ -1311,7 +1063,6 @@ VALUES
 -- +------------+
 
 DROP TABLE IF EXISTS `languages`;
-
 CREATE TABLE `languages`(
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique language ID',
     `abbreviation` VARCHAR(5) NOT NULL UNIQUE COMMENT 'language code BCP 47',
@@ -1528,7 +1279,7 @@ DROP TABLE IF EXISTS `departments`;
 CREATE TABLE `departments`(
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique department ID',
     `name` VARCHAR(100) NOT NULL UNIQUE COMMENT 'department name',
-    `description` TEXT NOT NULL COMMENT 'department description',
+    `description` TEXT COMMENT 'department description',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation timestamp',
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update timestamp'
 )
@@ -1805,7 +1556,7 @@ CREATE TABLE `users`(
     CONSTRAINT `fk_users_first_nationality`
         FOREIGN KEY(`first_nationality_id`)
         REFERENCES `nationalities`(`id`)
-        ON DELETE SET NULL,
+        ON DELETE CASCADE,
     CONSTRAINT `fk_users_second_nationality`
         FOREIGN KEY(`second_nationality_id`)
         REFERENCES `nationalities`(`id`)
@@ -2662,7 +2413,7 @@ CREATE TABLE `requests`(
     `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user making the request',
     `type_id` INT UNSIGNED NOT NULL COMMENT 'type of request',
     `details` TEXT DEFAULT NULL COMMENT 'additional details of the request',
-    `status` INT UNSIGNED DEFAULT 0 COMMENT 'request status',
+    `status` INT UNSIGNED NOT NULL DEFAULT 1 COMMENT 'request status, default is pending',
     `handler_id` BIGINT UNSIGNED NOT NULL COMMENT 'user handling the request',
     `handle_details` TEXT DEFAULT NULL COMMENT 'details about handling',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'request creation time',
@@ -2702,13 +2453,14 @@ CREATE TABLE `messages`(
     `content` TEXT DEFAULT NULL COMMENT 'message content',
     `is_read` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'read status',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'message creation time',
+    `read_at` TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'message read time',
 
     CONSTRAINT `fk_messages_sender`
-        FOREIGN KEY (`sender_id`)
+        FOREIGN KEY(`sender_id`)
         REFERENCES `users`(`id`)
         ON DELETE CASCADE,
     CONSTRAINT `fk_messages_receiver`
-        FOREIGN KEY (`receiver_id`)
+        FOREIGN KEY(`receiver_id`)
         REFERENCES `users`(`id`)
         ON DELETE CASCADE
 )
@@ -2724,7 +2476,7 @@ CREATE TABLE `messages`(
 CREATE TABLE `logs`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique log entry ID',
     `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user involved in the event',
-    `type` INT UNSIGNED NOT NULL COMMENT 'log type',
+    `type_id` INT UNSIGNED NOT NULL DEFAULT 5 COMMENT 'log type, default is CSV',
     `details` TEXT DEFAULT NULL COMMENT 'additional details about the log event',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'log creation time',
 
@@ -2733,7 +2485,7 @@ CREATE TABLE `logs`(
         REFERENCES `users`(`id`)
         ON DELETE CASCADE,
     CONSTRAINT `fk_logs_type`
-        FOREIGN KEY (`type`)
+        FOREIGN KEY (`type_id`)
         REFERENCES `log_types`(`id`)
         ON DELETE CASCADE
 )
@@ -2749,7 +2501,7 @@ CREATE TABLE `logs`(
 CREATE TABLE `uploads`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique upload ID',
     `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user who uploaded the file',
-    `file_type_id` INT UNSIGNED NOT NULL COMMENT 'file type',
+    `file_type_id` INT UNSIGNED NOT NULL DEFAULT 5 COMMENT 'file type, default is CSV',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'upload time',
 
     CONSTRAINT `fk_uploads_user`
@@ -2773,7 +2525,7 @@ CREATE TABLE `uploads`(
 CREATE TABLE `reports`(
     `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'unique report ID',
     `user_id` BIGINT UNSIGNED NOT NULL COMMENT 'user who generated the report',
-    `file_type_id` INT UNSIGNED NOT NULL COMMENT 'report file type',
+    `file_type_id` INT UNSIGNED NOT NULL DEFAULT 5 COMMENT 'report file type, default is CSV',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'report generation time',
 
     CONSTRAINT `fk_reports_user`
