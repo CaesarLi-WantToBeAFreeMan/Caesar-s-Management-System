@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Message{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     @NotNull(message = "sender ID is required")

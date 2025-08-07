@@ -7,6 +7,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CmsApplication{
 	public static void main(String [] args){
 		SpringApplication.run(CmsApplication.class, args);
-		System.out.println("cms launched successfully");
+		System.out.println(
+			"""
+			
+			+-----------------------------------+
+			|	Caesar's Management System		|
+			|	Has Been Launched				|
+			+-----------------------------------+
+			
+			"""
+		);
 	}
 }

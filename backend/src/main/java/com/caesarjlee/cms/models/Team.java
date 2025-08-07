@@ -31,7 +31,6 @@ public class Team{
     @Size(max = 100, message = "name length: (0, 100] characters")
     private String name;
 
-    @Column(nullable = false)
     @Size(max = 65_535, message = "description length: [0, 65,535] characters")
     private String description;
 

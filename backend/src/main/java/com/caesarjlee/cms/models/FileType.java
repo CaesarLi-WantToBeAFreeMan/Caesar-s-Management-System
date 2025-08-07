@@ -24,7 +24,7 @@ public class FileType{
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "name is required")
-    @Size(max = 50, message = "name length: (0, 10] characters")
+    @Size(max = 50, message = "name length: (0, 50] characters")
     private String name;
 
     public static FileType of(

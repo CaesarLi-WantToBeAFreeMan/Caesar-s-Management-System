@@ -1,5 +1,6 @@
 package com.caesarjlee.cms.models;
 
+import com.caesarjlee.cms.validations.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -22,35 +23,32 @@ public class User{
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @NotBlank(message = "username is required")
-    @Size(min = 3, max = 50, message = "username length: [3, 50] characters")
+    @ValidUsername
     private String username;
 
     @Column(nullable = false)
-    @NotBlank(message = "password is required")
-    @Size(min = 9, max = 255, message = "password length: [9, 255] characters")
+    @ValidPassword
     private String password;
 
     @Column(nullable = false)
-    @NotBlank(message = "first name is required")
-    @Size(max = 50, message = "first name length: (0, 50] characters")
+    @ValidFirstName
     @JsonProperty("first_name")
     private String firstName;
 
     @Column(nullable = false)
-    @NotNull(message = "last name is required")
-    @Size(max = 50, message = "last name length: (0, 50] characters")
+    @ValidLastName
     @JsonProperty("last_name")
     private String lastName;
 
     @JsonProperty("gender_id")
     private Integer genderId;
 
+    @Column(unique = true)
     @Email(message = "invalid email format")
-    @Size(min = 5, max = 100, message = "email length: [5, 100] characters")
     private String email;
 
-    @Size(min = 4, max = 100, message = "phone length: [4, 100] characters")
+    @Column(unique = true)
+    @ValidPhone
     private String phone;
 
     @JsonProperty("diploma_id")
@@ -106,7 +104,7 @@ public class User{
     @Size(max = 255, message = "icon length: [0, 255] characters")
     private String icon;
 
-    @Size(max = 65_535, message = "description length: [0, 255] characters")
+    @Size(max = 65_535, message = "description length: [0, 65,535] characters")
     private String description;
 
     @Column(nullable = false)
@@ -116,6 +114,10 @@ public class User{
     @Column(nullable = false)
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
+
+    private static String emptyToNull(String field){
+        return field == null || field.isEmpty() ? null : field;
+    }
 
     public static User of(
         String username,
@@ -132,7 +134,7 @@ public class User{
             firstName,
             lastName,
             null,
-            email,
+            emptyToNull(email),
             null,
             null,
             null,
@@ -170,8 +172,8 @@ public class User{
             firstName,
             lastName,
             null,
-            email,
-            phone,
+            emptyToNull(email),
+            emptyToNull(phone),
             null,
             null,
             null,
@@ -210,8 +212,8 @@ public class User{
             firstName,
             lastName,
             null,
-            email,
-            phone,
+            emptyToNull(email),
+            emptyToNull(phone),
             null,
             departmentId,
             teamId,
@@ -251,8 +253,8 @@ public class User{
             firstName,
             lastName,
             null,
-            email,
-            phone,
+            emptyToNull(email),
+            emptyToNull(phone),
             null,
             departmentId,
             teamId,
@@ -297,8 +299,8 @@ public class User{
             firstName,
             lastName,
             genderId,
-            email,
-            phone,
+            emptyToNull(email),
+            emptyToNull(phone),
             diplomaId,
             departmentId,
             teamId,
@@ -352,8 +354,8 @@ public class User{
             firstName,
             lastName,
             genderId,
-            email,
-            phone,
+            emptyToNull(email),
+            emptyToNull(phone),
             diplomaId,
             departmentId,
             teamId,

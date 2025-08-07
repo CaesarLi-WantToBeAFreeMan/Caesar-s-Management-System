@@ -7,6 +7,6 @@ public interface CurrencyRepository extends JpaRepository <Currency, Integer>{
     Currency findByAbbreviation(String abbreviation);
     Currency findByName(String name);
 
-    boolean existsByAbbreviation(String abbreviation);
-    boolean existsByName(String name);
+    Boolean existsByAbbreviation(String abbreviation);
+    Boolean existsByName(String name);
 }

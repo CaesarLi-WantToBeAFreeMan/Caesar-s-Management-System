@@ -2,9 +2,9 @@ spring:
     application:
         name: caesar-s-management-system
 
-    #mySQL database configuration
+    #MySQL database configuration
     datasource:
-        url: jdbc:mysql://localhost:3306/cms_db?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=GMT
+        url: jdbc:mysql://localhost:3306/cms_db?allowPublicKeyRetrieval=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,20 +12,43 @@ spring:
     #JPA and hibernate configuration
     jpa:
         hibernate:
-            ddl-auto: validate
+            ddl-auto: update
+        show-sql: true
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.MySQL8Dialect
-                format_sql: true
-        show-sql: true
 
-    #remove redis, rabbitMQ and nginx settings for now
     #redis configuration
-    #redis:
-        #host: localhost
-        #port: 6379
-        #password:
-        #database: 0
+    redis:
+        database: 0
+        host: localhost
+        port: 6379
+        lettuce:
+            pool:
+                max-active: 16  #max total connections
+                max-idle: 8     #max idle connections
+                max-wait: 3s    #wait 3 second if pool is exhausted
+                min-idle: 2     #keep a couple connections alive
+
+    #email sender configuration
+    mail:
+        host: smtp.gmail.com                            #address of SMTP server
+        port: 587
+        username: cjl.wannabeafreecitizen@gmail.com     #username of SMTP server
+        password: btte yoze tgrk hfbm                   #password of SMTP server
+        properties:
+            mail:
+                smtp:
+                    auth: true                          #emable SMTP authentication
+                    starttls:
+                        enable: true                    #enable STARTTLS cryptography
+                    proxy:
+                        host: 127.0.0.1
+                        port: 7890
+        default-encoding: UTF-8
+        protocol: smtp
+
+    #remove rabbitMQ and nginx settings for now
 
     ##rabbitMQ configuration
     #rabbitmq:
@@ -41,101 +64,6 @@ spring:
             #max-file-size: 12MB
             #max-request-size: 18MB
 
-    #remove OAuth2 settings for now
-    #OAuth2 configuration for multiple providers
-#security:
-    #oauth2:
-        #client:
-            #registration:
-                #google:
-                    #client-id: your_google_client_id
-                    #client-secret: your_google_client_secret
-                    #scope: profile,email
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/google"
-                #microsoft:
-                    #client-id: your_microsoft_client_id
-                    #client-secret: your_microsoft_client_secret
-                    #scope: openid,profile,email
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/microsoft"
-                    #authorization-grant-type: authorization_code
-                    #provider: microsoft
-                #apple:
-                    #client-id: your_apple_client_id
-                    #client-secret: your_apple_client_secret
-                    #scope: name,email
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/apple"
-                    #authorization-grant-type: authorization_code
-                    #provider: apple
-                #adobe:
-                    #client-id: your_adobe_client_id
-                    #client-secret: your_adobe_client_secret
-                    #scope: openid,profile,email
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/adobe"
-                    #authorization-grant-type: authorization_code
-                    #provider: adobe
-                #github:
-                    #client-id: your_github_client_id
-                    #client-secret: your_github_client_secret
-                    #scope: read:user,user:email
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/github"
-                #linkedin:
-                    #client-id: your_linkedin_client_id
-                    #client-secret: your_linkedin_client_secret
-                    #scope: r_liteprofile,r_emailaddress
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/linkedin"
-                    #authorization-grant-type: authorization_code
-                    #provider: linkedin
-                #facebook:
-                    #client-id: your_facebook_client_id
-                    #client-secret: your_facebook_client_secret
-                    #scope: public_profile,email
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
-                #instagram:
-                    #client-id: your_instagram_client_id
-                    #client-secret: your_instagram_client_secret
-                    #scope: user_profile,user_media
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/instagram"
-                    #authorization-grant-type: authorization_code
-                    #provider: instagram
-                #x:
-                    #client-id: your_x_client_id
-                    #client-secret: your_x_client_secret
-                    #scope: read,write
-                    #redirect-uri: "{baseUrl}/login/oauth2/code/x"
-                    #authorization-grant-type: authorization_code
-                    #provider: x
-            #provider:
-                #microsoft:
-                    #authorization-uri: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
-                    #token-uri: https://login.microsoftonline.com/common/oauth2/v2.0/token
-                    #user-info-uri: https://graph.microsoft.com/oidc/userinfo
-                    #user-name-attribute: name
-                #apple:
-                    #authorization-uri: https://appleid.apple.com/auth/authorize
-                    #token-uri: https://appleid.apple.com/auth/token
-                    #user-info-uri: https://appleid.apple.com/auth/userinfo
-                    #user-name-attribute: name
-                #adobe:
-                    #authorization-uri: https://ims-na1.adobelogin.com/ims/authorize/v2
-                    #token-uri: https://ims-na1.adobelogin.com/ims/token/v3
-                    #user-info-uri: https://ims-na1.adobelogin.com/ims/userinfo
-                    #user-name-attribute: displayName
-                #linkedin:
-                    #authorization-uri: https://www.linkedin.com/oauth/v2/authorization
-                    #token-uri: https://www.linkedin.com/oauth/v2/accessToken
-                    #user-info-uri: https://api.linkedin.com/v2/me
-                    #user-name-attribute: localizedFirstName
-                #instagram:
-                    #authorization-uri: https://api.instagram.com/oauth/authorize
-                    #token-uri: https://api.instagram.com/oauth/access_token
-                    #user-info-uri: https://graph.instagram.com/me
-                    #user-name-attribute: username
-                #x:
-                    #authorization-uri: https://api.x.com/oauth/authorize
-                    #token-uri: https://api.x.com/oauth2/token
-                    #user-info-uri: https://api.x.com/2/users/me
-                    #user-name-attribute: username
-
 #server configuration
 server:
     port: 3002
@@ -146,25 +74,10 @@ server:
 
 #JWT configuration
 jwt:
-    secret: >
-        Fuck u `Java`!
-        You're so **BLOATED**, **VERBOSE**, and **RIGID**
-        `C++` is **BETTER** than `Java` without any doubt
-        I have loved and will love `C++` since I met `C++11`
+    secret: "Fuck u `Java`!You're so **BLOATED**, **VERBOSE**, and **RIGID**`C++` is **BETTER** than `Java` without any doubtI have loved and will love `C++` since I met `C++11`"
     expiration: 43200000 #12 hours in milliseconds
 
-#logging configuration
-logging:
-    level:
-        root: INFO
-        org.springframework: INFO
-        org.hibernate: INFO
-
-#application-specific settings
-app:
-    default:
-        currency: USD
-        language: en_US
-        mode: dark
-    pagination:
-        default-size: 12
+twilio:
+    account-sid:    #twilio account sid
+    auth-token:     #twilio auth token
+    phone-number:   #twilio from phone
